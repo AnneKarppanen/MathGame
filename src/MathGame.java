@@ -8,6 +8,8 @@ public class MathGame extends JFrame{
     
 
     public MathGame() {
+
+        //testi
         JFrame frame = new JFrame();
         JPanel centerPanel = new JPanel();
         JPanel northPanel = new JPanel();

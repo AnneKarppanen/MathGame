@@ -6,26 +6,30 @@ import java.awt.event.*;
  * and the control panel  */
 public class MathGame extends JFrame{
 
+    private JPanel centerPanel;
+    private JPanel northPanel;
+    private JPanel eastPanel;
+    private JPanel westPanel;
     
 
     public MathGame() {
 
         System.out.println("Täällä ollaan");
-        JFrame frame = new JFrame();
-        StartPanel centerPanel = new StartPanel();
-        ControlPanel northPanel = new ControlPanel();
-        JPanel eastPanel = new JPanel();
-        JPanel westPanel = new JPanel();
+        this.centerPanel = new StartPanel();
+        this.northPanel = new ControlPanel();
+        this.eastPanel = new JPanel();
+        this.westPanel = new JPanel();
+        this.setLayout(new BorderLayout());
         //centerPanel.setBorder(BorderFactory.createEmptyBorder(400, 400, 400, 400));
         //centerPanel.setBackground(new Color (237,243,249));
-        /*northPanel.setBorder(BorderFactory.createEmptyBorder(5, 0, 5, 5));
-        northPanel.setBackground(new Color (50,34,151));
+        //northPanel.setBorder(BorderFactory.createEmptyBorder(5, 0, 5, 5));
+        //northPanel.setBackground(new Color (50,34,151));
         eastPanel.setBorder(BorderFactory.createEmptyBorder(60,60, 20, 60));
         eastPanel.setBackground(new Color (206,225,242));
         westPanel.setBorder(BorderFactory.createEmptyBorder(60,60, 20, 60));
         westPanel.setBackground(new Color (206,225,242));
 
-        northPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 20, 10));
+        /*northPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 20, 10));
 
         ImageIcon homeIcon = new ImageIcon("src/images/home2.png");
         JButton homeButton = new JButton(new ImageIcon(homeIcon.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH)));
@@ -80,15 +84,22 @@ public class MathGame extends JFrame{
         cConstraints.ipady = 25; //internal padding y
         centerPanel.add(startGameButton, cConstraints);*/
        
-        frame.add(centerPanel, BorderLayout.CENTER);
-        frame.add(northPanel, BorderLayout.NORTH);
-        frame.add(westPanel, BorderLayout.WEST);
-        frame.add(eastPanel, BorderLayout.EAST);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setTitle("Matikkapeli");
-        frame.pack();
-        frame.setVisible(true);
+        this.add(centerPanel, BorderLayout.CENTER);
+        this.add(northPanel, BorderLayout.NORTH);
+        this.add(westPanel, BorderLayout.WEST);
+        this.add(eastPanel, BorderLayout.EAST);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setTitle("Matikkapeli");
+        this.pack();
+        this.setVisible(true);
 
+
+    }
+
+    public void changePanel(JPanel panel) {
+        this.remove(this.centerPanel);
+        this.add(panel, BorderLayout.CENTER);
+        this.centerPanel = panel;
 
     }
 

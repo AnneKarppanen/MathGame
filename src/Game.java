@@ -1,6 +1,9 @@
+import java.util.ArrayList;
+
 public class Game {
-    User user;
-    int questionNumber;
-    int wrongAnswers;
+    private User user;
+    private int questionNumber;
+    private int wrongAnswers;
+    private ArrayList<String> questionsToAskAgain;
 
 }

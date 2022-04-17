@@ -10,18 +10,15 @@ public class MathGame extends JFrame{
 
     public MathGame() {
 
-<<<<<<< HEAD
         System.out.println("Täällä ollaan");
-=======
->>>>>>> 4f2e34e2c8f161b02e7b2ca3c48d9e641cbe16ba
         JFrame frame = new JFrame();
         StartPanel centerPanel = new StartPanel();
-        JPanel northPanel = new JPanel();
+        ControlPanel northPanel = new ControlPanel();
         JPanel eastPanel = new JPanel();
         JPanel westPanel = new JPanel();
         //centerPanel.setBorder(BorderFactory.createEmptyBorder(400, 400, 400, 400));
         //centerPanel.setBackground(new Color (237,243,249));
-        northPanel.setBorder(BorderFactory.createEmptyBorder(5, 0, 5, 5));
+        /*northPanel.setBorder(BorderFactory.createEmptyBorder(5, 0, 5, 5));
         northPanel.setBackground(new Color (50,34,151));
         eastPanel.setBorder(BorderFactory.createEmptyBorder(60,60, 20, 60));
         eastPanel.setBackground(new Color (206,225,242));
@@ -50,7 +47,7 @@ public class MathGame extends JFrame{
         helpButton.setBackground(new Color(84, 138, 137));
 
        
-        /*centerPanel.setLayout(new GridBagLayout());
+        centerPanel.setLayout(new GridBagLayout());
         GridBagConstraints cConstraints = new GridBagConstraints();
         cConstraints.insets = new Insets(30, 30, 30, 30);
         //constraints.fill = GridBagConstraints.VERTICAL;

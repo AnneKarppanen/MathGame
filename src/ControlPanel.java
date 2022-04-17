@@ -43,11 +43,21 @@ public class ControlPanel extends JPanel implements ActionListener {
         starButton.setBackground(new Color(84, 138, 137));
         helpButton.setBackground(new Color(84, 138, 137));
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        // TODO Auto-generated method stub
+
+
+        public void setUpButtonListeners(){
+            ActionListener buttonListener = new ActionListener(){
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                // TODO Auto-generated method stub
+                System.out.println("Button clicked");
         
-    }
+                }
+            };
     
-    
+            homeButton.addActionListener(buttonListener);
+        }
+
 }
+    
+    

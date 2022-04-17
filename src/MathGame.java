@@ -2,7 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-
+/** The main application class that contains the main function. Mathgame creates the main frame 
+ * and the control panel  */
 public class MathGame extends JFrame{
 
     
@@ -10,12 +11,12 @@ public class MathGame extends JFrame{
     public MathGame() {
 
         JFrame frame = new JFrame();
-        JPanel centerPanel = new JPanel();
+        StartPanel centerPanel = new StartPanel();
         JPanel northPanel = new JPanel();
         JPanel eastPanel = new JPanel();
         JPanel westPanel = new JPanel();
-        centerPanel.setBorder(BorderFactory.createEmptyBorder(400, 400, 400, 400));
-        centerPanel.setBackground(new Color (237,243,249));
+        //centerPanel.setBorder(BorderFactory.createEmptyBorder(400, 400, 400, 400));
+        //centerPanel.setBackground(new Color (237,243,249));
         northPanel.setBorder(BorderFactory.createEmptyBorder(5, 0, 5, 5));
         northPanel.setBackground(new Color (50,34,151));
         eastPanel.setBorder(BorderFactory.createEmptyBorder(60,60, 20, 60));
@@ -45,7 +46,7 @@ public class MathGame extends JFrame{
         helpButton.setBackground(new Color(84, 138, 137));
 
        
-        centerPanel.setLayout(new GridBagLayout());
+        /*centerPanel.setLayout(new GridBagLayout());
         GridBagConstraints cConstraints = new GridBagConstraints();
         cConstraints.insets = new Insets(30, 30, 30, 30);
         //constraints.fill = GridBagConstraints.VERTICAL;
@@ -76,7 +77,7 @@ public class MathGame extends JFrame{
         //constraints.fill = GridBagConstraints.NONE;
         cConstraints.ipadx = 60; //internal padding x
         cConstraints.ipady = 25; //internal padding y
-        centerPanel.add(startGameButton, cConstraints);
+        centerPanel.add(startGameButton, cConstraints);*/
        
         frame.add(centerPanel, BorderLayout.CENTER);
         frame.add(northPanel, BorderLayout.NORTH);

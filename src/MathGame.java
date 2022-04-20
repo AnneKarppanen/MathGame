@@ -118,5 +118,6 @@ public class MathGame extends JFrame{
      public static void main(String[] args) {
         GameController gameController = new GameController();
         gameController.intializeGame();  
+        
     }
 }

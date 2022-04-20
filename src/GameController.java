@@ -9,12 +9,11 @@ public class GameController {
 
     public void intializeGame() {
         this.currentGame = new MathGame(this);
-        
-        //Jää odottamaan napin painallusta. Kun saa tiedon aloita-napin painalluksesta. kutsutaan gameController.chooseUser()
     }
 
     public void chooseUser() {
-        JPanel choosePlayerPanel = new ChoosePlayerPanel();
+        UserList users = new UserList();
+        JPanel choosePlayerPanel = new ChoosePlayerPanel(users);
         currentGame.changePanel(choosePlayerPanel);
         // Tämän pitää saada tieto valitusta käyttäjästä, että voi lisätä sen attribuutiksi.
         // Luoko tämä myös uuden käyttäjän tarvittaessa? Jos painetaan uusi pelaaja nappia?

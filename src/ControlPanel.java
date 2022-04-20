@@ -19,11 +19,15 @@ public class ControlPanel extends JPanel {
     private JButton homeButton = null;
     private JButton starButton = null;
     private JButton helpButton = null;
+    private GameController gameController;
 
-    public ControlPanel() {
+    public ControlPanel(GameController gameController) {
         this.setBorder(BorderFactory.createEmptyBorder(5, 0, 5, 5));
         this.setBackground(new Color(50, 34, 151));
         this.setLayout(new FlowLayout(FlowLayout.LEFT, 20, 10));
+        this.gameController = gameController;
+
+       
 
         ImageIcon homeIcon = new ImageIcon("src/images/home2.png");
         homeButton = new JButton(
@@ -47,19 +51,30 @@ public class ControlPanel extends JPanel {
         starButton.setBackground(new Color(84, 138, 137));
         helpButton.setBackground(new Color(84, 138, 137));
 
+        setUpButtonListeners();
+
     }
 
     public void setUpButtonListeners() {
         ActionListener buttonListener = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // TODO Auto-generated method stub
-                System.out.println("Button clicked");
+                Object source = e.getSource();
+                if(source == homeButton){
+                    System.out.println("Homebutton clicked");
+                 
+                }else if(source == starButton){
+                    System.out.println("Starbutton clicked");
+                }else if(source == helpButton){
+                    System.out.println("Helpbutton clicked");
+                } 
 
             }
         };
 
         homeButton.addActionListener(buttonListener);
+        starButton.addActionListener(buttonListener);
+        helpButton.addActionListener(buttonListener);
     }
 
 }

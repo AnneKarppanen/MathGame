@@ -8,8 +8,8 @@ public class GameController {
     private MathGame currentGame;
 
     public void intializeGame() {
-        this.currentGame = new MathGame();
-        currentGame.setVisible(true);
+        this.currentGame = new MathGame(this);
+        
         //Jää odottamaan napin painallusta. Kun saa tiedon aloita-napin painalluksesta. kutsutaan gameController.chooseUser()
     }
 

@@ -10,12 +10,14 @@ public class MathGame extends JFrame{
     private JPanel northPanel;
     private JPanel eastPanel;
     private JPanel westPanel;
+    private GameController gameController;
     
 
-    public MathGame() {
+    public MathGame(GameController gameController) {
 
         System.out.println("Täällä ollaan");
-        this.centerPanel = new StartPanel();
+        this.gameController = gameController;
+        this.centerPanel = new StartPanel(gameController);
         this.northPanel = new ControlPanel();
         this.eastPanel = new JPanel();
         this.westPanel = new JPanel();
@@ -99,6 +101,8 @@ public class MathGame extends JFrame{
     public void changePanel(JPanel panel) {
         this.remove(this.centerPanel);
         this.add(panel, BorderLayout.CENTER);
+        //this.pack();
+        this.setVisible(true);
         this.centerPanel = panel;
 
     }

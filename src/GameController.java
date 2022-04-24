@@ -53,8 +53,18 @@ public class GameController {
     }
 
     public void showChooseOperationPanel(){
-        JPanel newChooseOperatonPanel = new ChooseOperationPanel(this);
-        currentGame.changePanel(newChooseOperatonPanel);
+        JPanel chooseOperationPanel = new ChooseOperationPanel(this);
+        currentGame.changePanel(chooseOperationPanel);
+    }
+
+    public void showChooseDifficultyPanel(){
+        JPanel chooseDifficultyPanel = new ChooseDifficultyPanel(this);
+        currentGame.changePanel(chooseDifficultyPanel);
+    }
+
+    public void showGamePanel(){
+        JPanel gamePanel = new GamePanel(this);
+        currentGame.changePanel(gamePanel);
     }
 
 }

@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
 import java.util.ArrayList;
 
 public class ChoosePlayerPanel extends JPanel{
@@ -9,9 +10,11 @@ public class ChoosePlayerPanel extends JPanel{
     private JButton createPlayerButton = null;
     private JComboBox<String> comboBox = null;
     private UserList userList = null;
+    private GameController gameController = null;
 
-    public ChoosePlayerPanel(UserList users) {
+    public ChoosePlayerPanel(UserList users, GameController gameController ) {
         this.userList = users;
+        this.gameController = gameController;
         intializeUserList();
         this.setBorder(BorderFactory.createEmptyBorder(400, 400, 400, 400));
         this.setBackground(new Color(237, 243, 249));
@@ -25,6 +28,7 @@ public class ChoosePlayerPanel extends JPanel{
         // constraints.weightx = 1;
         // constraints.weighty = 1;
         // constraints.gridheight = 1;
+        //cConstraints.gridwidth = GridBagConstraints.REMAINDER; 
         // constraints.fill = GridBagConstraints.BOTH;
         this.instruction = new JLabel("VALITSE PELAAJA");
         this.instruction.setFont(new Font("Arial", Font.PLAIN, 25));
@@ -45,6 +49,7 @@ public class ChoosePlayerPanel extends JPanel{
 
         this.comboBox = new JComboBox<>(userArray);
         this.comboBox.setFont(new Font("Arial", Font.BOLD, 20));
+        this.comboBox.setMaximumRowCount(5);
         cConstraints.gridx = 0;
         cConstraints.gridy = 2;
         this.add(comboBox, cConstraints);
@@ -53,7 +58,7 @@ public class ChoosePlayerPanel extends JPanel{
         this.createPlayerButton.setBackground(new Color(109, 177, 240));
         this.createPlayerButton.setFont((new Font("Arial", Font.BOLD, 20)));
         cConstraints.gridx = 0;
-        cConstraints.gridy = 3;
+        cConstraints.gridy = 4;
         // constraints.weightx = 1;
         // constraints.weighty = 20;
         // constraints.gridheight = 6;
@@ -67,7 +72,7 @@ public class ChoosePlayerPanel extends JPanel{
         this.okButton.setBackground(new Color(255, 164, 58));
         this.okButton.setFont((new Font("Arial", Font.BOLD, 20)));
         cConstraints.gridx = 0;
-        cConstraints.gridy = 4;
+        cConstraints.gridy = 5;
         // constraints.weightx = 1;
         // constraints.weighty = 20;
         // constraints.gridheight = 6;
@@ -87,6 +92,16 @@ public class ChoosePlayerPanel extends JPanel{
         this.userList.addUser(user1);
         this.userList.addUser(user2);
         this.userList.addUser(user3);
+        
+    }
+
+    private class ButtonHandler implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            gameController.chooseUser();
+            
+        }
         
     }
 

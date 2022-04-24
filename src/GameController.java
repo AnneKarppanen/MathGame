@@ -13,7 +13,7 @@ public class GameController {
 
     public void chooseUser() {
         UserList users = new UserList();
-        JPanel choosePlayerPanel = new ChoosePlayerPanel(users);
+        JPanel choosePlayerPanel = new ChoosePlayerPanel(users, this);
         currentGame.changePanel(choosePlayerPanel);
         // Tämän pitää saada tieto valitusta käyttäjästä, että voi lisätä sen attribuutiksi.
         // Luoko tämä myös uuden käyttäjän tarvittaessa? Jos painetaan uusi pelaaja nappia?

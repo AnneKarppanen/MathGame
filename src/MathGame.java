@@ -26,7 +26,7 @@ public class MathGame extends JFrame{
         //centerPanel.setBackground(new Color (237,243,249));
         //northPanel.setBorder(BorderFactory.createEmptyBorder(5, 0, 5, 5));
         //northPanel.setBackground(new Color (50,34,151));
-        eastPanel.setBorder(BorderFactory.createEmptyBorder(60,60, 20, 60));
+        eastPanel.setBorder(BorderFactory.createEmptyBorder(60, 60, 20, 60));
         eastPanel.setBackground(new Color (206,225,242));
         westPanel.setBorder(BorderFactory.createEmptyBorder(60,60, 20, 60));
         westPanel.setBackground(new Color (206,225,242));
@@ -101,7 +101,7 @@ public class MathGame extends JFrame{
     public void changePanel(JPanel panel) {
         this.remove(this.centerPanel);
         this.add(panel, BorderLayout.CENTER);
-        //this.pack();
+        this.pack();
         this.setVisible(true);
         this.centerPanel = panel;
 

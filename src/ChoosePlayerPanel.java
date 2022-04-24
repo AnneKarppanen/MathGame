@@ -17,12 +17,12 @@ public class ChoosePlayerPanel extends JPanel {
         this.userList = users;
         this.gameController = gameController;
         intializeUserList();
-        this.setBorder(BorderFactory.createEmptyBorder(400, 400, 400, 400));
+        this.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         this.setBackground(new Color(237, 243, 249));
         this.setLayout(new GridBagLayout());
         GridBagConstraints cConstraints = new GridBagConstraints();
         cConstraints.insets = new Insets(30, 30, 30, 30);
-        // constraints.fill = GridBagConstraints.VERTICAL;
+        //cConstraints.fill = GridBagConstraints.VERTICAL;
 
         cConstraints.gridx = 0;
         cConstraints.gridy = 0;
@@ -46,14 +46,16 @@ public class ChoosePlayerPanel extends JPanel {
         cConstraints.gridx = 1;
         cConstraints.gridy = 0;
         cConstraints.fill = GridBagConstraints.NONE;
-        //cConstraints.weightx = 0.5;
+        cConstraints.weightx = 0.5;
         this.add(instruction, cConstraints);
        
 
         JPanel filler2 = new JPanel();
         filler2.setBackground(Color.BLUE);
+        filler2.setPreferredSize(new Dimension(250, 60));
         cConstraints.gridx = 2;
         cConstraints.gridy = 0;
+        cConstraints.weightx = 0;
         cConstraints.fill = GridBagConstraints.BOTH;
         
         //cConstraints.weightx = 0;
@@ -132,7 +134,8 @@ public class ChoosePlayerPanel extends JPanel {
         backText.setFont(new Font("Arial", Font.BOLD, 25));
         backText.setForeground(new Color(31, 29, 114));
         JPanel backButton = new JPanel();
-        backButton.setBackground(new Color(237, 243, 249));
+        System.out.println(backText.getPreferredSize());
+        //backButton.setBackground(new Color(237, 243, 249));
         backButton.setLayout(new FlowLayout());
         backButton.add(arrowImage);
         backButton.add(backText);

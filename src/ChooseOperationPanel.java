@@ -8,9 +8,7 @@ public class ChooseOperationPanel extends JPanel{
     private JButton multiplicationButton = null;
     private JLabel instruction = null;
 
-    public ChooseOperationPanel(){
-
-        
+    public ChooseOperationPanel(GameController gameController){
 
         this.setBorder(BorderFactory.createEmptyBorder(400, 400, 400, 400));
         this.setBackground(new Color(237, 243, 249));

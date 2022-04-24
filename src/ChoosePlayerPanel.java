@@ -3,8 +3,8 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 
-public class ChoosePlayerPanel extends JPanel{
-    
+public class ChoosePlayerPanel extends JPanel {
+
     private JLabel instruction = null;
     private JButton okButton = null;
     private JButton createPlayerButton = null;
@@ -53,6 +53,13 @@ public class ChoosePlayerPanel extends JPanel{
         cConstraints.gridx = 0;
         cConstraints.gridy = 2;
         this.add(comboBox, cConstraints);
+
+        JPanel filler = new JPanel();
+       
+        filler.setBackground(Color.RED);
+        cConstraints.gridy = 3;
+        //cConstraints.weighty = 1;
+        this.add(filler, cConstraints);
         
         this.createPlayerButton = new JButton("UUSI PELAAJA");
         this.createPlayerButton.setBackground(new Color(109, 177, 240));
@@ -82,7 +89,6 @@ public class ChoosePlayerPanel extends JPanel{
         cConstraints.ipady = 25; // internal padding y
         this.add(okButton, cConstraints);
 
-       
     }
 
     public void intializeUserList() {
@@ -92,19 +98,32 @@ public class ChoosePlayerPanel extends JPanel{
         this.userList.addUser(user1);
         this.userList.addUser(user2);
         this.userList.addUser(user3);
-        
+
     }
 
-    private class ButtonHandler implements ActionListener {
+    public void setUpButtonListeners() {
+        ActionListener buttonListener = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Object source = e.getSource();
+                if (source == okButton) {
+                    gameController.showChooseOperationPanel();
+                    /*
+                     * }else if(source == starButton){
+                     * System.out.println("Starbutton clicked");
+                     * }else if(source == helpButton){
+                     * System.out.println("Helpbutton clicked");
+                     * }
+                     */
 
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            gameController.chooseUser();
-            
-        }
-        
+                }
+            }
+        };
+
+        okButton.addActionListener(buttonListener);
+        //starButton.addActionListener(buttonListener);
+        //helpButton.addActionListener(buttonListener);
+
     }
 
-
-    
 }

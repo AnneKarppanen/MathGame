@@ -62,7 +62,7 @@ public class ControlPanel extends JPanel {
                 Object source = e.getSource();
                 if(source == homeButton){
                     System.out.println("Homebutton clicked");
-                 
+                    gameController.showNewGameWindow();           
                 }else if(source == starButton){
                     System.out.println("Starbutton clicked");
                 }else if(source == helpButton){

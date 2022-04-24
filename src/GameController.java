@@ -47,7 +47,10 @@ public class GameController {
 
     }
 
-    
+    public void showNewGameWindow(){
+        JPanel newGamePanel = new StartPanel(this);
+        currentGame.changePanel(newGamePanel);
+    }
 
 
 

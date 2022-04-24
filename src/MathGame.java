@@ -18,7 +18,7 @@ public class MathGame extends JFrame{
         System.out.println("Täällä ollaan");
         this.gameController = gameController;
         this.centerPanel = new StartPanel(gameController);
-        this.northPanel = new ControlPanel();
+        this.northPanel = new ControlPanel(gameController);
         this.eastPanel = new JPanel();
         this.westPanel = new JPanel();
         this.setLayout(new BorderLayout());

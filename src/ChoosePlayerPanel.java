@@ -3,6 +3,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 
+
 public class ChoosePlayerPanel extends JPanel {
 
     private JLabel instruction = null;
@@ -163,6 +164,7 @@ public class ChoosePlayerPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 Object source = e.getSource();
                 if (source == okButton) {
+                    System.out.println("Klikattiin okButtonia");
                     gameController.showChooseOperationPanel();
                     /*
                      * }else if(source == starButton){

@@ -30,11 +30,33 @@ public class ChoosePlayerPanel extends JPanel {
         // constraints.gridheight = 1;
         //cConstraints.gridwidth = GridBagConstraints.REMAINDER; 
         // constraints.fill = GridBagConstraints.BOTH;
+        
+        JPanel filler = new JPanel();
+        filler.setBackground(Color.RED);
+        cConstraints.fill = GridBagConstraints.BOTH;
+        //cConstraints.weightx = 0.25;
+        //cConstraints.gridx = 0;
+        //cConstraints.gridy = 0;
+        //cConstraints.weighty = 1;
+        this.add(filler, cConstraints);
+        
         this.instruction = new JLabel("VALITSE PELAAJA");
         this.instruction.setFont(new Font("Arial", Font.PLAIN, 25));
+        cConstraints.gridx = 1;
+        cConstraints.gridy = 0;
+        cConstraints.fill = GridBagConstraints.NONE;
+        //cConstraints.weightx = 0.5;
         this.add(instruction, cConstraints);
-        cConstraints.gridx = 0;
-        cConstraints.gridy = 1;
+       
+
+        JPanel filler2 = new JPanel();
+        filler2.setBackground(Color.BLUE);
+        cConstraints.gridx = 2;
+        cConstraints.gridy = 0;
+        cConstraints.fill = GridBagConstraints.BOTH;
+        
+        //cConstraints.weightx = 0;
+        this.add(filler2, cConstraints);
 
         ArrayList<User> usersAsArrayList = userList.getUserList();
         int userArraySize = usersAsArrayList.size();
@@ -50,27 +72,37 @@ public class ChoosePlayerPanel extends JPanel {
         this.comboBox = new JComboBox<>(userArray);
         this.comboBox.setFont(new Font("Arial", Font.BOLD, 20));
         this.comboBox.setMaximumRowCount(5);
-        cConstraints.gridx = 0;
-        cConstraints.gridy = 2;
+        cConstraints.gridx = 1;
+        cConstraints.gridy = 1;
+        cConstraints.fill = GridBagConstraints.NONE;
+        //cConstraints.weightx = 0;
         this.add(comboBox, cConstraints);
 
-        JPanel filler = new JPanel();
-       
-        filler.setBackground(Color.RED);
+        JPanel filler3 = new JPanel();
+        filler3.setBackground(Color.ORANGE);
+        cConstraints.gridx = 1;
+        cConstraints.gridy = 2;
+        //cConstraints.weightx = 0;
+        this.add(filler3, cConstraints);
+
+        JPanel filler4 = new JPanel();
+        filler4.setBackground(Color.GREEN);
+        cConstraints.gridx = 1;
         cConstraints.gridy = 3;
-        //cConstraints.weighty = 1;
-        this.add(filler, cConstraints);
+        //cConstraints.weighty = 0;
+        this.add(filler4, cConstraints);
         
         this.createPlayerButton = new JButton("UUSI PELAAJA");
         this.createPlayerButton.setBackground(new Color(109, 177, 240));
         this.createPlayerButton.setFont((new Font("Arial", Font.BOLD, 20)));
-        cConstraints.gridx = 0;
+        cConstraints.gridx = 1;
         cConstraints.gridy = 4;
+        //cConstraints.weightx = 0;
         // constraints.weightx = 1;
         // constraints.weighty = 20;
         // constraints.gridheight = 6;
         // constraints.anchor = GridBagConstraints.SOUTH;
-        // constraints.fill = GridBagConstraints.NONE;
+        //cConstraints.fill = GridBagConstraints.NONE;
         cConstraints.ipadx = 60; // internal padding x
         cConstraints.ipady = 25; // internal padding y
         this.add(createPlayerButton, cConstraints);
@@ -78,9 +110,9 @@ public class ChoosePlayerPanel extends JPanel {
         this.okButton = new JButton("OK");
         this.okButton.setBackground(new Color(255, 164, 58));
         this.okButton.setFont((new Font("Arial", Font.BOLD, 20)));
-        cConstraints.gridx = 0;
+        cConstraints.gridx = 1;
         cConstraints.gridy = 5;
-        // constraints.weightx = 1;
+        //cConstraints.weightx = 0;
         // constraints.weighty = 20;
         // constraints.gridheight = 6;
         // constraints.anchor = GridBagConstraints.SOUTH;
@@ -88,6 +120,30 @@ public class ChoosePlayerPanel extends JPanel {
         cConstraints.ipadx = 60; // internal padding x
         cConstraints.ipady = 25; // internal padding y
         this.add(okButton, cConstraints);
+
+        ImageIcon backArrow = new ImageIcon("src/images/backArrow_small.png");
+        //System.out.println("width: " + backArrow.getIconWidth());
+        //System.out.println("height: " + backArrow.getIconHeight());
+        //backArrow.getImage().getScaledInstance(50, 50, java.awt.Image.SCALE_SMOOTH);
+        JLabel arrowImage = new JLabel(backArrow);
+        arrowImage.setIcon(backArrow);
+        JLabel backText = new JLabel("TAKAISIN");
+        backText.setFont(new Font("Arial", Font.BOLD, 25));
+        backText.setForeground(new Color(31, 29, 114));
+        JPanel backButton = new JPanel();
+        backButton.setBackground(new Color(237, 243, 249));
+        backButton.setLayout(new FlowLayout());
+        backButton.add(arrowImage);
+        backButton.add(backText);
+        cConstraints.gridx = 0;
+        cConstraints.gridy = 6;
+        //cConstraints.weightx = 0;
+        //backButton.setPreferredSize(new Dimension(50, 50));
+        //backButton.setMaximumSize(new Dimension(50,50));
+        this.add(backButton, cConstraints);
+       
+        
+
 
     }
 

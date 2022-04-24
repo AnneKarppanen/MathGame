@@ -52,6 +52,9 @@ public class GameController {
         currentGame.changePanel(newGamePanel);
     }
 
-
+    public void showChooseOperationPanel(){
+        JPanel newChooseOperatonPanel = new ChooseOperationPanel(this);
+        currentGame.changePanel(newChooseOperatonPanel);
+    }
 
 }

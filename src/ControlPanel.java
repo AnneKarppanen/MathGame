@@ -64,8 +64,10 @@ public class ControlPanel extends JPanel {
                     System.out.println("Homebutton clicked");
                     gameController.showNewGameWindow();           
                 }else if(source == starButton){
+                    //This functionality has been agreed to be optional with teachers, so no implementation.
                     System.out.println("Starbutton clicked");
                 }else if(source == helpButton){
+                    //This functionality has been agreed to be optional with teachers, so no implementation.
                     System.out.println("Helpbutton clicked");
                 } 
 

@@ -11,11 +11,11 @@ public class ChoosePlayerPanel extends JPanel {
     private JButton createPlayerButton = null;
     private JComboBox<String> comboBox = null;
     private UserList userList = null;
-    private GameController gameController = null;
+    //private GameController gameController = null;
 
     public ChoosePlayerPanel(UserList users) {
         this.userList = users;
-        this.gameController = gameController.getInstance();
+        //this.gameController = gameController.getInstance();
         //this.gameController = gameController;
         intializeUserList();
         this.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -170,7 +170,7 @@ public class ChoosePlayerPanel extends JPanel {
                 Object source = e.getSource();
                 if (source == okButton) {
                     System.out.println("Klikattiin okButtonia");
-                    gameController.showChooseOperationPanel();
+                    GameController.getInstance().showChooseOperationPanel();
                     /*
                      * }else if(source == starButton){
                      * System.out.println("Starbutton clicked");

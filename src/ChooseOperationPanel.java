@@ -6,10 +6,10 @@ public class ChooseOperationPanel extends JPanel{
     private JButton additionButton = null;
     private JButton subtractionButton = null;
     private JButton multiplicationButton = null;
-    private GameController gameController;
+    //private GameController gameController;
 
     public ChooseOperationPanel(){
-        this.gameController = gameController.getInstance();
+        //this.gameController = gameController.getInstance();
         //this.gameController = gameController;
         this.setBorder(BorderFactory.createEmptyBorder(400, 400, 400, 400));
         this.setBackground(new Color(237, 243, 249));
@@ -58,7 +58,7 @@ public class ChooseOperationPanel extends JPanel{
                 Object source = e.getSource();
                 if(source == additionButton){
                     System.out.println("AdditionButton clicked");
-                    gameController.showChooseDifficultyPanel();           
+                    GameController.getInstance().showChooseDifficultyPanel();           
                 }else if(source == subtractionButton){
                     //This functionality has been agreed to be optional with teachers, so no implementation.
                     System.out.println("SubtractionButton clicked");

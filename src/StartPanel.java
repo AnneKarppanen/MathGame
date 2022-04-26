@@ -8,13 +8,13 @@ public class StartPanel extends JPanel {
     private JButton startGameButton = null;
     private ImageIcon startPicture = null;
     private JLabel startImageLabel = null;
-    private GameController gameController = null;
+    //private GameController gameController = null;
 
     public StartPanel() {
         this.setBorder(BorderFactory.createEmptyBorder(200, 200, 200, 200));
         this.setBackground(new Color(237, 243, 249));
         this.setLayout(new GridBagLayout());
-        this.gameController = gameController.getInstance();
+        //this.gameController = gameController.getInstance();
         //this.gameController = gameController;
         GridBagConstraints cConstraints = new GridBagConstraints();
         cConstraints.insets = new Insets(30, 30, 30, 30);
@@ -56,7 +56,8 @@ public class StartPanel extends JPanel {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            gameController.chooseUser();
+            GameController.getInstance().chooseUser();
+            //gameController.chooseUser();
             
         }
         

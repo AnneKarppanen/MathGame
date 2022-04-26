@@ -4,12 +4,12 @@ import java.awt.event.*;
 
 public class ChooseDifficultyPanel extends JPanel {
     private JButton playButton = null;
-    private GameController gameController;
+    //private GameController gameController;
 
 
     public ChooseDifficultyPanel(){
         //this.gameController = gameController;
-        this.gameController = gameController.getInstance();
+        //this.gameController = gameController.getInstance();
         this.setBorder(BorderFactory.createEmptyBorder(400, 400, 400, 400));
         this.setBackground(new Color(237, 243, 249));
         this.setLayout(new GridBagLayout());
@@ -39,7 +39,7 @@ public class ChooseDifficultyPanel extends JPanel {
                 if(source == playButton){
                     System.out.println("playButton clicked");
                     //tästä lähtee sitten eka peli-ikkuna
-                   gameController.showGamePanel();;           
+                    GameController.getInstance().showGamePanel();          
               }
          /*   else if(source == subtractionButton){
                     //This functionality has been agreed to be optional with teachers, so no implementation.

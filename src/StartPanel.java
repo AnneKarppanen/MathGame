@@ -10,11 +10,12 @@ public class StartPanel extends JPanel {
     private JLabel startImageLabel = null;
     private GameController gameController = null;
 
-    public StartPanel(GameController gameController) {
-        this.setBorder(BorderFactory.createEmptyBorder(400, 400, 400, 400));
+    public StartPanel() {
+        this.setBorder(BorderFactory.createEmptyBorder(200, 200, 200, 200));
         this.setBackground(new Color(237, 243, 249));
         this.setLayout(new GridBagLayout());
-        this.gameController = gameController;
+        this.gameController = gameController.getInstance();
+        //this.gameController = gameController;
         GridBagConstraints cConstraints = new GridBagConstraints();
         cConstraints.insets = new Insets(30, 30, 30, 30);
         // constraints.fill = GridBagConstraints.VERTICAL;

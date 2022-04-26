@@ -13,9 +13,10 @@ public class ChoosePlayerPanel extends JPanel {
     private UserList userList = null;
     private GameController gameController = null;
 
-    public ChoosePlayerPanel(UserList users, GameController gameController ) {
+    public ChoosePlayerPanel(UserList users) {
         this.userList = users;
-        this.gameController = gameController;
+        this.gameController = gameController.getInstance();
+        //this.gameController = gameController;
         intializeUserList();
         this.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         this.setBackground(new Color(237, 243, 249));
@@ -145,6 +146,7 @@ public class ChoosePlayerPanel extends JPanel {
         //backButton.setPreferredSize(new Dimension(50, 50));
         //backButton.setMaximumSize(new Dimension(50,50));
         this.add(backButton, cConstraints);
+        setUpButtonListeners();
        
         
 

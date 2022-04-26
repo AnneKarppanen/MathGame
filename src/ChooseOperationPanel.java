@@ -8,8 +8,9 @@ public class ChooseOperationPanel extends JPanel{
     private JButton multiplicationButton = null;
     private GameController gameController;
 
-    public ChooseOperationPanel(GameController gameController){
-        this.gameController = gameController;
+    public ChooseOperationPanel(){
+        this.gameController = gameController.getInstance();
+        //this.gameController = gameController;
         this.setBorder(BorderFactory.createEmptyBorder(400, 400, 400, 400));
         this.setBackground(new Color(237, 243, 249));
         this.setLayout(new GridBagLayout());

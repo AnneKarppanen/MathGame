@@ -6,14 +6,27 @@ public class GameController {
     private Game gameData;
     private QuestionGenerator questionGenerator;
     private MathGame currentGame;
+    private static GameController gameControllerInstance = null;
 
-    public void intializeGame() {
-        this.currentGame = new MathGame(this);
+    public static GameController getInstance() {
+        if (null == gameControllerInstance) {
+            gameControllerInstance = new GameController();
+        }
+
+        return gameControllerInstance;
+    }
+
+   private GameController() {
+
+   }
+
+    public void intializeGame(MathGame currentGame) {
+        this.currentGame = currentGame;
     }
 
     public void chooseUser() {
         UserList users = new UserList();
-        JPanel choosePlayerPanel = new ChoosePlayerPanel(users, this);
+        JPanel choosePlayerPanel = new ChoosePlayerPanel(users);
         currentGame.changePanel(choosePlayerPanel);
         // Tämän pitää saada tieto valitusta käyttäjästä, että voi lisätä sen attribuutiksi.
         // Luoko tämä myös uuden käyttäjän tarvittaessa? Jos painetaan uusi pelaaja nappia?
@@ -48,22 +61,22 @@ public class GameController {
     }
 
     public void showNewGameWindow(){
-        JPanel newGamePanel = new StartPanel(this);
+        JPanel newGamePanel = new StartPanel();
         currentGame.changePanel(newGamePanel);
     }
 
     public void showChooseOperationPanel(){
-        JPanel chooseOperationPanel = new ChooseOperationPanel(this);
+        JPanel chooseOperationPanel = new ChooseOperationPanel();
         currentGame.changePanel(chooseOperationPanel);
     }
 
     public void showChooseDifficultyPanel(){
-        JPanel chooseDifficultyPanel = new ChooseDifficultyPanel(this);
+        JPanel chooseDifficultyPanel = new ChooseDifficultyPanel();
         currentGame.changePanel(chooseDifficultyPanel);
     }
 
     public void showGamePanel(){
-        JPanel gamePanel = new GamePanel(this);
+        JPanel gamePanel = new GamePanel();
         currentGame.changePanel(gamePanel);
     }
 

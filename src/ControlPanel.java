@@ -21,11 +21,12 @@ public class ControlPanel extends JPanel {
     private JButton helpButton = null;
     private GameController gameController;
 
-    public ControlPanel(GameController gameController) {
+    public ControlPanel() {
         this.setBorder(BorderFactory.createEmptyBorder(5, 0, 5, 5));
         this.setBackground(new Color(50, 34, 151));
         this.setLayout(new FlowLayout(FlowLayout.LEFT, 20, 10));
-        this.gameController = gameController;
+        //this.gameController = gameController;
+        this.gameController = gameController.getInstance();
 
        
 

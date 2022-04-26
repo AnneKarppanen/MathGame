@@ -13,12 +13,13 @@ public class MathGame extends JFrame{
     private GameController gameController;
     
 
-    public MathGame(GameController gameController) {
+    public MathGame() {
 
         System.out.println("Täällä ollaan");
-        this.gameController = gameController;
-        this.centerPanel = new StartPanel(gameController);
-        this.northPanel = new ControlPanel(gameController);
+        gameController = gameController.getInstance();
+        gameController.intializeGame(this);
+        this.centerPanel = new StartPanel();
+        this.northPanel = new ControlPanel();
         this.eastPanel = new JPanel();
         this.westPanel = new JPanel();
         this.setLayout(new BorderLayout());
@@ -116,8 +117,9 @@ public class MathGame extends JFrame{
     
     
      public static void main(String[] args) {
-        GameController gameController = new GameController();
-        gameController.intializeGame();  
+        GameController gameController = GameController.getInstance();
+        MathGame mathGame = new MathGame();
+        //gameController.intializeGame();  
         
     }
 }

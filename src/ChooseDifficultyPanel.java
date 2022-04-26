@@ -7,8 +7,9 @@ public class ChooseDifficultyPanel extends JPanel {
     private GameController gameController;
 
 
-    public ChooseDifficultyPanel(GameController gameController){
-        this.gameController = gameController;
+    public ChooseDifficultyPanel(){
+        //this.gameController = gameController;
+        this.gameController = gameController.getInstance();
         this.setBorder(BorderFactory.createEmptyBorder(400, 400, 400, 400));
         this.setBackground(new Color(237, 243, 249));
         this.setLayout(new GridBagLayout());

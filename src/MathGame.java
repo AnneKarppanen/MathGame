@@ -10,6 +10,7 @@ public class MathGame extends JFrame{
     private JPanel northPanel;
     private JPanel eastPanel;
     private JPanel westPanel;
+    private JPanel southPanel;
     //private GameController gameController;
     
 
@@ -22,7 +23,14 @@ public class MathGame extends JFrame{
         this.northPanel = new ControlPanel();
         this.eastPanel = new JPanel();
         this.westPanel = new JPanel();
+        //this.southPanel = new JPanel();
         this.setLayout(new BorderLayout());
+
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setPreferredSize(new Dimension(screenSize.width - 20, screenSize.height - 40));
+        //this.setMinimumSize(new Dimension(800, 600));
+        //int screenWidth = screenSize.width;
+        //int sceenHeight = screenSize.height;
         //centerPanel.setBorder(BorderFactory.createEmptyBorder(400, 400, 400, 400));
         //centerPanel.setBackground(new Color (237,243,249));
         //northPanel.setBorder(BorderFactory.createEmptyBorder(5, 0, 5, 5));
@@ -31,6 +39,8 @@ public class MathGame extends JFrame{
         eastPanel.setBackground(new Color (206,225,242));
         westPanel.setBorder(BorderFactory.createEmptyBorder(60,60, 20, 60));
         westPanel.setBackground(new Color (206,225,242));
+        //southPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        //southPanel.setBackground(new Color (237,243,249));
 
         /*northPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 20, 10));
 
@@ -91,6 +101,7 @@ public class MathGame extends JFrame{
         this.add(northPanel, BorderLayout.NORTH);
         this.add(westPanel, BorderLayout.WEST);
         this.add(eastPanel, BorderLayout.EAST);
+        //this.add(southPanel, BorderLayout.SOUTH);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setTitle("Matikkapeli");
         this.pack();
@@ -102,11 +113,20 @@ public class MathGame extends JFrame{
     public void changePanel(JPanel panel) {
         this.remove(this.centerPanel);
         this.add(panel, BorderLayout.CENTER);
-        this.pack();
+        //this.pack();
         this.setVisible(true);
         this.centerPanel = panel;
 
     }
+
+    /*public void changeSouthPanel(JPanel panel) {
+        this.remove(this.southPanel);
+        this.add(panel, BorderLayout.SOUTH);
+        //this.pack();
+        this.setVisible(true);
+        this.southPanel = panel;
+
+    }*/
 
 
 { 

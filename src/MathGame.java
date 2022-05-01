@@ -113,7 +113,7 @@ public class MathGame extends JFrame{
     public void changePanel(JPanel panel) {
         this.remove(this.centerPanel);
         this.add(panel, BorderLayout.CENTER);
-        //this.pack();
+        this.pack();
         this.setVisible(true);
         this.centerPanel = panel;
 

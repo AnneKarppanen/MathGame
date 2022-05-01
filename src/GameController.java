@@ -2,7 +2,8 @@ import javax.swing.JPanel;
 
 public class GameController {
 
-    private User user;
+    private User user = null;
+    private UserList users;
     private Game gameData;
     private QuestionGenerator questionGenerator;
     private MathGame currentGame;
@@ -22,17 +23,46 @@ public class GameController {
 
     public void intializeGame(MathGame currentGame) {
         this.currentGame = currentGame;
+        this.users = new UserList();
+        intializeUserList();
     }
 
     public void chooseUser() {
-        UserList users = new UserList();
-        JPanel choosePlayerPanel = new ChoosePlayerPanel(users);
-        //JPanel backButtonPanel = new BackButtonPanel();
-        currentGame.changePanel(choosePlayerPanel);
-        //currentGame.changeSouthPanel(backButtonPanel);
-        currentGame.pack();
-        // Tämän pitää saada tieto valitusta käyttäjästä, että voi lisätä sen attribuutiksi.
-        // Luoko tämä myös uuden käyttäjän tarvittaessa? Jos painetaan uusi pelaaja nappia?
+        if (users.getSize() < 1) {
+            showAddUserPanel();
+        } else {
+            JPanel choosePlayerPanel = new ChoosePlayerPanel(users);
+            //JPanel backButtonPanel = new BackButtonPanel();
+            currentGame.changePanel(choosePlayerPanel);
+            //currentGame.changeSouthPanel(backButtonPanel);
+            //currentGame.pack();
+            // Tämän pitää saada tieto valitusta käyttäjästä, että voi lisätä sen attribuutiksi.
+            // Luoko tämä myös uuden käyttäjän tarvittaessa? Jos painetaan uusi pelaaja nappia?
+        }
+        
+    }
+
+    public void showAddUserPanel() {
+        JPanel addNewPlayer = new AddNewPlayerPanel();
+        currentGame.changePanel(addNewPlayer);
+    }
+
+    // checks if user exists and only creates a new user if cannot find an existing user with the same name
+    public void addNewUser(String username) {
+        boolean userExists = users.checkIfUserExists(username);
+
+        if (!userExists) {
+            this.user = new User(username);
+            users.addUser(user);
+        } else {
+            selectExistingUser(username);
+        }
+        
+    }
+
+    public void selectExistingUser(String username) {
+
+        this.user = users.getExistingUser(username);
     }
 
     public void chooseGameType() {
@@ -69,6 +99,7 @@ public class GameController {
     }
 
     public void showChooseOperationPanel(){
+        System.out.println("Pelaaja on " + this.user.getUsername());
         JPanel chooseOperationPanel = new ChooseOperationPanel();
         currentGame.changePanel(chooseOperationPanel);
     }
@@ -82,5 +113,21 @@ public class GameController {
         JPanel gamePanel = new GamePanel();
         currentGame.changePanel(gamePanel);
     }
+
+    public void intializeUserList() {
+        User user1 = new User("KARI");
+        User user2 = new User("LAURA");
+        User user3 = new User("LIISA");
+        this.users.addUser(user1);
+        this.users.addUser(user2);
+        this.users.addUser(user3);
+
+    }
+
+    public User getUser() {
+        return this.user;
+    }
+
+    
 
 }

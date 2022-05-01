@@ -80,7 +80,7 @@ public class ChooseOperationPanel extends JPanel{
                     //This functionality has been agreed to be optional with teachers, so no implementation.
                     System.out.println("MultiplicationButton clicked");
                 } else if (source == backButton) {
-                    GameController.getInstance().showNewGameWindow();
+                    GameController.getInstance().chooseUser();
                 }
 
             }

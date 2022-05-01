@@ -6,14 +6,18 @@ public class ChooseOperationPanel extends JPanel{
     private JButton additionButton = null;
     private JButton subtractionButton = null;
     private JButton multiplicationButton = null;
+    private JButton backButton = null;
     //private GameController gameController;
 
     public ChooseOperationPanel(){
         //this.gameController = gameController.getInstance();
         //this.gameController = gameController;
-        this.setBorder(BorderFactory.createEmptyBorder(400, 400, 400, 400));
+        this.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         this.setBackground(new Color(237, 243, 249));
-        this.setLayout(new GridBagLayout());
+        this.setLayout(new BorderLayout());
+        JPanel middlePanel = new JPanel();
+        middlePanel.setBackground(new Color(237, 243, 249));
+        middlePanel.setLayout(new GridBagLayout());
         GridBagConstraints cConstraints = new GridBagConstraints();
         cConstraints.insets = new Insets(20, 20, 20, 20);
  
@@ -26,7 +30,7 @@ public class ChooseOperationPanel extends JPanel{
         cConstraints.ipadx = 100; // internal padding x
         cConstraints.ipady = 25; // internal padding y
         additionButton.setHorizontalAlignment(SwingConstants.LEFT);
-        this.add(additionButton, cConstraints);
+        middlePanel.add(additionButton, cConstraints);
 
         subtractionButton = new JButton("VÄHENNYSLASKU -");
         subtractionButton.setBackground(new Color(255, 164, 58));
@@ -36,7 +40,7 @@ public class ChooseOperationPanel extends JPanel{
         cConstraints.ipadx = 70; // internal padding x
         cConstraints.ipady = 25; // internal padding y
         subtractionButton.setHorizontalAlignment(SwingConstants.LEFT);
-        this.add(subtractionButton, cConstraints);
+        middlePanel.add(subtractionButton, cConstraints);
 
         multiplicationButton = new JButton("KERTOLASKU *");
         multiplicationButton.setBackground(new Color(255, 164, 58));
@@ -46,7 +50,17 @@ public class ChooseOperationPanel extends JPanel{
         cConstraints.ipadx = 110; // internal padding x
         cConstraints.ipady = 25; // internal padding y
         multiplicationButton.setHorizontalAlignment(SwingConstants.LEFT);
-        this.add(multiplicationButton, cConstraints);
+        middlePanel.add(multiplicationButton, cConstraints);
+
+        this.add(middlePanel, BorderLayout.CENTER);
+
+        this.backButton = new BackButton();
+        JPanel southPanel = new JPanel();
+        southPanel.setBackground(new Color(237, 243, 249));
+        southPanel.add(backButton);
+        southPanel.setLayout(new BoxLayout(southPanel, BoxLayout.X_AXIS));
+        this.add(southPanel, BorderLayout.SOUTH);
+      
 
         setUpButtonListeners();
     }
@@ -65,7 +79,9 @@ public class ChooseOperationPanel extends JPanel{
                 }else if(source == multiplicationButton){
                     //This functionality has been agreed to be optional with teachers, so no implementation.
                     System.out.println("MultiplicationButton clicked");
-                } 
+                } else if (source == backButton) {
+                    GameController.getInstance().showNewGameWindow();
+                }
 
             }
         };
@@ -73,6 +89,7 @@ public class ChooseOperationPanel extends JPanel{
         additionButton.addActionListener(buttonListener);
         subtractionButton.addActionListener(buttonListener);
         multiplicationButton.addActionListener(buttonListener);
+        backButton.addActionListener(buttonListener);
     }
     
 }

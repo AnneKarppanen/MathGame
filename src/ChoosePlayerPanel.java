@@ -11,6 +11,7 @@ public class ChoosePlayerPanel extends JPanel {
     private JButton createPlayerButton = null;
     private JComboBox<String> comboBox = null;
     private UserList userList = null;
+    private JButton backButton = null;
     //private GameController gameController = null;
 
     public ChoosePlayerPanel(UserList users) {
@@ -131,8 +132,16 @@ public class ChoosePlayerPanel extends JPanel {
         cConstraints.ipady = 25; // internal padding y
         middlePane.add(okButton, cConstraints);
         this.add(middlePane, BorderLayout.CENTER);
-        BackButtonPanel backButtonPanel = new BackButtonPanel();
-        this.add(backButtonPanel, BorderLayout.SOUTH);
+
+
+        this.backButton = new BackButton();
+        JPanel southPanel = new JPanel();
+        southPanel.setBackground(new Color(237, 243, 249));
+        southPanel.add(backButton);
+        southPanel.setLayout(new BoxLayout(southPanel, BoxLayout.X_AXIS));
+        this.add(southPanel, BorderLayout.SOUTH);
+      
+        
         setUpButtonListeners();
     }
        
@@ -250,6 +259,11 @@ public class ChoosePlayerPanel extends JPanel {
                 if (source == okButton) {
                     System.out.println("Klikattiin okButtonia");
                     GameController.getInstance().showChooseOperationPanel();
+                } else if (source == backButton) {
+                    GameController.getInstance().showNewGameWindow();
+                    System.out.println("Klikattiin backButtonia");
+
+                }
                     /*
                      * }else if(source == starButton){
                      * System.out.println("Starbutton clicked");
@@ -258,11 +272,12 @@ public class ChoosePlayerPanel extends JPanel {
                      * }
                      */
 
-                }
+                
             }
         };
 
         okButton.addActionListener(buttonListener);
+        backButton.addActionListener(buttonListener);
         //starButton.addActionListener(buttonListener);
         //helpButton.addActionListener(buttonListener);
 

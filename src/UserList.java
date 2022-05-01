@@ -15,5 +15,33 @@ public class UserList {
     public ArrayList<User> getUserList() {
         return this.userList;
     }
+
+    public boolean checkIfUserExists(String username) {
+        boolean userExists = false;
+        for (User user: userList) {
+            if(user.getUsername().equals(username)) {
+                userExists = true;
+                return userExists;
+            }
+        }
+        return userExists;
+    }
+
+    public User getExistingUser(String username) {
+        User userToReturn = null;
+        for (User user: userList) {
+            if(user.getUsername().equals(username)) {
+                userToReturn = user;
+            }
+        }
+
+        return userToReturn;
+    }
+
+    public int getSize() {
+        return userList.size();
+    }
+
+    
     
 }

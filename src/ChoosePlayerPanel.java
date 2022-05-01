@@ -18,7 +18,6 @@ public class ChoosePlayerPanel extends JPanel {
         this.userList = users;
         //this.gameController = gameController.getInstance();
         //this.gameController = gameController;
-        intializeUserList();
         this.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         this.setBackground(new Color(237, 243, 249));
         //this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -83,6 +82,13 @@ public class ChoosePlayerPanel extends JPanel {
         this.comboBox = new JComboBox<>(userArray);
         this.comboBox.setFont(new Font("Arial", Font.BOLD, 20));
         this.comboBox.setMaximumRowCount(5);
+        User currentUser = GameController.getInstance().getUser();
+        if (currentUser != null) {
+            comboBox.setSelectedItem(currentUser.getUsername());
+        } else {
+            comboBox.setSelectedIndex(0);
+        }
+
         cConstraints.gridx = 1;
         cConstraints.gridy = 1;
         cConstraints.fill = GridBagConstraints.NONE;
@@ -241,28 +247,23 @@ public class ChoosePlayerPanel extends JPanel {
 
     }*/
 
-    public void intializeUserList() {
-        User user1 = new User("KARI");
-        User user2 = new User("LAURA");
-        User user3 = new User("LIISA");
-        this.userList.addUser(user1);
-        this.userList.addUser(user2);
-        this.userList.addUser(user3);
-
-    }
-
     public void setUpButtonListeners() {
         ActionListener buttonListener = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Object source = e.getSource();
-                if (source == okButton) {
-                    System.out.println("Klikattiin okButtonia");
-                    GameController.getInstance().showChooseOperationPanel();
+                    
+                if (source == comboBox || source == okButton) {
+                    String username = String.valueOf(comboBox.getSelectedItem());
+                    System.out.println("Valittiin käyttäjä: " + username); 
+                    GameController.getInstance().selectExistingUser(username);
+                    GameController.getInstance().showChooseOperationPanel(); 
+                                
+                } else if (source == createPlayerButton) {
+                    GameController.getInstance().showAddUserPanel();
                 } else if (source == backButton) {
                     GameController.getInstance().showNewGameWindow();
                     System.out.println("Klikattiin backButtonia");
-
                 }
                     /*
                      * }else if(source == starButton){
@@ -278,7 +279,8 @@ public class ChoosePlayerPanel extends JPanel {
 
         okButton.addActionListener(buttonListener);
         backButton.addActionListener(buttonListener);
-        //starButton.addActionListener(buttonListener);
+        createPlayerButton.addActionListener(buttonListener);
+        comboBox.addActionListener(buttonListener);
         //helpButton.addActionListener(buttonListener);
 
     }

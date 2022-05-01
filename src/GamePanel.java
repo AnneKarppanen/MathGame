@@ -5,11 +5,9 @@ import java.awt.event.*;
 public class GamePanel extends JPanel {
 
     private JButton checkButton = null;
-    private JPanel centerPanel;
-    private JPanel northPanel;
-    private JPanel eastPanel;
-    private JPanel westPanel;
-    private JPanel southPanel;
+    private ImageIcon coinPicture = null;
+    private JLabel coinImageLabel = null;
+    private JLabel pointsLabel = null;
     //private GameController gameController;
 
 
@@ -22,20 +20,39 @@ public class GamePanel extends JPanel {
         this.setLayout(new BorderLayout());
         JPanel middlePane = new JPanel();
         JPanel southPane = new JPanel();
-     //   JPanel southPane = new JPanel();
-     //   this.southPanel = new JPanel();
         middlePane.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-       // middlePane.setLayout(new GridBagLayout());
         middlePane.setBackground(new Color(237, 243, 249));
         middlePane.setLayout(new BorderLayout());
         this.add(middlePane, BorderLayout.CENTER);
-        southPane.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+      //  southPane.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         southPane.setBackground(new Color(50, 34, 151));
-        southPane.setLayout(new FlowLayout());
+        southPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
+        southPane.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+
+        coinPicture = new ImageIcon("src/images/coin_small.png");
+        JPanel pointsPanel = new JPanel();
+        pointsPanel.setBackground(new Color(50, 34, 151));
+        //Tähän pointLabeliin pitää nyt sitten saada tuotua peliscore...
+        //Gamedata.getPOints?
+        pointsLabel = new JLabel("test");
+        pointsLabel.setBackground(new Color(255, 255, 255));
+        pointsLabel.setPreferredSize(new Dimension(50, 10));
+        
+        coinImageLabel = new JLabel();
+        coinImageLabel.setLayout(new FlowLayout(FlowLayout.RIGHT));
+        
+        coinImageLabel.setIcon(coinPicture);
+        
+        pointsPanel.add(coinImageLabel);
+        pointsPanel.add(pointsLabel);
+
+        
         this.add(southPane, BorderLayout.SOUTH);
+
+        
        
-        GridBagConstraints cConstraints = new GridBagConstraints();
-        cConstraints.insets = new Insets(20, 20, 20, 20);
+   //     GridBagConstraints cConstraints = new GridBagConstraints();
+    //    cConstraints.insets = new Insets(20, 20, 20, 20);
     //    cConstraints.gridx = 0;
     //    cConstraints.gridy = 0;
 
@@ -58,11 +75,14 @@ public class GamePanel extends JPanel {
 southArea.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
         southArea.add(checkButton);
      //   southArea.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+     
+
 
         middlePane.add(southArea,BorderLayout.SOUTH);
         
-
-      //  southPane.add();
+        
+        southPane.add(pointsPanel);
+       // southPane.add(pointsLabel);
         
        
     //   this.add(middlePane, BorderLayout.CENTER);
@@ -80,6 +100,7 @@ southArea.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
                 Object source = e.getSource();
                 if(source == checkButton){
                     System.out.println("checkButton clicked");
+                    //ja jos oli oikein, niin pitää päivittää pisteet!
                            
               }
        
@@ -89,5 +110,6 @@ southArea.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 
         checkButton.addActionListener(buttonListener);
     }  
+    
 }
 

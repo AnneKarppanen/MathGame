@@ -102,11 +102,10 @@ public class GameController {
     }
 
     public void showChooseOperationPanel(){
-        showGameEndPanel();
         
-        /*System.out.println("Pelaaja on " + this.user.getUsername());
+        System.out.println("Pelaaja on " + this.user.getUsername());
         JPanel chooseOperationPanel = new ChooseOperationPanel();
-        currentGame.changePanel(chooseOperationPanel);*/
+        currentGame.changePanel(chooseOperationPanel);
     }
 
     public void showChooseDifficultyPanel(){

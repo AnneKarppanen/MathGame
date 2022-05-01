@@ -4,7 +4,7 @@ public class GameController {
 
     private User user = null;
     private UserList users;
-    private Game gameData;
+    private GameData gameData;
     private QuestionGenerator questionGenerator;
     private MathGame currentGame;
     private static GameController gameControllerInstance = null;
@@ -25,6 +25,7 @@ public class GameController {
         this.currentGame = currentGame;
         this.users = new UserList();
         intializeUserList();
+        this.gameData = new GameData(); //Tämä tulee oikeasti siihen missä uusi peli alkaa
     }
 
     public void chooseUser() {
@@ -70,7 +71,7 @@ public class GameController {
     }
 
     public void startHardGame() {
-        this.gameData = new Game();
+        this.gameData = new GameData();
         this.questionGenerator = new QuestionGenerator();
         int i = 1;
         while (i < 16) {
@@ -126,6 +127,10 @@ public class GameController {
 
     public User getUser() {
         return this.user;
+    }
+
+    public int getCurrentPoints() {
+        return gameData.getPoints();
     }
 
     

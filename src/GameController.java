@@ -89,6 +89,8 @@ public class GameController {
     }
 
     public void showGameEndPanel() {
+        JPanel gameEndedPanel = new GameEndedPanel();
+        currentGame.changePanel(gameEndedPanel);
         //Hakee loppupisteet ja tarkistaa tähtien ja ennätysten tilanteen 
         //ja piirtää niiden pohjalta oikeanlaisen paneelin.
 
@@ -100,9 +102,11 @@ public class GameController {
     }
 
     public void showChooseOperationPanel(){
-        System.out.println("Pelaaja on " + this.user.getUsername());
+        showGameEndPanel();
+        
+        /*System.out.println("Pelaaja on " + this.user.getUsername());
         JPanel chooseOperationPanel = new ChooseOperationPanel();
-        currentGame.changePanel(chooseOperationPanel);
+        currentGame.changePanel(chooseOperationPanel);*/
     }
 
     public void showChooseDifficultyPanel(){

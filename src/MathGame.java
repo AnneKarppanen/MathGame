@@ -16,7 +16,7 @@ public class MathGame extends JFrame{
 
     public MathGame() {
 
-        System.out.println("Täällä ollaan");
+        System.out.println("Täällä ollaan, uusi testi");
         GameController gameController = GameController.getInstance();
         gameController.intializeGame(this);
         this.centerPanel = new StartPanel();

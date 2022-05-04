@@ -8,13 +8,18 @@ public class GamePanel extends JPanel {
     private ImageIcon coinPicture = null;
     private ImageIcon timePicture = null;
     private JLabel coinImageLabel = null;
+    private JLabel answerImageLabel = null;
     private JLabel timeImageLabel = null;
     private JLabel pointsLabel = null;
     private JLabel timeLabel = null;
     private GameController gameController;
+    private JTextField answerField;
+    private ImageIcon thumbsDown = null;
 
 
     public GamePanel(){
+
+        answerImageLabel = new JLabel();
         //this.gameController = gameController;
         this.gameController = gameController.getInstance();
         this.setBackground(new Color(237, 243, 249));
@@ -32,6 +37,7 @@ public class GamePanel extends JPanel {
 
         coinPicture = new ImageIcon("src/images/coin_small.png");
         timePicture = new ImageIcon("src/images/time_small.png");
+        thumbsDown = new ImageIcon("src/images/thumbs down.png");
         JPanel pointsPanel = new JPanel();
         JPanel timePanel = new JPanel();
         pointsPanel.setBackground(new Color(50, 34, 151));
@@ -48,16 +54,7 @@ public class GamePanel extends JPanel {
         pointsTitle.setForeground(new Color(255, 255, 255));
         pointsTitle.setFont(new Font("Arial", Font.BOLD, 15));
 
-        
-      //  JPanel emptyPanel = new JPanel();
-      //  emptyPanel.setPreferredSize(new Dimension(1010, 10));
-      //  emptyPanel.setBackground(new Color(50, 34, 151));
-      //  emptyPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
-        //Tähän pointLabeliin pitää nyt sitten saada tuotua peliscore...
-        //Gamedata.getPOints?
-       // pointsLabel = new JLabel("test");
-      //  pointsLabel.setBackground(new Color(255, 255, 255));
-      //  pointsLabel.setPreferredSize(new Dimension(50, 10));
+    
         
         coinImageLabel = new JLabel();
         timeImageLabel = new JLabel();
@@ -92,14 +89,40 @@ public class GamePanel extends JPanel {
 southArea.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
         southArea.add(checkButton);
      //   southArea.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-     
+     JPanel mainQuizPanel = new JPanel(new GridBagLayout());
+     GridBagConstraints cConstraints = new GridBagConstraints();
+     cConstraints.insets = new Insets(20, 20, 20, 20);
+     cConstraints.gridx = 0;
+     cConstraints.gridy = 0;
 JPanel quizPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 JLabel question = new JLabel("5 + 5 = ");
+question.setFont((new Font("Arial", Font.BOLD, 50)));
+mainQuizPanel.add(quizPanel, cConstraints);
 quizPanel.add(question);
 
+answerField = new JTextField(2);
+
+
+answerField.setHorizontalAlignment(JTextField.CENTER);
+
+answerField.setFont(new java.awt.Font("Arial", Font.BOLD, 50));
+answerField.setForeground(Color.BLACK);
+answerField.setBackground(Color.WHITE);
+cConstraints.gridx = 1;
+cConstraints.gridy = 0;
+mainQuizPanel.add(answerField, cConstraints);
+//answerField.requestFocus();
+//answerField.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+answerField.addActionListener(new ActionListener() {
+    @Override
+    public void actionPerformed(ActionEvent event) {
+        System.out.println("The entered answer is: " + answerField.getText());
+    }
+});
 
         middlePane.add(southArea,BorderLayout.SOUTH);
-        middlePane.add(quizPanel, BorderLayout.CENTER);
+        middlePane.add(mainQuizPanel, BorderLayout.CENTER);
         
         
         southPane.add(pointsPanel, BorderLayout.EAST);
@@ -108,6 +131,12 @@ quizPanel.add(question);
         
 
         setUpButtonListeners();
+      //  answerField.setVisible(true);
+      //  answerField.requestFocus();
+     //   answerField.grabFocus();
+     //   answerField.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+     EventQueue.invokeLater( () -> answerField.requestFocusInWindow() );
+     
 
     }
 
@@ -117,9 +146,9 @@ quizPanel.add(question);
             public void actionPerformed(ActionEvent e) {
                 Object source = e.getSource();
                 if(source == checkButton){
-                    System.out.println("checkButton clicked");
-                    //ja jos oli oikein, niin pitää päivittää pisteet!
-                           
+                    System.out.println("The entered answer is: " + answerField.getText());
+                   
+
               }
        
 
@@ -128,6 +157,20 @@ quizPanel.add(question);
 
         checkButton.addActionListener(buttonListener);
     }  
+
+    public void checkAnswer(String text){
+        try {
+            int answer = Integer.parseInt(text);
+
+
+          }
+          catch(Exception e) {
+              
+            
+          }
+    }
+
+   
     
 }
 

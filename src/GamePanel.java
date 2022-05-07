@@ -14,7 +14,8 @@ public class GamePanel extends JPanel {
     private JLabel timeLabel = null;
     private GameController gameController;
     private JTextField answerField;
-    private ImageIcon thumbsDown = null;
+    private ImageIcon thumbsDownPicture = null;
+    private JPanel mainQuizPanel = null;
 
 
     public GamePanel(){
@@ -37,7 +38,7 @@ public class GamePanel extends JPanel {
 
         coinPicture = new ImageIcon("src/images/coin_small.png");
         timePicture = new ImageIcon("src/images/time_small.png");
-        thumbsDown = new ImageIcon("src/images/thumbs down.png");
+        thumbsDownPicture = new ImageIcon("src/images/thumbs down.png");
         JPanel pointsPanel = new JPanel();
         JPanel timePanel = new JPanel();
         pointsPanel.setBackground(new Color(50, 34, 151));
@@ -89,7 +90,7 @@ public class GamePanel extends JPanel {
 southArea.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
         southArea.add(checkButton);
      //   southArea.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-     JPanel mainQuizPanel = new JPanel(new GridBagLayout());
+     mainQuizPanel = new JPanel(new GridBagLayout());
      GridBagConstraints cConstraints = new GridBagConstraints();
      cConstraints.insets = new Insets(20, 20, 20, 20);
      cConstraints.gridx = 0;
@@ -165,7 +166,7 @@ answerField.addActionListener(new ActionListener() {
 
           }
           catch(Exception e) {
-              
+          //  mainQuizPanel.add();
             
           }
     }

@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 import javax.swing.JPanel;
 
 public class GameController {
@@ -73,19 +75,35 @@ public class GameController {
     public void startHardGame() {
         this.gameData = new GameData();
         this.questionGenerator = new QuestionGenerator();
-        int i = 1;
-        while (i < 16) {
+     //   int i = 1;
+    /*    while (i < 16) {
             askQuestion(questionGenerator);
         }
-        showGameEndPanel();
+        showGameEndPanel(); */
     }
 
-    public void askQuestion(QuestionGenerator questionGenerator) {
-        //generate question
-        //check answer
-        //show is answer was correct
-        //add points
-        //Timer!
+    public ArrayList askQuestion() {
+        ArrayList nextQuestion = null; // gameData.getNextQuestion();
+        //retrieves next question from questionGenerator
+        return nextQuestion;
+       
+    }
+
+    public boolean checkQuestion(String answer){
+         //check answer
+
+        // if format wrong aka cannot be converted to int or answer is incorrect 
+        //No points
+        //if answer incorrect return false
+        //false triggers the gamepanel to add ThumbsDown and change to "Jatka" button
+        
+        //if answer is correct
+        //check timer, add points accordingly
+        //return true
+       // true triggers the gamepanel to add ThumbsUp and change to "Jatka" button
+       //also points must be updated to gamepanel-view
+
+        return true;
     }
 
     public void showGameEndPanel() {
@@ -99,6 +117,7 @@ public class GameController {
     public void showNewGameWindow(){
         JPanel newGamePanel = new StartPanel();
         currentGame.changePanel(newGamePanel);
+        startHardGame();
     }
 
     public void showChooseOperationPanel(){

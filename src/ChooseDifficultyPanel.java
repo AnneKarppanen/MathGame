@@ -134,7 +134,8 @@ public class ChooseDifficultyPanel extends JPanel {
                     System.out.println("playButton clicked");
                     
                     // tästä lähtee sitten eka peli-ikkuna
-                    GameController.getInstance().showGamePanel();
+                    GameController.getInstance().startHardGame();
+                  //  GameController.getInstance().showGamePanel();
                 } else if (source == jRadioLukuAlue_10) {
                     System.out.println("radioButton10 clicked");
                     lukualue = 1;

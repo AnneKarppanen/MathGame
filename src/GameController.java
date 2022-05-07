@@ -10,6 +10,7 @@ public class GameController {
     private QuestionGenerator questionGenerator;
     private MathGame currentGame;
     private static GameController gameControllerInstance = null;
+    private ArrayList questionList;
 
     public static GameController getInstance() {
         if (null == gameControllerInstance) {
@@ -27,7 +28,7 @@ public class GameController {
         this.currentGame = currentGame;
         this.users = new UserList();
         intializeUserList();
-        this.gameData = new GameData(); //Tämä tulee oikeasti siihen missä uusi peli alkaa
+      //  this.gameData = new GameData(); //Tämä tulee oikeasti siihen missä uusi peli alkaa
     }
 
     public void chooseUser() {
@@ -73,8 +74,16 @@ public class GameController {
     }
 
     public void startHardGame() {
-        this.gameData = new GameData();
         this.questionGenerator = new QuestionGenerator();
+        questionGenerator.createAdditionQuestions(10);
+        questionList = questionGenerator.giveQuestionList();
+
+     //   System.out.println(questionList);
+       this.gameData = new GameData(questionList);
+       System.out.println(gameData.getClass());
+       showGamePanel();
+        
+        
      //   int i = 1;
     /*    while (i < 16) {
             askQuestion(questionGenerator);
@@ -83,7 +92,7 @@ public class GameController {
     }
 
     public ArrayList askQuestion() {
-        ArrayList nextQuestion = null; // gameData.getNextQuestion();
+        ArrayList nextQuestion = gameData.getNextQuestion();
         //retrieves next question from questionGenerator
         return nextQuestion;
        
@@ -117,7 +126,7 @@ public class GameController {
     public void showNewGameWindow(){
         JPanel newGamePanel = new StartPanel();
         currentGame.changePanel(newGamePanel);
-        startHardGame();
+        //startHardGame();
     }
 
     public void showChooseOperationPanel(){
@@ -135,7 +144,7 @@ public class GameController {
     public void showGamePanel(){
         JPanel gamePanel = new GamePanel();
         currentGame.changePanel(gamePanel);
-        startHardGame();
+      //  startHardGame();
     }
 
     public void intializeUserList() {

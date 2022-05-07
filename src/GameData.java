@@ -10,10 +10,11 @@ public class GameData {
     private int points;
     private ArrayList<Integer> lastQuestionAsked;
 
-    public GameData(){
+    public GameData(ArrayList questionList){
         this.points = 1000;
         this.questionNumber = 1;
         this.newQuestionIndex = 0;
+        this.questionList = questionList;
     }
 
     public int getPoints() {
@@ -21,7 +22,8 @@ public class GameData {
     }
 
     public ArrayList<Integer> getNextQuestion() {
-        ArrayList<Integer> questionToAsk;
+        ArrayList<Integer> questionToAsk = new ArrayList<>();
+        questionsToAskAgain = new ArrayList<>();
        
         if (questionsToAskAgain.size() > 0) {
             questionToAsk = questionsToAskAgain.get(0);

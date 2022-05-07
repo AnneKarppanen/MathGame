@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 
 public class GamePanel extends JPanel {
 
@@ -16,6 +17,7 @@ public class GamePanel extends JPanel {
     private JTextField answerField;
     private ImageIcon thumbsDownPicture = null;
     private JPanel mainQuizPanel = null;
+    private ArrayList question = null;
 
 
     public GamePanel(){
@@ -23,6 +25,8 @@ public class GamePanel extends JPanel {
         answerImageLabel = new JLabel();
         //this.gameController = gameController;
         this.gameController = gameController.getInstance();
+        question = gameController.askQuestion();
+        System.out.println(question);
         this.setBackground(new Color(237, 243, 249));
         this.setLayout(new BorderLayout());
         JPanel middlePane = new JPanel();

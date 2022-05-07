@@ -75,12 +75,12 @@ public class GameController {
         this.questionGenerator = new QuestionGenerator();
         int i = 1;
         while (i < 16) {
-            askQuestion();
+            askQuestion(questionGenerator);
         }
         showGameEndPanel();
     }
 
-    public void askQuestion() {
+    public void askQuestion(QuestionGenerator questionGenerator) {
         //generate question
         //check answer
         //show is answer was correct
@@ -116,6 +116,7 @@ public class GameController {
     public void showGamePanel(){
         JPanel gamePanel = new GamePanel();
         currentGame.changePanel(gamePanel);
+        startHardGame();
     }
 
     public void intializeUserList() {

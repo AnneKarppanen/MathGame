@@ -17,7 +17,8 @@ public class GamePanel extends JPanel {
     private JTextField answerField;
     private ImageIcon thumbsDownPicture = null;
     private JPanel mainQuizPanel = null;
-    private ArrayList question = null;
+    private ArrayList questions = null;
+    private int questionCalculator = 1;
 
 
     public GamePanel(){
@@ -25,8 +26,7 @@ public class GamePanel extends JPanel {
         answerImageLabel = new JLabel();
         //this.gameController = gameController;
         this.gameController = gameController.getInstance();
-        question = gameController.askQuestion();
-        System.out.println(question);
+        questions = gameController.askQuestion();
         this.setBackground(new Color(237, 243, 249));
         this.setLayout(new BorderLayout());
         JPanel middlePane = new JPanel();
@@ -93,6 +93,19 @@ public class GamePanel extends JPanel {
       
 southArea.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
         southArea.add(checkButton);
+
+
+JPanel northArea = new JPanel();
+northArea.setLayout(new FlowLayout(FlowLayout.LEFT));
+northArea.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+JLabel questionNumber = new JLabel(questionCalculator + " / 15");
+questionNumber.setFont((new Font("Arial", Font.BOLD, 20)));
+northArea.add(questionNumber);
+
+
+
+
+
      //   southArea.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
      mainQuizPanel = new JPanel(new GridBagLayout());
      GridBagConstraints cConstraints = new GridBagConstraints();
@@ -100,7 +113,9 @@ southArea.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
      cConstraints.gridx = 0;
      cConstraints.gridy = 0;
 JPanel quizPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-JLabel question = new JLabel("5 + 5 = ");
+
+
+JLabel question = new JLabel(questions.get(0).toString() + " " + "+ " + questions.get(1).toString());
 question.setFont((new Font("Arial", Font.BOLD, 50)));
 mainQuizPanel.add(quizPanel, cConstraints);
 quizPanel.add(question);
@@ -126,7 +141,9 @@ answerField.addActionListener(new ActionListener() {
     }
 });
 
+        middlePane.add(northArea, BorderLayout.NORTH);
         middlePane.add(southArea,BorderLayout.SOUTH);
+
         middlePane.add(mainQuizPanel, BorderLayout.CENTER);
         
         
@@ -145,13 +162,32 @@ answerField.addActionListener(new ActionListener() {
 
     }
 
+    public boolean parseInt(String testable){
+        try {
+            Integer.parseInt(testable);
+            return true;
+
+          }
+          catch(Exception e) {
+         return false;
+            
+          }
+    }
     public void setUpButtonListeners() {
         ActionListener buttonListener = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Object source = e.getSource();
                 if(source == checkButton){
-                    System.out.println("The entered answer is: " + answerField.getText());
+                    questionCalculator = gameController.getQuestionCalculator();
+                    boolean correctFormat = parseInt(answerField.getText());
+                    if(correctFormat){
+                        int answer = Integer.parseInt(answerField.getText());
+                        gameController.checkQuestion(answer);
+                    }else{
+                        //vastaus oli väärin, näytä peukku alas
+                    }
+               
                    
 
               }
@@ -163,17 +199,8 @@ answerField.addActionListener(new ActionListener() {
         checkButton.addActionListener(buttonListener);
     }  
 
-    public void checkAnswer(String text){
-        try {
-            int answer = Integer.parseInt(text);
-
-
-          }
-          catch(Exception e) {
-          //  mainQuizPanel.add();
-            
-          }
-    }
+   
+    
 
    
     

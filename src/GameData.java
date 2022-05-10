@@ -4,6 +4,7 @@ public class GameData {
     private User user;
     private int questionNumber;
     private int newQuestionIndex;
+    private int questionCalculator = 0;
     //private int wrongAnswers;
     private ArrayList<ArrayList<Integer>> questionList;
     private ArrayList<ArrayList<Integer>> questionsToAskAgain;
@@ -22,6 +23,13 @@ public class GameData {
     }
 
     public ArrayList<Integer> getNextQuestion() {
+        questionCalculator++;
+        if(questionCalculator > 15){
+            //tästä kutsuttaisiin sitten gamControllerin kautta lopetuspaneelia?
+            return null;
+        }else{
+
+        
         ArrayList<Integer> questionToAsk = new ArrayList<>();
         questionsToAskAgain = new ArrayList<>();
        
@@ -42,5 +50,11 @@ public class GameData {
         lastQuestionAsked = questionToAsk;
         return questionToAsk;
     }
+    }
+
+    public int getQuestionCalculator(){
+        return questionCalculator;
+    }
+    
 
 }

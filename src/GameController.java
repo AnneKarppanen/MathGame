@@ -11,6 +11,7 @@ public class GameController {
     private MathGame currentGame;
     private static GameController gameControllerInstance = null;
     private ArrayList questionList;
+    private ArrayList nextQuestion = null;
 
     public static GameController getInstance() {
         if (null == gameControllerInstance) {
@@ -77,30 +78,39 @@ public class GameController {
         this.questionGenerator = new QuestionGenerator();
         questionGenerator.createAdditionQuestions(10);
         questionList = questionGenerator.giveQuestionList();
-
-     //   System.out.println(questionList);
        this.gameData = new GameData(questionList);
-       System.out.println(gameData.getClass());
        showGamePanel();
         
-        
-     //   int i = 1;
-    /*    while (i < 16) {
-            askQuestion(questionGenerator);
-        }
-        showGameEndPanel(); */
+    }
+
+    public int getQuestionCalculator(){
+        return gameData.getQuestionCalculator();
     }
 
     public ArrayList askQuestion() {
-        ArrayList nextQuestion = gameData.getNextQuestion();
+        nextQuestion = gameData.getNextQuestion();
         //retrieves next question from questionGenerator
+    //    gameData.updateQuestionAmount();
         return nextQuestion;
        
     }
 
-    public boolean checkQuestion(String answer){
-         //check answer
+    public boolean checkQuestion(int answer){
+         //check answer, comes here only if answers is in ok format.
+        System.out.println(answer);
+        String string1 = nextQuestion.get(0).toString();
+        String string2 = nextQuestion.get(1).toString();
+        int number1 = Integer.parseInt(string1);
+        int number2 = Integer.parseInt(string2);
 
+        if(number1 + number2 == answer){
+            //tarkista laskuri ja laske siitä pisteet
+            //anna oikeasta vastauksesta pisteet
+            //gameData.add pisteet
+
+            return true;
+        }
+        
         // if format wrong aka cannot be converted to int or answer is incorrect 
         //No points
         //if answer incorrect return false
@@ -114,6 +124,8 @@ public class GameController {
 
         return true;
     }
+
+
 
     public void showGameEndPanel() {
         JPanel gameEndedPanel = new GameEndedPanel();

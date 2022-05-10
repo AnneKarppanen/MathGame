@@ -39,24 +39,28 @@ public class GameEndedPanel extends JPanel {
         //cConstraints.weighty = 1;
         this.add(filler, cConstraints);*/
         JLabel instruction = new JLabel("PELI PÄÄTTYI");
-        instruction.setFont(new Font("Arial", Font.PLAIN, 25));
+        instruction.setFont(new Font("Arial", Font.BOLD, 50));
         instruction.setForeground(new Color(50, 34, 151));
         cConstraints.fill = GridBagConstraints.NONE;
         cConstraints.weightx = 0.5;
         middlePane.add(instruction, cConstraints);
 
         JPanel pointsPanel = new JPanel();
+        pointsPanel.setBackground(new Color(237, 243, 249));
 
-        JLabel pointsText = new JLabel("PISTEESI");
-        pointsText.setFont(new Font("Arial", Font.PLAIN, 35));
+        JLabel pointsText = new JLabel("PISTEESI  ");
+        pointsText.setFont(new Font("Arial", Font.BOLD, 70));
         pointsText.setForeground(new Color(50, 34, 151));
+        pointsText.setAlignmentY(Component.BOTTOM_ALIGNMENT);
         int pointAmount = GameController.getInstance().getCurrentPoints();
         JLabel amountOfPoints = new JLabel(String.valueOf(pointAmount));
-        amountOfPoints.setFont(new Font("Arial", Font.PLAIN, 25));
-        amountOfPoints.setForeground(new Color(50, 34, 151));
+        amountOfPoints.setFont(new Font("Arial", Font.BOLD, 90));
+        amountOfPoints.setForeground(new Color(158, 60, 167));
+        amountOfPoints.setAlignmentY(Component.BOTTOM_ALIGNMENT);
         pointsPanel.add(pointsText);
         pointsPanel.add(amountOfPoints);
         pointsPanel.setLayout(new BoxLayout(pointsPanel, BoxLayout.X_AXIS));
+        //pointsPanel.setAlignmentY(Component.BOTTOM_ALIGNMENT);
 
         cConstraints.gridx = 0;
         cConstraints.gridy = 1;
@@ -64,16 +68,26 @@ public class GameEndedPanel extends JPanel {
         //cConstraints.weightx = 0;
         middlePane.add(pointsPanel, cConstraints);
 
-        NormalGameEndPanel gameEnd = new NormalGameEndPanel();
+        //JPanel resultPanel = new NormalGameEndPanel();
+        JPanel resultPanel = new GameEndPanelStar();
         cConstraints.gridx = 0;
         cConstraints.gridy = 2;
-        middlePane.add(gameEnd, cConstraints);
+        middlePane.add(resultPanel, cConstraints);
+
+        JPanel filler = new JPanel();
+        //filler.setBackground(Color.RED);
+        //cConstraints.fill = GridBagConstraints.BOTH;
+        cConstraints.gridx = 0;
+        cConstraints.gridy = 3;
+        //cConstraints.weightx = 0.25;
+        //cConstraints.weighty = 1;
+        middlePane.add(filler, cConstraints);
     
         this.newGameButton = new JButton("UUSI PELI");
         newGameButton.setBackground(new Color(255, 164, 58));
-        newGameButton.setFont((new Font("Arial", Font.BOLD, 20)));
+        newGameButton.setFont((new Font("Arial", Font.BOLD, 40)));
         cConstraints.gridx = 0;
-        cConstraints.gridy = 3;
+        cConstraints.gridy = 4;
         //cConstraints.weightx = 0;
         // constraints.weighty = 20;
         // constraints.gridheight = 6;
@@ -85,8 +99,10 @@ public class GameEndedPanel extends JPanel {
         this.add(middlePane, BorderLayout.CENTER);
 
         this.quitButton = new JButton("LOPETA");
-        this.quitButton.setBackground(new Color(109, 177, 240));
-        this.quitButton.setFont((new Font("Arial", Font.BOLD, 20)));
+        quitButton.setBackground(new Color(109, 177, 240));
+        quitButton.setFont((new Font("Arial", Font.PLAIN, 30)));
+        quitButton.setMargin(new Insets(10, 10, 10, 10));
+        //quitButton.setPreferredSize(new Dimension(120, 80));
         JPanel southPanel = new JPanel();
         southPanel.setBackground(new Color(237, 243, 249));
         southPanel.add(quitButton);
@@ -137,5 +153,62 @@ public class GameEndedPanel extends JPanel {
         
 
     }
+
+    private class GameEndPanelStar extends JPanel {
+        
+        private GameEndPanelStar() {
+        ImageIcon smiley = new ImageIcon("src/images/starAchieved_small.png");
+        JLabel smileyLabel = new JLabel();
+        smileyLabel.setIcon(smiley);
+        this.setBackground(new Color(237, 243, 249));
+        this.add(smileyLabel);
+
+        }
+        
+
+    }
+
+    private class GameEndPanelHighScore extends JPanel {
+        
+        private JLabel amountOfStars;
+
+        private GameEndPanelHighScore() {
+        JLabel youGotStar = new JLabel("Ansaitsit tähden!");
+        youGotStar.setFont(new Font("Arial", Font.ITALIC, 50));
+        youGotStar.setForeground(new Color(158, 60, 167));
+        
+        ImageIcon smiley = new ImageIcon("src/images/smiley_small.png");
+        JLabel starLabel = new JLabel();
+        starLabel.setIcon(smiley);
+
+        int pointAmount = GameController.getInstance().getCurrentPoints();
+        amountOfStars = new JLabel(String.valueOf(pointAmount));
+        amountOfStars.setFont(new Font("Arial", Font.BOLD, 90));
+        amountOfStars.setForeground(new Color(158, 60, 167));
+        amountOfStars.setAlignmentY(Component.BOTTOM_ALIGNMENT);
+       
+        
+        this.setBackground(new Color(237, 243, 249));
+        this.add(youGotStar);
+        this.add(starLabel);
+        this.add(amountOfStars);
+
+        }
+        
+
+    }
     
+    private class GameEndPanelStarAndHighScore extends JPanel {
+        
+        private GameEndPanelStarAndHighScore() {
+        ImageIcon smiley = new ImageIcon("src/images/smiley_small.png");
+        JLabel smileyLabel = new JLabel();
+        smileyLabel.setIcon(smiley);
+        this.setBackground(new Color(237, 243, 249));
+        this.add(smileyLabel);
+
+        }
+        
+
+    }
 }   

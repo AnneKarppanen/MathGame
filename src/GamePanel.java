@@ -1,11 +1,15 @@
 import javax.swing.*;
+import javax.swing.text.StyleConstants.FontConstants;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 
 public class GamePanel extends JPanel {
 
+    private JPanel southArea = null;
     private JButton checkButton = null;
+    private JButton continueButton = null;
     private ImageIcon coinPicture = null;
     private ImageIcon timePicture = null;
     private JLabel coinImageLabel = null;
@@ -19,6 +23,9 @@ public class GamePanel extends JPanel {
     private JPanel mainQuizPanel = null;
     private ArrayList questions = null;
     private int questionCalculator = 1;
+    private JLabel question = null;
+    private JPanel quizPanel = null;
+    private Font questionFont = new Font("Arial", Font.BOLD, 50);
 
 
     public GamePanel(){
@@ -88,11 +95,18 @@ public class GamePanel extends JPanel {
         checkButton.setBackground(new Color(255, 164, 58));
         checkButton.setFont((new Font("Arial", Font.BOLD, 20)));
         checkButton.setHorizontalAlignment(SwingConstants.CENTER);
-        JPanel southArea = new JPanel();
+        southArea = new JPanel();
         southArea.setLayout(new FlowLayout(FlowLayout.RIGHT));
+
+        continueButton = new JButton("JATKA");
+        continueButton.setBackground(new Color(255, 164, 58));
+        continueButton.setFont((new Font("Arial", Font.BOLD, 20)));
+        continueButton.setHorizontalAlignment(SwingConstants.CENTER);
       
 southArea.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
         southArea.add(checkButton);
+        southArea.add(continueButton);
+        continueButton.setVisible(false);
 
 
 JPanel northArea = new JPanel();
@@ -112,10 +126,10 @@ northArea.add(questionNumber);
      cConstraints.insets = new Insets(20, 20, 20, 20);
      cConstraints.gridx = 0;
      cConstraints.gridy = 0;
-JPanel quizPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+    quizPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
 
-JLabel question = new JLabel(questions.get(0).toString() + " " + "+ " + questions.get(1).toString());
+question = new JLabel(questions.get(0).toString() + " " + "+ " + questions.get(1).toString());
 question.setFont((new Font("Arial", Font.BOLD, 50)));
 mainQuizPanel.add(quizPanel, cConstraints);
 quizPanel.add(question);
@@ -173,23 +187,62 @@ answerField.addActionListener(new ActionListener() {
             
           }
     }
+
+    public void continueToNextQuestion(){
+        answerField.setText("");
+        
+        continueButton.setVisible(false);
+        checkButton.setVisible(true);
+        questions = gameController.askQuestion();
+       
+        quizPanel.remove(question);
+        System.out.println("Tämä on questionin sisältö:" + questions);
+        question = new JLabel(questions.get(0).toString() + " " + "+ " + questions.get(1).toString());
+        question.setFont(questionFont);
+        quizPanel.add(question);
+        EventQueue.invokeLater( () -> answerField.requestFocusInWindow() );
+
+    }
     public void setUpButtonListeners() {
         ActionListener buttonListener = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Object source = e.getSource();
                 if(source == checkButton){
+                    System.out.println("Chackbutton was pressed");
                     questionCalculator = gameController.getQuestionCalculator();
                     boolean correctFormat = parseInt(answerField.getText());
                     if(correctFormat){
+                        System.out.println("Oli oikea format ");
                         int answer = Integer.parseInt(answerField.getText());
-                        gameController.checkQuestion(answer);
+                        boolean answerCorrect = gameController.checkQuestion(answer);
+                        
+                        if(answerCorrect){
+                            System.out.println ("Vastaus oli oikein");
+                            //estä syöttö kenttään
+                            //nosta peukku
+                            //päivitä pisteet
+                            checkButton.setVisible(false);
+                            continueButton.setVisible(true);
+                        }
+                        else{
+                            //estä syöttö kenttään
+                            //laske peukku
+                            checkButton.setVisible(false);
+                            southArea.add(continueButton);
+
+                        }
+
                     }else{
                         //vastaus oli väärin, näytä peukku alas
+                        //estä syöttö kenttään
+                            //laske peukku
+                            //lisää jatkapainike
                     }
                
                    
-
+              }else if(source == continueButton){
+                continueToNextQuestion();
               }
        
 
@@ -197,6 +250,7 @@ answerField.addActionListener(new ActionListener() {
         };
 
         checkButton.addActionListener(buttonListener);
+        continueButton.addActionListener(buttonListener);
     }  
 
    

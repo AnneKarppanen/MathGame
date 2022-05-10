@@ -16,7 +16,7 @@ public class QuestionGenerator {
 
         int addend1;
         int addend2;
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 15; i++) {
             addend1 = random.nextInt(maximum + 1);
          //   System.out.println(addend1);
             addend2 = random.nextInt(maximum + 1 - addend1);

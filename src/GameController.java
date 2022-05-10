@@ -107,22 +107,13 @@ public class GameController {
             //tarkista laskuri ja laske siitä pisteet
             //anna oikeasta vastauksesta pisteet
             //gameData.add pisteet
+            System.out.println(number1 + " + " + number2 + " = " + answer);
 
             return true;
+        }else{        
+            System.out.println("Meni väärin!");
+        return false;
         }
-        
-        // if format wrong aka cannot be converted to int or answer is incorrect 
-        //No points
-        //if answer incorrect return false
-        //false triggers the gamepanel to add ThumbsDown and change to "Jatka" button
-        
-        //if answer is correct
-        //check timer, add points accordingly
-        //return true
-       // true triggers the gamepanel to add ThumbsUp and change to "Jatka" button
-       //also points must be updated to gamepanel-view
-
-        return true;
     }
 
 

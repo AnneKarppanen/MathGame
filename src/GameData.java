@@ -4,7 +4,7 @@ public class GameData {
     private User user;
     private int questionNumber;
     private int newQuestionIndex;
-    private int questionCalculator = 0;
+    private int questionCalculator = 1;
     //private int wrongAnswers;
     private ArrayList<ArrayList<Integer>> questionList;
     private ArrayList<ArrayList<Integer>> questionsToAskAgain;

@@ -6,6 +6,7 @@ public class GameController {
 
     private User user = null;
     private UserList users;
+    private HighscoreChart highscores; 
     private GameData gameData;
     private QuestionGenerator questionGenerator;
     private MathGame currentGame;
@@ -28,6 +29,7 @@ public class GameController {
     public void intializeGame(MathGame currentGame) {
         this.currentGame = currentGame;
         this.users = new UserList();
+        this.highscores = new HighscoreChart();
         intializeUserList();
       //  this.gameData = new GameData(); //Tämä tulee oikeasti siihen missä uusi peli alkaa
     }
@@ -78,7 +80,7 @@ public class GameController {
         this.questionGenerator = new QuestionGenerator();
         questionGenerator.createAdditionQuestions(10);
         questionList = questionGenerator.giveQuestionList();
-       this.gameData = new GameData(questionList);
+       this.gameData = new GameData(questionList, user);
        showGamePanel();
         
     }
@@ -117,8 +119,8 @@ public class GameController {
     }
 
 
-
     public void showGameEndPanel() {
+        gameData.countGameResults(highscores);
         JPanel gameEndedPanel = new GameEndedPanel();
         currentGame.changePanel(gameEndedPanel);
         //Hakee loppupisteet ja tarkistaa tähtien ja ennätysten tilanteen 
@@ -166,6 +168,10 @@ public class GameController {
 
     public int getCurrentPoints() {
         return gameData.getPoints();
+    }
+
+    public GameData getGameData() {
+        return this.gameData;
     }
 
     

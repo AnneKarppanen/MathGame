@@ -76,6 +76,8 @@ public class ChooseOperationPanel extends JPanel{
                 }else if(source == subtractionButton){
                     //This functionality has been agreed to be optional with teachers, so no implementation.
                     System.out.println("SubtractionButton clicked");
+                    GameController.getInstance().startHardGame();
+                    GameController.getInstance().showGameEndPanel();
                 }else if(source == multiplicationButton){
                     //This functionality has been agreed to be optional with teachers, so no implementation.
                     System.out.println("MultiplicationButton clicked");

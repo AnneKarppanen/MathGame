@@ -7,128 +7,177 @@ import java.util.ArrayList;
 
 public class GamePanel extends JPanel {
 
+    private JPanel middlePane = null;
+    private JPanel southPane = null;
     private JPanel southArea = null;
-    private JPanel northArea = null;
-    private JButton checkButton = null;
-    private JButton continueButton = null;
-    private ImageIcon coinPicture = null;
-    private ImageIcon timePicture = null;
-    private JLabel coinImageLabel = null;
-    private JLabel answerImageLabel = null;
-    private JLabel timeImageLabel = null;
-    private JLabel pointsLabel = null;
-    private JLabel timeLabel = null;
-    private GameController gameController;
-    private JTextField answerField = null;
-    private ImageIcon thumbsDownPicture = null;
-    private ImageIcon thumbsUpPicture = null;
+    private JPanel northArea = null;   
+    private JPanel pointsPanel = null;
+    private JPanel timePanel = null;
     private JPanel mainQuizPanel = null;
-    private ArrayList questions = null;
-    private int questionCalculator = 1;
-    private JLabel question = null;
     private JPanel quizPanel = null;
-    private Font questionFont = new Font("Arial", Font.BOLD, 50);
+
+    private JLabel coinImageLabel = null;
+    private JLabel timeImageLabel = null;
     private JLabel questionNumberLabel = null;
     private JLabel thumbsLabel = null;
+    private JLabel question = null;
+    private JLabel timeTitle = null;
+    private JLabel pointsTitle = null;
+
+    private JButton checkButton = null;
+    private JButton continueButton = null;
+
+    private ImageIcon coinPicture = null;
+    private ImageIcon timePicture = null;
+    private ImageIcon thumbsDownPicture = null;
+    private ImageIcon thumbsUpPicture = null;
+
+    private Font questionFont = new Font("Arial", Font.BOLD, 50);
+    private Font pointsAndTimeFont = new Font("Arial", Font.BOLD, 15);
+    private Font buttonFont = new Font("Arial", Font.BOLD, 20);
+    private Color pointsAndTimeFontColor = new Color(255, 255, 255);
+    private Color buttonBackgroud = new Color(255, 164, 58);
+   
+    private GameController gameController;
+    private JTextField answerField = null;
+    private ArrayList questions = null;
+    private int questionCalculator = 1;
     private GridBagConstraints cConstraints;
-    private JPanel middlePane = null;
+    
+    // private JLabel pointsLabel = null;
+    // private JLabel timeLabel = null;
+    // private JLabel answerImageLabel = null;
 
     public GamePanel() {
 
-        answerImageLabel = new JLabel();
-        questionNumberLabel = new JLabel();
         this.gameController = gameController.getInstance();
-        questions = gameController.askQuestion();
         this.setBackground(new Color(237, 243, 249));
         this.setLayout(new BorderLayout());
+        questions = gameController.askQuestion();
+
+        setPanes();
+        setPanels();
+        setPictures();
+        setLabels();
+        setButtons();
+        gameQuestionCalculator();
+        setQuestion();
+        setFields();
+
+        pointsPanel.add(coinImageLabel);
+        pointsPanel.add(pointsTitle);
+
+        timePanel.add(timeImageLabel);
+        timePanel.add(timeTitle);
+
+        southArea.add(checkButton);
+        southArea.add(continueButton);
+        
+        quizPanel.add(question);
+
+        middlePane.add(northArea, BorderLayout.NORTH);
+        middlePane.add(southArea, BorderLayout.SOUTH);
+        middlePane.add(mainQuizPanel, BorderLayout.CENTER);
+        southPane.add(pointsPanel, BorderLayout.EAST);
+        southPane.add(timePanel, BorderLayout.WEST);
+
+        setUpButtonListeners();
+        EventQueue.invokeLater(() -> answerField.requestFocusInWindow());
+    }
+
+    public void setPanes() {
         middlePane = new JPanel();
-        JPanel southPane = new JPanel();
         middlePane.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         middlePane.setBackground(new Color(237, 243, 249));
         middlePane.setLayout(new BorderLayout());
         this.add(middlePane, BorderLayout.CENTER);
+
+        southPane = new JPanel();
         southPane.setBackground(new Color(50, 34, 151));
         southPane.setLayout(new BorderLayout());
-        // southPane2.setLayout(new FlowLayout(FlowLayout.LEFT));
-        // southPane2.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+        this.add(southPane, BorderLayout.SOUTH);
+    }
 
-        coinPicture = new ImageIcon("src/images/coin_small.png");
-        timePicture = new ImageIcon("src/images/time_small.png");
-        thumbsDownPicture = new ImageIcon("src/images/thumbsDown.png");
-        thumbsUpPicture = new ImageIcon("src/images/thumbsUp.png");
-        JPanel pointsPanel = new JPanel();
-        JPanel timePanel = new JPanel();
+    public void setPanels() {
+
+        // Create Points and Time Panels to southBorder
+        pointsPanel = new JPanel();
         pointsPanel.setBackground(new Color(50, 34, 151));
+
+        timePanel = new JPanel();
         timePanel.setBackground(new Color(50, 34, 151));
         timePanel.setLayout(new FlowLayout(FlowLayout.LEFT));
-
-        JLabel timeTitle = new JLabel("00:12", JLabel.CENTER);
-        JLabel pointsTitle = new JLabel("5000", JLabel.CENTER);
-        timeTitle.setForeground(new Color(255, 255, 255));
-        timeTitle.setFont(new Font("Arial", Font.BOLD, 15));
-        pointsTitle.setForeground(new Color(255, 255, 255));
-        pointsTitle.setFont(new Font("Arial", Font.BOLD, 15));
-
-        coinImageLabel = new JLabel();
-        timeImageLabel = new JLabel();
-        coinImageLabel.setLayout(new FlowLayout(FlowLayout.RIGHT));
-        timePanel.setLayout(new FlowLayout(FlowLayout.LEFT));
         timePanel.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
-        thumbsLabel = new JLabel();
-        thumbsLabel.setLayout(new FlowLayout(FlowLayout.RIGHT));
 
-        coinImageLabel.setIcon(coinPicture);
-        timeImageLabel.setIcon(timePicture);
-
-        pointsPanel.add(coinImageLabel);
-        pointsPanel.add(pointsTitle);
-        timePanel.add(timeImageLabel);
-        timePanel.add(timeTitle);
-        // southPane2.setOpaque(false);
-        // southPane2.add(timePanel);
-
-        this.add(southPane, BorderLayout.SOUTH);
-        // this.add(southPane2, BorderLayout.SOUTH);
-
-        // Create buttons Check and Continue
-        checkButton = new JButton("TARKISTA");
-        checkButton.setBackground(new Color(255, 164, 58));
-        checkButton.setFont((new Font("Arial", Font.BOLD, 20)));
-        checkButton.setHorizontalAlignment(SwingConstants.CENTER);
-
-        continueButton = new JButton("JATKA");
-        continueButton.setBackground(new Color(255, 164, 58));
-        continueButton.setFont((new Font("Arial", Font.BOLD, 20)));
-        continueButton.setHorizontalAlignment(SwingConstants.CENTER);
-
-        // Create Panel to the south of middlePanel for buttons
-        southArea = new JPanel();
-        southArea.setLayout(new FlowLayout(FlowLayout.RIGHT));
-        southArea.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-        southArea.add(checkButton);
-        southArea.add(continueButton);
-        continueButton.setVisible(false);
-
-        // Create Panel to the north of middlePanel for question Calculator
+        // Create Panel to the north area of middlePanel for question Calculator
         northArea = new JPanel();
         northArea.setLayout(new FlowLayout(FlowLayout.LEFT));
         northArea.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
 
-        gameQuestionCalculator();
+        // Create Panel to the south area of middlePanel for Check and Continue buttons
+        southArea = new JPanel();
+        southArea.setLayout(new FlowLayout(FlowLayout.RIGHT));
+        southArea.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 
+        // Create container Panel for question and answer
         mainQuizPanel = new JPanel(new GridBagLayout());
         cConstraints = new GridBagConstraints();
         cConstraints.insets = new Insets(20, 20, 20, 20);
         cConstraints.gridx = 0;
         cConstraints.gridy = 0;
+
+        // Create Panel for question and add it to mainQuizPanel
         quizPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-
-        question = new JLabel(questions.get(0).toString() + " " + "+ " + questions.get(1).toString());
-        question.setFont((new Font("Arial", Font.BOLD, 50)));
         mainQuizPanel.add(quizPanel, cConstraints);
-        quizPanel.add(question);
+    }
 
-        // Set up JTextField answerField
+    public void setLabels() {
+        // answerImageLabel = new JLabel();
+        questionNumberLabel = new JLabel();
+
+        coinImageLabel = new JLabel();
+        coinImageLabel.setLayout(new FlowLayout(FlowLayout.RIGHT));
+
+        timeImageLabel = new JLabel();
+
+        thumbsLabel = new JLabel();
+        thumbsLabel.setLayout(new FlowLayout(FlowLayout.RIGHT));
+
+        timeTitle = new JLabel("00:12", JLabel.CENTER);
+        timeTitle.setForeground(pointsAndTimeFontColor);
+        timeTitle.setFont(pointsAndTimeFont);
+
+        pointsTitle = new JLabel("5000", JLabel.CENTER);
+        pointsTitle.setForeground(pointsAndTimeFontColor);
+        pointsTitle.setFont(pointsAndTimeFont);
+
+        coinImageLabel.setIcon(coinPicture);
+        timeImageLabel.setIcon(timePicture);
+
+    }
+
+    public void setPictures() {
+        coinPicture = new ImageIcon("src/images/coin_small.png");
+        timePicture = new ImageIcon("src/images/time_small.png");
+        thumbsDownPicture = new ImageIcon("src/images/thumbsDown.png");
+        thumbsUpPicture = new ImageIcon("src/images/thumbsUp.png");
+    }
+
+    public void setButtons() {
+        checkButton = new JButton("TARKISTA");
+        checkButton.setBackground(buttonBackgroud);
+        checkButton.setFont(buttonFont);
+        checkButton.setHorizontalAlignment(SwingConstants.CENTER);
+
+        continueButton = new JButton("JATKA");
+        continueButton.setBackground(buttonBackgroud);
+        continueButton.setFont(buttonFont);
+        continueButton.setHorizontalAlignment(SwingConstants.CENTER);
+        continueButton.setVisible(false);
+    }
+
+    public void setFields() {
+        // Set JTextField answerField
         answerField = new JTextField(2);
         answerField.setHorizontalAlignment(JTextField.CENTER);
         answerField.setFont(questionFont);
@@ -137,17 +186,6 @@ public class GamePanel extends JPanel {
         cConstraints.gridx = 1;
         cConstraints.gridy = 0;
         mainQuizPanel.add(answerField, cConstraints);
-
-        middlePane.add(northArea, BorderLayout.NORTH);
-        middlePane.add(southArea, BorderLayout.SOUTH);
-
-        middlePane.add(mainQuizPanel, BorderLayout.CENTER);
-        southPane.add(pointsPanel, BorderLayout.EAST);
-        southPane.add(timePanel, BorderLayout.WEST);
-
-        setUpButtonListeners();
-        EventQueue.invokeLater(() -> answerField.requestFocusInWindow());
-
     }
 
     public void gameQuestionCalculator() {
@@ -168,6 +206,11 @@ public class GamePanel extends JPanel {
         }
     }
 
+    public void setQuestion() {
+        question = new JLabel(questions.get(0).toString() + " " + "+ " + questions.get(1).toString() + " =");
+        question.setFont(questionFont);
+    }
+
     public void continueToNextQuestion() {
         questionCalculator = gameController.getQuestionCalculator();
         thumbsLabel.setVisible(false);
@@ -180,23 +223,24 @@ public class GamePanel extends JPanel {
         questions = gameController.askQuestion();
 
         quizPanel.remove(question);
-        question = new JLabel(questions.get(0).toString() + " " + "+ " + questions.get(1).toString() + " =");
-        question.setFont(questionFont);
+        // question = new JLabel(questions.get(0).toString() + " " + "+ " +
+        // questions.get(1).toString() + " =");
+        // question.setFont(questionFont);
+        setQuestion();
         gameQuestionCalculator();
         quizPanel.add(question);
         EventQueue.invokeLater(() -> answerField.requestFocusInWindow());
 
     }
 
-
     public void setThumbsConstraints() {
         cConstraints.gridx = 0;
         cConstraints.gridy = 3;
         cConstraints.gridwidth = 2;
         mainQuizPanel.add(thumbsLabel, cConstraints);
+    // southArea.add(thumbsLabel, cConstraints);
         thumbsLabel.setVisible(true);
     }
-
 
     public void checkAnswer() {
         boolean correctFormat = parseInt(answerField.getText());
@@ -230,13 +274,11 @@ public class GamePanel extends JPanel {
         answerField.setBackground(Color.LIGHT_GRAY);
 
         thumbsLabel.setIcon(thumbsDownPicture);
-       setThumbsConstraints();
+        setThumbsConstraints();
         // päivitä pisteet
         checkButton.setVisible(false);
         continueButton.setVisible(true);
     }
-
-    
 
     public void setUpButtonListeners() {
 

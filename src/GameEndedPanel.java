@@ -225,9 +225,11 @@ public class GameEndedPanel extends JPanel {
             } else if (isNewHighScore && newStarAchieved) {
                 text = "Uusi ennätys ja tähti!";  
                 JPanel imagepanel1 = new TrophyPanel();
+                Box.Filler filler = new Box.Filler(new Dimension(15, 15), new Dimension(30, 30), new Dimension(45, 45));
                 JPanel imagePanel2 = new StarPanel();
                 imagePanel = new JPanel();
                 imagePanel.add(imagepanel1);
+                imagePanel.add(filler);
                 imagePanel.add(imagePanel2);
                 imagePanel.setLayout(new BoxLayout(imagePanel, BoxLayout.X_AXIS));
 
@@ -371,7 +373,9 @@ public class GameEndedPanel extends JPanel {
             ImageIcon trophy = new ImageIcon("src/images/trophy_small.png");
             JLabel trophyLabel = new JLabel();
             trophyLabel.setIcon(trophy);
-            this.setBackground(new Color(237, 243, 249));
+            //trophyLabel.setPreferredSize(new Dimension(150, 151));
+            //trophyLabel.setMinimumSize(new Dimension(150, 151));
+            trophyLabel.setBackground(new Color(158, 60, 167));
             trophyLabel.setAlignmentX(CENTER_ALIGNMENT);
 
             Box.Filler filler2 = new Box.Filler(new Dimension(2, 2), new Dimension(5, 5),
@@ -386,6 +390,7 @@ public class GameEndedPanel extends JPanel {
             this.add(trophyLabel);
             this.add(rankLabel);
             this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+            this.setBackground(new Color(237, 243, 249));
             //this.setAlignmentY(BoxLayout.Y_AXIS);
 
         }

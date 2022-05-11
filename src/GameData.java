@@ -73,8 +73,8 @@ public class GameData {
 
     public ArrayList<Integer> getNextQuestion() {
         questionCalculator++;
-        //if (questionCalculator > 3) {
-        if (questionCalculator > 15) {
+        if (questionCalculator > 3) {
+        //if (questionCalculator > 15) {
             // tästä kutsuttaisiin sitten gamControllerin kautta lopetuspaneelia?
             return null;
         } else {

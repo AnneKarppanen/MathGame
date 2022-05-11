@@ -342,7 +342,8 @@ public class GamePanel extends JPanel {
                     checkAnswer();
 
                 } else if (source == continueButton) {
-                    if (questionCalculator < 15) {
+                    if (questionCalculator < 3) {
+                    //if (questionCalculator < 15) {
                         second = 16;
                         timer.start();
                         continueToNextQuestion();

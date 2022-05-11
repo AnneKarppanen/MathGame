@@ -14,8 +14,8 @@ public class HighscoreChart {
 
         if(additionHighScores.size() == 0) {
             rank = 1;
-        } else if (points < lowestHighScore) {
-            rank = 0;
+        //} else if (points < lowestHighScore) {
+        //    rank = 0;
         } else {
             int index = 0;
             for (HighscoreLine record : additionHighScores) {
@@ -25,7 +25,7 @@ public class HighscoreChart {
                 }
                 index++;
             }
-            rank = index;
+            rank = index + 1;
         }
 
         return rank;

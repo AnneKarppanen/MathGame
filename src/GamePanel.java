@@ -3,7 +3,9 @@ import javax.swing.text.StyleConstants.FontConstants;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
+import javax.swing.Timer;
 
 public class GamePanel extends JPanel {
 
@@ -21,7 +23,7 @@ public class GamePanel extends JPanel {
     private JLabel questionNumberLabel = null;
     private JLabel thumbsLabel = null;
     private JLabel question = null;
-    private JLabel timeTitle = null;
+    private JLabel timeCounter = null;
     private JLabel pointsTitle = null;
 
     private JButton checkButton = null;
@@ -43,6 +45,11 @@ public class GamePanel extends JPanel {
     private ArrayList questions = null;
     private int questionCalculator = 1;
     private GridBagConstraints cConstraints;
+    private Timer timer;
+    private int second = 16;
+    private int minute = 0;
+    private String formattedSecond, formattedMinute;
+    private DecimalFormat counterFormat = new DecimalFormat("00");
     
     // private JLabel pointsLabel = null;
     // private JLabel timeLabel = null;
@@ -68,7 +75,7 @@ public class GamePanel extends JPanel {
         pointsPanel.add(pointsTitle);
 
         timePanel.add(timeImageLabel);
-        timePanel.add(timeTitle);
+        timePanel.add(timeCounter);
 
         southArea.add(checkButton);
         southArea.add(continueButton);
@@ -81,10 +88,33 @@ public class GamePanel extends JPanel {
         southPane.add(pointsPanel, BorderLayout.EAST);
         southPane.add(timePanel, BorderLayout.WEST);
 
+
         
 
         setUpButtonListeners();
         EventQueue.invokeLater(() -> answerField.requestFocusInWindow());
+        
+        
+        countdownTimer();
+        timer.start();
+    }
+
+    public void countdownTimer(){
+        this.timer = new Timer(1000, new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+              
+                second--;
+                formattedSecond = counterFormat.format(second);
+                formattedMinute = counterFormat.format(minute);
+                
+             timeCounter.setText(formattedMinute + ":" + formattedSecond);
+             if(second == 0){
+                 timer.stop();
+             }
+             
+            }
+        });
     }
 
     public void setPanes() {
@@ -145,9 +175,11 @@ public class GamePanel extends JPanel {
         thumbsLabel = new JLabel();
         thumbsLabel.setLayout(new FlowLayout(FlowLayout.RIGHT));
 
-        timeTitle = new JLabel("00:12", JLabel.CENTER);
-        timeTitle.setForeground(pointsAndTimeFontColor);
-        timeTitle.setFont(pointsAndTimeFont);
+      //  timeCounter = new JLabel("00:12", JLabel.CENTER);
+      timeCounter = new JLabel();
+      timeCounter.setHorizontalAlignment(JLabel.CENTER);
+        timeCounter.setForeground(pointsAndTimeFontColor);
+        timeCounter.setFont(pointsAndTimeFont);
 
         pointsTitle = new JLabel("5000", JLabel.CENTER);
         pointsTitle.setForeground(pointsAndTimeFontColor);
@@ -229,10 +261,15 @@ public class GamePanel extends JPanel {
         // question = new JLabel(questions.get(0).toString() + " " + "+ " +
         // questions.get(1).toString() + " =");
         // question.setFont(questionFont);
+        
         setQuestion();
         gameQuestionCalculator();
         quizPanel.add(question);
         EventQueue.invokeLater(() -> answerField.requestFocusInWindow());
+
+        
+       // countdownTimer();
+      
 
     }
 
@@ -295,15 +332,19 @@ public class GamePanel extends JPanel {
         ActionListener buttonListener = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                timer.stop();
                 answerField.setEditable(false);
                 answerField.setBackground(Color.LIGHT_GRAY);
                 Object source = e.getSource();
 
                 if (source == checkButton) {
+                    timer.stop();
                     checkAnswer();
 
                 } else if (source == continueButton) {
                     if (questionCalculator < 15) {
+                        second = 16;
+                        timer.start();
                         continueToNextQuestion();
                     } else {
                         gameController.showGameEndPanel();

@@ -19,7 +19,7 @@ public class GamePanel extends JPanel {
     private JLabel pointsLabel = null;
     private JLabel timeLabel = null;
     private GameController gameController;
-    private JTextField answerField;
+    private JTextField answerField = null;
     private ImageIcon thumbsDownPicture = null;
     private ImageIcon thumbsUpPicture = null;
     private JPanel mainQuizPanel = null;
@@ -28,7 +28,7 @@ public class GamePanel extends JPanel {
     private JLabel question = null;
     private JPanel quizPanel = null;
     private Font questionFont = new Font("Arial", Font.BOLD, 50);
-    private  JLabel questionNumber = null;
+    private JLabel questionNumber = null;
     private JLabel thumbsLabel = null;
     private GridBagConstraints cConstraints;
 
@@ -54,7 +54,7 @@ public class GamePanel extends JPanel {
 
         coinPicture = new ImageIcon("src/images/coin_small.png");
         timePicture = new ImageIcon("src/images/time_small.png");
-        thumbsDownPicture = new ImageIcon("src/images/thumbs down.png");
+        thumbsDownPicture = new ImageIcon("src/images/thumbsDown.png");
         thumbsUpPicture = new ImageIcon("src/images/thumbsUp.png");
         JPanel pointsPanel = new JPanel();
         JPanel timePanel = new JPanel();
@@ -90,19 +90,18 @@ public class GamePanel extends JPanel {
         this.add(southPane, BorderLayout.SOUTH);
         // this.add(southPane2, BorderLayout.SOUTH);
 
-        //Create buttons Check and Continue
+        // Create buttons Check and Continue
         checkButton = new JButton("TARKISTA");
         checkButton.setBackground(new Color(255, 164, 58));
         checkButton.setFont((new Font("Arial", Font.BOLD, 20)));
         checkButton.setHorizontalAlignment(SwingConstants.CENTER);
-       
 
         continueButton = new JButton("JATKA");
         continueButton.setBackground(new Color(255, 164, 58));
         continueButton.setFont((new Font("Arial", Font.BOLD, 20)));
         continueButton.setHorizontalAlignment(SwingConstants.CENTER);
 
-        //Create Panel to the south of middlePanel for buttons
+        // Create Panel to the south of middlePanel for buttons
         southArea = new JPanel();
         southArea.setLayout(new FlowLayout(FlowLayout.RIGHT));
         southArea.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
@@ -110,13 +109,12 @@ public class GamePanel extends JPanel {
         southArea.add(continueButton);
         continueButton.setVisible(false);
 
-        //Create Panel to the north of middlePanel for question Calculator
+        // Create Panel to the north of middlePanel for question Calculator
         northArea = new JPanel();
         northArea.setLayout(new FlowLayout(FlowLayout.LEFT));
         northArea.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
-        
-        gameQuestionCalculator();
 
+        gameQuestionCalculator();
 
         mainQuizPanel = new JPanel(new GridBagLayout());
         cConstraints = new GridBagConstraints();
@@ -130,7 +128,7 @@ public class GamePanel extends JPanel {
         mainQuizPanel.add(quizPanel, cConstraints);
         quizPanel.add(question);
 
-        //Set up JTextField answerField 
+        // Set up JTextField answerField
         answerField = new JTextField(2);
         answerField.setHorizontalAlignment(JTextField.CENTER);
         answerField.setFont(questionFont);
@@ -142,14 +140,6 @@ public class GamePanel extends JPanel {
         // answerField.requestFocus();
         // answerField.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
-        answerField.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent event) {
-                System.out.println("The entered answer is: " + answerField.getText());
-                answerField.setEditable(false);
-            }
-        });
-
         middlePane.add(northArea, BorderLayout.NORTH);
         middlePane.add(southArea, BorderLayout.SOUTH);
 
@@ -157,7 +147,6 @@ public class GamePanel extends JPanel {
 
         southPane.add(pointsPanel, BorderLayout.EAST);
         southPane.add(timePanel, BorderLayout.WEST);
-
 
         setUpButtonListeners();
         // answerField.setVisible(true);
@@ -167,8 +156,9 @@ public class GamePanel extends JPanel {
         EventQueue.invokeLater(() -> answerField.requestFocusInWindow());
 
     }
-    public void gameQuestionCalculator(){
-       questionNumber.setText("");
+
+    public void gameQuestionCalculator() {
+        questionNumber.setText("");
         questionNumber.setText(questionCalculator + " / 15");
         questionNumber.setFont((new Font("Arial", Font.BOLD, 20)));
         northArea.add(questionNumber);
@@ -186,6 +176,8 @@ public class GamePanel extends JPanel {
     }
 
     public void continueToNextQuestion() {
+        questionCalculator = gameController.getQuestionCalculator();
+        thumbsLabel.setVisible(false);
         answerField.setEditable(true);
         answerField.setBackground(Color.WHITE);
         answerField.setText("");
@@ -205,6 +197,16 @@ public class GamePanel extends JPanel {
     }
 
     public void setUpButtonListeners() {
+
+        answerField.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent event) {
+                System.out.println("The entered answer is: " + answerField.getText());
+                answerField.setEditable(false);
+                answerField.setBackground(Color.LIGHT_GRAY);
+            }
+        });
+
         ActionListener buttonListener = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -213,7 +215,7 @@ public class GamePanel extends JPanel {
                 Object source = e.getSource();
                 if (source == checkButton) {
                     System.out.println("Chackbutton was pressed");
-                    questionCalculator = gameController.getQuestionCalculator();
+                 //   questionCalculator = gameController.getQuestionCalculator();
                     System.out.println("Kalkulaattori on: " + questionCalculator);
                     boolean correctFormat = parseInt(answerField.getText());
                     if (correctFormat) {
@@ -223,42 +225,56 @@ public class GamePanel extends JPanel {
 
                         if (answerCorrect) {
                             System.out.println("Vastaus oli oikein");
-                            
+
                             answerField.setEditable(false);
-                answerField.setBackground(Color.LIGHT_GRAY);
-    
-                thumbsLabel.setIcon(thumbsUpPicture);
-                cConstraints.gridx = 0;
-        cConstraints.gridy = 1;
-                        mainQuizPanel.add(thumbsLabel, cConstraints);
+                            answerField.setBackground(Color.LIGHT_GRAY);
+
+                            thumbsLabel.setIcon(thumbsUpPicture);
+                            cConstraints.gridx = 0;
+                            cConstraints.gridy = 3;
+                            cConstraints.gridwidth = 2;
+                            mainQuizPanel.add(thumbsLabel, cConstraints);
+                            thumbsLabel.setVisible(true);
                             // päivitä pisteet
                             checkButton.setVisible(false);
                             continueButton.setVisible(true);
                         } else {
                             answerField.setEditable(false);
-                answerField.setBackground(Color.LIGHT_GRAY);
-                            // laske peukku
+                            answerField.setBackground(Color.LIGHT_GRAY);
+
+                            thumbsLabel.setIcon(thumbsDownPicture);
+                            cConstraints.gridx = 0;
+                            cConstraints.gridy = 3;
+                            cConstraints.gridwidth = 2;
+                            mainQuizPanel.add(thumbsLabel, cConstraints);
+                            thumbsLabel.setVisible(true);
+                            // päivitä pisteet
                             checkButton.setVisible(false);
-                            southArea.add(continueButton);
+                            continueButton.setVisible(true);
+
+                            checkButton.setVisible(false);
+                            continueButton.setVisible(true);
 
                         }
 
                     } else {
                         // vastaus oli väärin, näytä peukku alas
                         answerField.setEditable(false);
-                answerField.setBackground(Color.LIGHT_GRAY);
-                thumbsLabel.setIcon(thumbsDownPicture);
-                cConstraints.gridx = 1;
-        cConstraints.gridy = 1;
-                        mainQuizPanel.add(thumbsLabel);
-                        // lisää jatkapainike
+                        answerField.setBackground(Color.LIGHT_GRAY);
+                        thumbsLabel.setIcon(thumbsDownPicture);
+                        cConstraints.gridx = 0;
+                        cConstraints.gridy = 1;
+                        cConstraints.gridwidth = 2;
+                        mainQuizPanel.add(thumbsLabel, cConstraints);
+                        checkButton.setVisible(false);
+                        continueButton.setVisible(true);
                     }
 
                 } else if (source == continueButton) {
                     System.out.println("Kysymysnro on " + questionCalculator);
-                    if (questionCalculator < 15){
-                    continueToNextQuestion();
-                    }else{
+                    if (questionCalculator < 15) {
+                        continueToNextQuestion();
+                    } else {
                         gameController.showGameEndPanel();
                     }
                 }

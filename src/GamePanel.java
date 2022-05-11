@@ -41,7 +41,7 @@ public class GamePanel extends JPanel {
     private GameController gameController;
     private JTextField answerField = null;
     private ArrayList questions = null;
-    private int questionCalculator = 0;
+    private int questionCalculator = 1;
     private GridBagConstraints cConstraints;
     
     // private JLabel pointsLabel = null;
@@ -214,7 +214,7 @@ public class GamePanel extends JPanel {
     }
 
     public void continueToNextQuestion() {
-        questionCalculator = gameController.getQuestionCalculator();
+        
         thumbsLabel.setVisible(false);
         answerField.setEditable(true);
         answerField.setBackground(Color.WHITE);
@@ -223,6 +223,7 @@ public class GamePanel extends JPanel {
         checkButton.setVisible(true);
 
         questions = gameController.askQuestion();
+        questionCalculator = gameController.getQuestionCalculator();
 
         quizPanel.remove(question);
         // question = new JLabel(questions.get(0).toString() + " " + "+ " +

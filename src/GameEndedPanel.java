@@ -71,7 +71,17 @@ public class GameEndedPanel extends JPanel {
         middlePane.add(pointsPanel, cConstraints);
 
         // JPanel resultPanel = new NormalGameEndPanel();
-        JPanel resultPanel = new GameEndPanelStar();
+        // JPanel resultPanel = new GameEndPanelStar();
+        //JPanel resultPanel = new GameEndPanelHighScore();
+
+        JPanel resultPanel = new JPanel();
+
+        if (!newStarAchieved && !isNewHighScore) {
+            resultPanel = new NormalGameEndPanel();
+        } else {
+            resultPanel = new AchievementPanel(newStarAchieved, isNewHighScore);
+        }
+
         cConstraints.gridx = 0;
         cConstraints.gridy = 2;
         middlePane.add(resultPanel, cConstraints);
@@ -153,71 +163,169 @@ public class GameEndedPanel extends JPanel {
 
     }
 
-    private class GameEndPanelStar extends JPanel {
+    /*
+     * private class GameEndPanelStar extends JPanel {
+     * 
+     * private GameEndPanelStar() {
+     * 
+     * JLabel youGotStar = new JLabel("Ansaitsit tähden!");
+     * youGotStar.setFont(new Font("Arial", Font.ITALIC, 50));
+     * youGotStar.setForeground(new Color(158, 60, 167));
+     * youGotStar.setAlignmentX(CENTER_ALIGNMENT);
+     * 
+     * Box.Filler filler = new Box.Filler(new Dimension(5,5), new Dimension(10,10),
+     * new Dimension(15,15));
+     * 
+     * ImageIcon star = new ImageIcon("src/images/starAchieved_small.png");
+     * JLabel starLabel = new JLabel();
+     * starLabel.setIcon(star);
+     * this.setBackground(new Color(237, 243, 249));
+     * starLabel.setAlignmentX(CENTER_ALIGNMENT);
+     * 
+     * Box.Filler filler2 = new Box.Filler(new Dimension(2,2), new Dimension(5,5),
+     * new Dimension(10,10));
+     * 
+     * int starAmount =
+     * GameController.getInstance().getGameData().getNumberOfStarsAtTheEnd();
+     * JLabel amountOfStars = new JLabel(String.valueOf(starAmount) + " / 3");
+     * amountOfStars.setFont(new Font("Arial", Font.BOLD, 25));
+     * amountOfStars.setForeground(new Color(50, 34, 151));
+     * amountOfStars.setAlignmentX(CENTER_ALIGNMENT);
+     * 
+     * this.setBackground(new Color(237, 243, 249));
+     * this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+     * this.add(youGotStar);
+     * this.add(filler);
+     * this.add(starLabel);
+     * this.add(filler2);
+     * this.add(amountOfStars);
+     * 
+     * 
+     * }
+     * 
+     * }
+     */
 
-        private GameEndPanelStar() {
+    private class AchievementPanel extends JPanel {
 
-            JLabel youGotStar = new JLabel("Ansaitsit tähden!");
-            youGotStar.setFont(new Font("Arial", Font.ITALIC, 50));
-            youGotStar.setForeground(new Color(158, 60, 167));
-            youGotStar.setAlignmentX(CENTER_ALIGNMENT);
+        private AchievementPanel(boolean newStarAchieved, boolean isNewHighScore) {
 
-            Box.Filler filler = new Box.Filler(new Dimension(5,5), new Dimension(10,10), new Dimension(15,15));
+            String text = null;
+            JLabel caption = null;
+            JPanel imagePanel = null;
 
-            ImageIcon star = new ImageIcon("src/images/starAchieved_small.png");
-            JLabel starLabel = new JLabel();
-            starLabel.setIcon(star);
-            this.setBackground(new Color(237, 243, 249));
-            starLabel.setAlignmentX(CENTER_ALIGNMENT);
+            if (newStarAchieved && !isNewHighScore) {
+                text = "Ansaitsit tähden!";
+                imagePanel = new StarPanel();
 
-            Box.Filler filler2 = new Box.Filler(new Dimension(2,2), new Dimension(5,5), new Dimension(10,10));
+            } else if (isNewHighScore && !newStarAchieved) {
+                text = "Uusi ennätys!";
+                imagePanel = new TrophyPanel();
 
-            int starAmount = GameController.getInstance().getGameData().getNumberOfStarsAtTheEnd();
-            JLabel amountOfStars = new JLabel(String.valueOf(starAmount) + " / 3");
-            amountOfStars.setFont(new Font("Arial", Font.BOLD, 25));
-            amountOfStars.setForeground(new Color(50, 34, 151));
-            amountOfStars.setAlignmentX(CENTER_ALIGNMENT);
+            } else if (isNewHighScore && newStarAchieved) {
+                text = "Uusi ennätys ja tähti!";  
+                JPanel imagepanel1 = new TrophyPanel();
+                JPanel imagePanel2 = new StarPanel();
+                imagePanel = new JPanel();
+                imagePanel.add(imagepanel1);
+                imagePanel.add(imagePanel2);
+                imagePanel.setLayout(new BoxLayout(imagePanel, BoxLayout.X_AXIS));
+
+            }
+
+            JLabel textLabel = new JLabel(text);
+            textLabel.setFont(new Font("Arial", Font.ITALIC, 50));
+            textLabel.setForeground(new Color(158, 60, 167));
+            textLabel.setAlignmentX(CENTER_ALIGNMENT);
+
+            Box.Filler filler = new Box.Filler(new Dimension(5, 5), new Dimension(10, 10), new Dimension(15, 15));
+
+            /*ImageIcon image = new ImageIcon(imagePath);
+            JLabel imageLabel = new JLabel();
+            imageLabel.setIcon(image);
+            this.setBackground(new Color(237, 243, 249));*/
+            //imagePanel.setAlignmentX(CENTER_ALIGNMENT);
+
+            Box.Filler filler2 = new Box.Filler(new Dimension(2, 2), new Dimension(5, 5), new Dimension(10, 10));
+
+            /*caption.setFont(new Font("Arial", Font.BOLD, 25));
+            caption.setForeground(new Color(50, 34, 151));
+            caption.setAlignmentX(CENTER_ALIGNMENT);*/
 
             this.setBackground(new Color(237, 243, 249));
             this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-            this.add(youGotStar);
+            this.add(textLabel);
             this.add(filler);
-            this.add(starLabel);
+            this.add(imagePanel);
             this.add(filler2);
-            this.add(amountOfStars);
+            //this.add(caption);
+
+        }
+
+    }
+
+    /*private class ImagePanel extends JPanel {
+
+        public ImagePanel(String filePath, JLabel caption) {
             
-
-        }
-
-    }
-
-    private class GameEndPanelHighScore extends JPanel {
-
-        private GameEndPanelHighScore() {
-            JLabel youGotStar = new JLabel("Ansaitsit tähden!");
-            youGotStar.setFont(new Font("Arial", Font.ITALIC, 50));
-            youGotStar.setForeground(new Color(158, 60, 167));
-
-            ImageIcon smiley = new ImageIcon("src/images/smiley_small.png");
-            JLabel starLabel = new JLabel();
-            starLabel.setIcon(smiley);
-
-            int pointAmount = GameController.getInstance().getCurrentPoints();
-            JLabel amountOfStars = new JLabel(String.valueOf(pointAmount));
-            amountOfStars.setFont(new Font("Arial", Font.BOLD, 90));
-            amountOfStars.setForeground(new Color(158, 60, 167));
-            amountOfStars.setAlignmentY(Component.BOTTOM_ALIGNMENT);
-
+            ImageIcon trophy = new ImageIcon(filePath);
+            JLabel trophyLabel = new JLabel();
+            trophyLabel.setIcon(trophy);
             this.setBackground(new Color(237, 243, 249));
-            this.add(youGotStar);
-            this.add(starLabel);
-            this.add(amountOfStars);
+            trophyLabel.setAlignmentX(CENTER_ALIGNMENT);
 
+            Box.Filler filler2 = new Box.Filler(new Dimension(2, 2), new Dimension(5, 5),
+                    new Dimension(10, 10));
+
+            caption.setFont(new Font("Arial", Font.BOLD, 25));
+            caption.setForeground(new Color(50, 34, 151));
+            caption.setAlignmentX(CENTER_ALIGNMENT);
         }
 
-    }
+    }*/
 
-    private class GameEndPanelStarAndHighScore extends JPanel {
+    /*
+     * private class GameEndPanelHighScore extends JPanel {
+     * 
+     * private GameEndPanelHighScore() {
+     * 
+     * JLabel newHighScore = new JLabel("Uusi ennätys!");
+     * newHighScore.setFont(new Font("Arial", Font.ITALIC, 50));
+     * newHighScore.setForeground(new Color(158, 60, 167));
+     * newHighScore.setAlignmentX(CENTER_ALIGNMENT);
+     * 
+     * Box.Filler filler = new Box.Filler(new Dimension(5,5), new Dimension(10,10),
+     * new Dimension(15,15));
+     * 
+     * ImageIcon trophy = new ImageIcon("src/images/trophy_small.png");
+     * JLabel trophyLabel = new JLabel();
+     * trophyLabel.setIcon(trophy);
+     * this.setBackground(new Color(237, 243, 249));
+     * trophyLabel.setAlignmentX(CENTER_ALIGNMENT);
+     * 
+     * Box.Filler filler2 = new Box.Filler(new Dimension(2,2), new Dimension(5,5),
+     * new Dimension(10,10));
+     * 
+     * int rank = GameController.getInstance().getGameData().getRankAtTheEnd();
+     * JLabel rankLabel = new JLabel(String.valueOf(rank) + ". SIJA");
+     * rankLabel.setFont(new Font("Arial", Font.BOLD, 25));
+     * rankLabel.setForeground(new Color(50, 34, 151));
+     * rankLabel.setAlignmentX(CENTER_ALIGNMENT);
+     * 
+     * this.setBackground(new Color(237, 243, 249));
+     * this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+     * this.add(newHighScore);
+     * this.add(filler);
+     * this.add(trophyLabel);
+     * this.add(filler2);
+     * this.add(rankLabel);
+     * 
+     * }
+     * 
+     * }
+     */
+
+    /*private class GameEndPanelStarAndHighScore extends JPanel {
 
         private GameEndPanelStarAndHighScore() {
             ImageIcon smiley = new ImageIcon("src/images/smiley_small.png");
@@ -228,5 +336,60 @@ public class GameEndedPanel extends JPanel {
 
         }
 
+    }*/
+
+    private class StarPanel extends JPanel {
+
+        public StarPanel() {
+
+            ImageIcon star = new ImageIcon("src/images/starAchieved_small.png");
+            JLabel starLabel = new JLabel();
+            starLabel.setIcon(star);
+            this.setBackground(new Color(237, 243, 249));
+            starLabel.setAlignmentX(CENTER_ALIGNMENT);
+
+            Box.Filler filler2 = new Box.Filler(new Dimension(2, 2), new Dimension(5, 5), new Dimension(10, 10));
+
+            int starAmount = GameController.getInstance().getGameData().getNumberOfStarsAtTheEnd();
+            JLabel amountOfStars = new JLabel(String.valueOf(starAmount) + " / 3");
+            amountOfStars.setFont(new Font("Arial", Font.BOLD, 25));
+            amountOfStars.setForeground(new Color(50, 34, 151));
+            amountOfStars.setAlignmentX(CENTER_ALIGNMENT);
+            
+            this.add(starLabel);
+            this.add(amountOfStars);
+            this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+            //this.setAlignmentY(BoxLayout.Y_AXIS);
+        }
+
     }
+
+    private class TrophyPanel extends JPanel {
+
+        public TrophyPanel() {
+
+            ImageIcon trophy = new ImageIcon("src/images/trophy_small.png");
+            JLabel trophyLabel = new JLabel();
+            trophyLabel.setIcon(trophy);
+            this.setBackground(new Color(237, 243, 249));
+            trophyLabel.setAlignmentX(CENTER_ALIGNMENT);
+
+            Box.Filler filler2 = new Box.Filler(new Dimension(2, 2), new Dimension(5, 5),
+                    new Dimension(10, 10));
+
+            int rank = GameController.getInstance().getGameData().getRankAtTheEnd();
+            JLabel rankLabel = new JLabel(String.valueOf(rank) + ". SIJA");
+            rankLabel.setFont(new Font("Arial", Font.BOLD, 25));
+            rankLabel.setForeground(new Color(50, 34, 151));
+            rankLabel.setAlignmentX(CENTER_ALIGNMENT);
+
+            this.add(trophyLabel);
+            this.add(rankLabel);
+            this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+            //this.setAlignmentY(BoxLayout.Y_AXIS);
+
+        }
+
+    }
+
 }

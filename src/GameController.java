@@ -122,7 +122,10 @@ public class GameController {
     public void showGameEndPanel() {
         gameData.countGameResults(highscores);
         user.saveNewPoints(gameData.getOperation(), gameData.getPoints(), gameData.getMaximum(), gameData.getLevel());
-        JPanel gameEndedPanel = new GameEndedPanel(gameData.getNewStarAchieved(), gameData.getNewHighScore(), gameData.getPoints());
+        boolean isNewStarAchieved = gameData.getNewStarAchieved();
+        boolean isNewHighScore = gameData.getNewHighScore();
+        int points = gameData.getPoints();
+        JPanel gameEndedPanel = new GameEndedPanel(isNewStarAchieved, isNewHighScore, points);
         currentGame.changePanel(gameEndedPanel);
         //Hakee loppupisteet ja tarkistaa tähtien ja ennätysten tilanteen 
         //ja piirtää niiden pohjalta oikeanlaisen paneelin.

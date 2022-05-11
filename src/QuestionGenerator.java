@@ -29,6 +29,7 @@ public class QuestionGenerator {
     }
 
     public ArrayList<ArrayList<Integer>> giveQuestionList() {
+        //System.out.println("kysymysten määrä: " + questionsToAsk.size());
         return questionsToAsk;
     } 
     

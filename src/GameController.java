@@ -80,7 +80,7 @@ public class GameController {
         this.questionGenerator = new QuestionGenerator();
         questionGenerator.createAdditionQuestions(10);
         questionList = questionGenerator.giveQuestionList();
-       this.gameData = new GameData(questionList, user);
+       this.gameData = new GameData(questionList, user, "+", 10, 3);
        showGamePanel();
         
     }
@@ -106,9 +106,9 @@ public class GameController {
         int number2 = Integer.parseInt(string2);
 
         if(number1 + number2 == answer){
-            //tarkista laskuri ja laske siitä pisteet
-            //anna oikeasta vastauksesta pisteet
-            //gameData.add pisteet
+            int newPoints = 2000;
+            int pointTotal = newPoints + gameData.getPoints();
+            gameData.setPoints(pointTotal);
             System.out.println(number1 + " + " + number2 + " = " + answer);
 
             return true;
@@ -121,7 +121,8 @@ public class GameController {
 
     public void showGameEndPanel() {
         gameData.countGameResults(highscores);
-        JPanel gameEndedPanel = new GameEndedPanel();
+        user.saveNewPoints(gameData.getOperation(), gameData.getPoints(), gameData.getMaximum(), gameData.getLevel());
+        JPanel gameEndedPanel = new GameEndedPanel(gameData.getNewStarAchieved(), gameData.getNewHighScore(), gameData.getPoints());
         currentGame.changePanel(gameEndedPanel);
         //Hakee loppupisteet ja tarkistaa tähtien ja ennätysten tilanteen 
         //ja piirtää niiden pohjalta oikeanlaisen paneelin.

@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.swing.JSpinner.NumberEditor;
+
 public class GameData {
     private User user;
     private String operation;
@@ -8,7 +10,7 @@ public class GameData {
     private int maximum;
     private int questionNumber;
     private int newQuestionIndex;
-    private int questionCalculator = 1;
+    private int questionCalculator = 0;
     // private int wrongAnswers;
     private ArrayList<ArrayList<Integer>> questionList;
     private ArrayList<ArrayList<Integer>> questionsToAskAgain;
@@ -16,8 +18,10 @@ public class GameData {
     private ArrayList<Integer> lastQuestionAsked;
     private boolean newStarAchieved;
     private boolean newHighScore;
+    private int numberOfStarsAtTheEnd = 0;
+    private int rankAtTheEnd;
 
-    public GameData(ArrayList questionList, User user) {
+    public GameData(ArrayList questionList, User user, String operation, int maximum, int level) {
         this.points = 1000;
         this.questionNumber = 1;
         this.newQuestionIndex = 0;
@@ -34,6 +38,10 @@ public class GameData {
         return this.points;
     }
 
+    public void setPoints(int points) {
+        this.points = points;
+    }
+
     public boolean getNewStarAchieved() {
         return newStarAchieved;
     }
@@ -42,8 +50,30 @@ public class GameData {
         return newHighScore;
     }
 
+    
+    public String getOperation() {
+        return operation;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public int getMaximum() {
+        return maximum;
+    }
+
+    public int getNumberOfStarsAtTheEnd() {
+        return numberOfStarsAtTheEnd;
+    }
+
+    public int getRankAtTheEnd() {
+        return rankAtTheEnd;
+    }
+
     public ArrayList<Integer> getNextQuestion() {
         questionCalculator++;
+        //if (questionCalculator > 3) {
         if (questionCalculator > 15) {
             // tästä kutsuttaisiin sitten gamControllerin kautta lopetuspaneelia?
             return null;
@@ -86,16 +116,19 @@ public class GameData {
 
                     if (oldPoints + points >= 10000) {
                         newStarAchieved = true;
+                        numberOfStarsAtTheEnd = 1;
                     }
 
                 } else if (oldPoints >= 10000 && oldPoints < 20000) {
                     if (oldPoints - 10000 + points >= 10000) {
                         newStarAchieved = true;
+                        numberOfStarsAtTheEnd = 2;
                     }
 
                 } else if (oldPoints >= 20000 && oldPoints < 30000) {
                     if (oldPoints - 20000 + points >= 10000) {
                         newStarAchieved = true;
+                        numberOfStarsAtTheEnd = 3;
                     }
 
                 }
@@ -103,10 +136,11 @@ public class GameData {
             }
         }
 
-        int rank = highscores.isNewHighScore(this.points);
-        if (rank > 0) {
+        rankAtTheEnd = highscores.isNewHighScore(this.points);
+
+        if (rankAtTheEnd > 0) {
             newHighScore = true;
-            highscores.addNewHighScore(rank, user.getUsername(), points);
+            highscores.addNewHighScore(rankAtTheEnd, user.getUsername(), points);
         }
 
     }

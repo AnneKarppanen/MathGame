@@ -7,7 +7,7 @@ public class GameEndedPanel extends JPanel {
     private JButton newGameButton = null;
     private JButton quitButton = null;
 
-    public GameEndedPanel() {
+    public GameEndedPanel(boolean newStarAchieved, boolean isNewHighScore, int points) {
 
         this.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         this.setBackground(new Color(237, 243, 249));
@@ -160,23 +160,32 @@ public class GameEndedPanel extends JPanel {
             JLabel youGotStar = new JLabel("Ansaitsit tähden!");
             youGotStar.setFont(new Font("Arial", Font.ITALIC, 50));
             youGotStar.setForeground(new Color(158, 60, 167));
+            youGotStar.setAlignmentX(CENTER_ALIGNMENT);
+
+            Box.Filler filler = new Box.Filler(new Dimension(5,5), new Dimension(10,10), new Dimension(15,15));
 
             ImageIcon star = new ImageIcon("src/images/starAchieved_small.png");
             JLabel starLabel = new JLabel();
             starLabel.setIcon(star);
             this.setBackground(new Color(237, 243, 249));
-            this.add(starLabel);
+            starLabel.setAlignmentX(CENTER_ALIGNMENT);
 
-            int pointAmount = GameController.getInstance().getCurrentPoints();
-            JLabel amountOfStars = new JLabel(String.valueOf(pointAmount));
-            amountOfStars.setFont(new Font("Arial", Font.BOLD, 90));
-            amountOfStars.setForeground(new Color(158, 60, 167));
-            amountOfStars.setAlignmentY(Component.BOTTOM_ALIGNMENT);
+            Box.Filler filler2 = new Box.Filler(new Dimension(2,2), new Dimension(5,5), new Dimension(10,10));
+
+            int starAmount = GameController.getInstance().getGameData().getNumberOfStarsAtTheEnd();
+            JLabel amountOfStars = new JLabel(String.valueOf(starAmount) + " / 3");
+            amountOfStars.setFont(new Font("Arial", Font.BOLD, 25));
+            amountOfStars.setForeground(new Color(50, 34, 151));
+            amountOfStars.setAlignmentX(CENTER_ALIGNMENT);
 
             this.setBackground(new Color(237, 243, 249));
+            this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
             this.add(youGotStar);
+            this.add(filler);
             this.add(starLabel);
+            this.add(filler2);
             this.add(amountOfStars);
+            
 
         }
 

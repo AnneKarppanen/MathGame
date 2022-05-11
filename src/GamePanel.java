@@ -41,7 +41,7 @@ public class GamePanel extends JPanel {
     private GameController gameController;
     private JTextField answerField = null;
     private ArrayList questions = null;
-    private int questionCalculator = 1;
+    private int questionCalculator = 0;
     private GridBagConstraints cConstraints;
     
     // private JLabel pointsLabel = null;
@@ -80,6 +80,8 @@ public class GamePanel extends JPanel {
         middlePane.add(mainQuizPanel, BorderLayout.CENTER);
         southPane.add(pointsPanel, BorderLayout.EAST);
         southPane.add(timePanel, BorderLayout.WEST);
+
+        
 
         setUpButtonListeners();
         EventQueue.invokeLater(() -> answerField.requestFocusInWindow());

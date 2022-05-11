@@ -196,6 +196,10 @@ public class GamePanel extends JPanel {
 
     }
 
+
+    public void checkAnswer(){
+        
+    }
     public void setUpButtonListeners() {
 
         answerField.addActionListener(new ActionListener() {
@@ -214,9 +218,6 @@ public class GamePanel extends JPanel {
                 answerField.setBackground(Color.LIGHT_GRAY);
                 Object source = e.getSource();
                 if (source == checkButton) {
-                    System.out.println("Chackbutton was pressed");
-                 //   questionCalculator = gameController.getQuestionCalculator();
-                    System.out.println("Kalkulaattori on: " + questionCalculator);
                     boolean correctFormat = parseInt(answerField.getText());
                     if (correctFormat) {
                         System.out.println("Oli oikea format ");

@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
 
 public class GameController {
-
+    //new try
     private User user = null;
     private UserList users;
     private HighscoreChart highscores; 

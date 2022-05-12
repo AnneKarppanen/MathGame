@@ -22,7 +22,7 @@ public class GameData {
     private int rankAtTheEnd;
 
     public GameData(ArrayList questionList, User user, String operation, int maximum, int level) {
-        this.points = 1000;
+        this.points = 0;
         this.questionNumber = 1;
         this.newQuestionIndex = 0;
         this.questionList = questionList;

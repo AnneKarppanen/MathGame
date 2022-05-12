@@ -121,7 +121,7 @@ public class GameEndedPanel extends JPanel {
         southPanel.setLayout(new BoxLayout(southPanel, BoxLayout.X_AXIS));
         this.add(southPanel, BorderLayout.SOUTH);
 
-        // setUpButtonListeners();
+        setUpButtonListeners();
 
     }
 
@@ -394,6 +394,27 @@ public class GameEndedPanel extends JPanel {
             //this.setAlignmentY(BoxLayout.Y_AXIS);
 
         }
+
+    } 
+
+    public void setUpButtonListeners() {
+        ActionListener buttonListener = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Object source = e.getSource();
+                    
+                if (source == newGameButton) {
+                    GameController.getInstance().chooseUser(); 
+                                
+                } else if (source == quitButton) {
+                    GameController.getInstance().showNewGameWindow();
+                } 
+                
+            }
+        };
+
+        newGameButton.addActionListener(buttonListener);
+        quitButton.addActionListener(buttonListener);
 
     }
 

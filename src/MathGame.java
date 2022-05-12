@@ -1,4 +1,6 @@
 import javax.swing.*;
+import javax.swing.border.Border;
+
 import java.awt.*;
 import java.awt.event.*;
 
@@ -101,8 +103,122 @@ public class MathGame extends JFrame{
         this.add(northPanel, BorderLayout.NORTH);
         this.add(westPanel, BorderLayout.WEST);
         this.add(eastPanel, BorderLayout.EAST);
+        
         //this.add(southPanel, BorderLayout.SOUTH);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        WindowListener windowListener = new WindowAdapter() {
+
+            public void windowClosing(WindowEvent e) {
+                /*int response = JOptionPane.showConfirmDialog(null, "HALUATKO SULKEA OHJELMAN?", null, JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                if (response == JOptionPane.YES_OPTION) {
+                    System.exit(0);
+                }*/
+                JDialog closingDialog = new JDialog();
+                
+                /*double centerPanelWidth = centerPanel.getSize().getWidth();
+                double centerPanelheighth = centerPanel.getSize().getHeight();
+                closingDialog.setLocationRelativeTo(centerPanel);
+                
+                int width = (int) centerPanelWidth / 4 + 130;
+                int height = (int) centerPanelheighth / 4;
+                closingDialog.setLocation(width, height);*/
+                
+
+                closingDialog.setResizable(false);
+               
+                /*System.out.println("width: " + centerPanelWidth);
+                System.out.println("height: " + centerPanelheighth);
+                System.out.println("centerPanelLocation: " + centerPanel.getLocation());*/
+                
+                
+                closingDialog.getRootPane().setBorder(BorderFactory.createLineBorder(Color.BLACK));
+                JPanel contentPanel = new JPanel();
+                
+                Box.Filler filler1 = new Box.Filler(new Dimension(5,100), new Dimension(10,150), new Dimension(15,150));
+                
+                JLabel question = new JLabel("HALUATKO SULKEA OHJELMAN?");
+                //question.setMinimumSize(new Dimension(200,30));
+                //question.setPreferredSize(new Dimension(300, 30));
+                //question.setMaximumSize(new Dimension(400, 50));
+                question.setFont((new Font("Arial", Font.PLAIN, 25)));
+                //question.setBackground(Color.red);
+                question.setAlignmentX(CENTER_ALIGNMENT);
+                contentPanel.add(filler1);
+                contentPanel.add(question);
+
+                JPanel buttonPanel = new JPanel();
+                buttonPanel.setBackground(Color.WHITE);
+                //buttonPanel.setPreferredSize(new Dimension(600, 100));
+                buttonPanel.setMaximumSize(new Dimension(1000, 150));
+                //buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.X_AXIS));
+                buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 60));
+                //buttonPanel.setAlignmentX(CENTER_ALIGNMENT);
+
+                JButton yesButton = new JButton("KYLLÄ");
+                yesButton.setBackground(new Color(156, 204, 249));
+                yesButton.setFont((new Font("Arial", Font.BOLD, 25)));
+                //Border border1 = BorderFactory.createLineBorder(new Color(57, 120, 178));
+                //yesButton.setBorder(border1);
+                yesButton.setMargin(new Insets(5,5,5,5));
+            
+                //yesButton.setAlignmentX(CENTER_ALIGNMENT);
+
+                //Box.Filler filler2 = new Box.Filler(new Dimension(5,5), new Dimension(10,10), new Dimension(15,15));
+                
+                JButton noButton = new JButton("EI");
+                noButton.setBackground(new Color(196, 196, 196));
+                noButton.setFont((new Font("Arial", Font.BOLD, 25)));
+                noButton.setMargin(new Insets(5,32,5,32));
+                //noButton.setAlignmentX(CENTER_ALIGNMENT);
+
+                contentPanel.setBackground(Color.WHITE);
+                buttonPanel.add(yesButton);
+                //buttonPanel.add(filler2);
+                buttonPanel.add(noButton);
+                contentPanel.add(buttonPanel);
+                contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
+                contentPanel.setAlignmentX(CENTER_ALIGNMENT);
+
+                closingDialog.setContentPane(contentPanel);
+                //closingDialog.setSize(600, 600);
+                closingDialog.setMinimumSize(new Dimension(600, 600));
+                getRootPane().setDefaultButton(yesButton);
+                closingDialog.setLocationRelativeTo(centerPanel);
+                closingDialog.setVisible(true);
+                System.out.println("Dialog location: " + closingDialog.getLocation());
+
+                setUpButtonListeners(closingDialog, yesButton, noButton);
+
+
+            }
+
+            public void setUpButtonListeners(JDialog closingDialog, JButton yesButton, JButton noButton) {
+                ActionListener buttonListener = new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        Object source = e.getSource();
+                            
+                        if (source == yesButton) {
+                            System.exit(0); 
+                                        
+                        } else if (source == noButton) {
+                            closingDialog.dispose();
+                        } 
+                        
+                    }
+                };
+        
+                yesButton.addActionListener(buttonListener);
+                noButton.addActionListener(buttonListener);
+        
+            }
+
+            
+
+        };
+
+        this.addWindowListener(windowListener);
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.setTitle("Matikkapeli");
         this.pack();
         this.setVisible(true);

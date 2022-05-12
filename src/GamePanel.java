@@ -16,6 +16,7 @@ public class GamePanel extends JPanel {
     private JPanel timePanel = null;
     private JPanel mainQuizPanel = null;
     private JPanel quizPanel = null;
+    private JPanel mainTimeout = null;
 
     private JLabel coinImageLabel = null;
     private JLabel timeImageLabel = null;
@@ -30,9 +31,11 @@ public class GamePanel extends JPanel {
 
     private JButton checkButton = null;
     private JButton continueButton = null;
+    private JButton continueButtonTimeOut = null;
 
     private ImageIcon coinPicture = null;
     private ImageIcon timePicture = null;
+    private ImageIcon timePictureBig = null;
     private ImageIcon thumbsDownPicture = null;
     private ImageIcon thumbsUpPicture = null;
 
@@ -49,7 +52,7 @@ public class GamePanel extends JPanel {
     private int questionCalculator = 1;
     private GridBagConstraints cConstraints;
     private Timer timer;
-    private int second = 16;
+    private int second = 3;
     private int minute = 0;
     private String formattedSecond, formattedMinute;
     private DecimalFormat counterFormat = new DecimalFormat("00");
@@ -118,10 +121,63 @@ public class GamePanel extends JPanel {
              timeCounter.setText(formattedMinute + ":" + formattedSecond);
              if(second == 0){
                  timer.stop();
+                 //Tähän tulee actionit
+                 answerField.getCaret().setVisible(false);
+              //   JPanel mainTimeout = null;
+              //   mainTimeout.setMaximumSize(new Dimension(200, 100));
+                 mainTimeout = new JPanel(new GridBagLayout());
+             //    cConstraints = new GridBagConstraints();
+            //     cConstraints.insets = new Insets(20, 20, 20, 20);
+            //     cConstraints.gridx = 0;
+            //     cConstraints.gridy = 0;
+               //  timeout.setBackground(Color.WHITE);
+               mainTimeout.setBackground(mainBackground);
+               
+                JPanel subTimeout = new JPanel(new GridBagLayout());
+                
+                 subTimeout.setBackground(Color.WHITE);
+                 subTimeout.setPreferredSize(new Dimension(600, 500));
+                 subTimeout.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+         
+            
+                 middlePane.add(mainTimeout, BorderLayout.CENTER);
+              mainTimeout.add(subTimeout);
+            
+             
+              cConstraints.gridx = 1;
+              cConstraints.gridy = 0;
+              JLabel timeOut = new JLabel("AIKA LOPPUI");
+              timeOut.setFont(questionFont);
+              subTimeout.add(timeOut, cConstraints);
+           cConstraints.gridx = 0;
+             cConstraints.gridy = 1;
+       JLabel timeImageLabel2 = new JLabel();
+  //     timeImageLabel2.setPreferredSize(new Dimension(50,50));
+       timeImageLabel2.setIcon(timePictureBig);
+          subTimeout.add(timeImageLabel2, cConstraints);
+          cConstraints.gridx = 1;
+             cConstraints.gridy = 1;
+             JLabel time = new JLabel("00:00");
+             time.setFont(questionFont);
+             subTimeout.add(time, cConstraints);
+             JButton continueButtonTimeOut = new JButton("JATKA");
+             cConstraints.gridx = 0;
+             cConstraints.gridy = 2;
+             subTimeout.add(continueButtonTimeOut, cConstraints);
+             continueButtonTimeOut.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent event) {
+                    mainTimeout.setVisible(false);
+                    EventQueue.invokeLater(() -> answerField.requestFocusInWindow());
+                }
+            });
              }
              
             }
         });
+
+       
+
     }
 
     public void setPanes() {
@@ -174,7 +230,7 @@ public class GamePanel extends JPanel {
 
         // Create Panel for question and add it to mainQuizPanel
         quizPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        quizPanel.setPreferredSize(new Dimension(350, 80));
+        quizPanel.setPreferredSize(new Dimension(350, 75));
         quizPanel.setBackground(new Color(156, 204, 249));
         mainQuizPanel.add(quizPanel, cConstraints);
         System.out.println(gameController.getGameData().getPoints());
@@ -216,6 +272,7 @@ public class GamePanel extends JPanel {
     public void setPictures() {
         coinPicture = new ImageIcon("src/images/coin_small.png");
         timePicture = new ImageIcon("src/images/time_small.png");
+        timePictureBig = new ImageIcon("src/images/time.png");
         thumbsDownPicture = new ImageIcon("src/images/thumbsDown.png");
         thumbsUpPicture = new ImageIcon("src/images/thumbsUp.png");
     }
@@ -249,7 +306,7 @@ public class GamePanel extends JPanel {
     public void gameQuestionCalculator() {
         questionNumberLabel.setText("");
         questionNumberLabel.setText(questionCalculator + " / 15");
-        questionNumberLabel.setFont((new Font("Arial", Font.BOLD, 20)));
+        questionNumberLabel.setFont((new Font("Arial", Font.BOLD, 30)));
         northArea.add(questionNumberLabel);
     }
 
@@ -386,6 +443,8 @@ public class GamePanel extends JPanel {
                         second = 16;
                         timer.start();
                         continueToNextQuestion();
+                    } else if (source == continueButtonTimeOut) {
+                       
                     } else {
                         gameController.showGameEndPanel();
                     }

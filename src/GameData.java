@@ -11,7 +11,6 @@ public class GameData {
     private int questionNumber;
     private int newQuestionIndex;
     private int questionCalculator = 0;
-    // private int wrongAnswers;
     private ArrayList<ArrayList<Integer>> questionList;
     private ArrayList<ArrayList<Integer>> questionsToAskAgain;
     private int points;
@@ -50,7 +49,6 @@ public class GameData {
         return newHighScore;
     }
 
-    
     public String getOperation() {
         return operation;
     }
@@ -74,8 +72,6 @@ public class GameData {
     public ArrayList<Integer> getNextQuestion() {
         questionCalculator++;
         if (questionCalculator > 3) {
-        //if (questionCalculator > 15) {
-            // tästä kutsuttaisiin sitten gamControllerin kautta lopetuspaneelia?
             return null;
         } else {
 
@@ -101,9 +97,8 @@ public class GameData {
         }
     }
 
-    public void addQuestionToAskAgainList(ArrayList askThisQuestionAgain){
-            questionsToAskAgain.add(askThisQuestionAgain);
-            System.out.println(askThisQuestionAgain);
+    public void addQuestionToAskAgainList(ArrayList askThisQuestionAgain) {
+        questionsToAskAgain.add(askThisQuestionAgain);
     }
 
     public int getQuestionCalculator() {
@@ -114,8 +109,8 @@ public class GameData {
 
         if (user.getResults(this.operation) != null) {
             HashMap<Integer, HashMap<Integer, Integer>> additionResults = user.getResults(this.operation);
-           
-            if ( additionResults.get(maximum) != null  && additionResults.get(maximum).get(level) != null) {
+
+            if (additionResults.get(maximum) != null && additionResults.get(maximum).get(level) != null) {
                 int oldPoints = additionResults.get(maximum).get(level);
                 if (oldPoints < 10000) {
 

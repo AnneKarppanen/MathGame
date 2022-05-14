@@ -18,8 +18,8 @@ public class UserList {
 
     public boolean checkIfUserExists(String username) {
         boolean userExists = false;
-        for (User user: userList) {
-            if(user.getUsername().equals(username)) {
+        for (User user : userList) {
+            if (user.getUsername().equals(username)) {
                 userExists = true;
                 return userExists;
             }
@@ -29,8 +29,8 @@ public class UserList {
 
     public User getExistingUser(String username) {
         User userToReturn = null;
-        for (User user: userList) {
-            if(user.getUsername().equals(username)) {
+        for (User user : userList) {
+            if (user.getUsername().equals(username)) {
                 userToReturn = user;
             }
         }
@@ -42,6 +42,4 @@ public class UserList {
         return userList.size();
     }
 
-    
-    
 }

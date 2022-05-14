@@ -1,4 +1,3 @@
-
 import java.util.HashMap;
 
 public class User {
@@ -21,30 +20,6 @@ public class User {
     public void setUsername(String username) {
         this.username = username;
     }
-
-    /*
-     * public void saveNewPoints(String operation, int points, int maximum, int
-     * level) {
-     * if (operation.equals("+")) {
-     * if (additionResults.containsKey(maximum)) {
-     * HashMap<Integer, Integer> results = additionResults.get(maximum);
-     * if (results.containsKey(level)) {
-     * int newPoints = results.get(level) + points;
-     * results.put(level, newPoints);
-     * additionResults.put(maximum,results);
-     * } else {
-     * results.put(level, points);
-     * }
-     * } else {
-     * HashMap<Integer, Integer> results = new HashMap<>();
-     * results.put(level, points);
-     * additionResults.put(maximum, results);
-     * }
-     * 
-     * 
-     * }
-     * }
-     */
 
     public void saveNewPoints(String operation, int points, int maximum, int level) {
 
@@ -98,7 +73,7 @@ public class User {
         } else if (operation.equals("*")) {
             results = this.multiplicationResults;
         }
-            
+
         return results;
     }
 
@@ -123,7 +98,6 @@ public class User {
         } catch (NullPointerException e) {
             System.out.println("Could not find points.");
         }
-        System.out.println("returning " + stars + " stars");
         return stars;
 
     }

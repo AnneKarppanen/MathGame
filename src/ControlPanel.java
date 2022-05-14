@@ -25,10 +25,7 @@ public class ControlPanel extends JPanel {
         this.setBorder(BorderFactory.createEmptyBorder(5, 0, 5, 5));
         this.setBackground(new Color(50, 34, 151));
         this.setLayout(new FlowLayout(FlowLayout.LEFT, 20, 10));
-        //this.gameController = gameController;
         this.gameController = gameController.getInstance();
-
-       
 
         ImageIcon homeIcon = new ImageIcon("src/images/home2.png");
         homeButton = new JButton(
@@ -61,17 +58,18 @@ public class ControlPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Object source = e.getSource();
-                if(source == homeButton){
-                    System.out.println("Homebutton clicked");
-                    gameController.showNewGameWindow();           
-                }else if(source == starButton){
-                    //This functionality has been agreed to be optional with teachers, so no implementation.
-                    System.out.println("Starbutton clicked");
+                if (source == homeButton) {
+                    gameController.showNewGameWindow();
+                } else if (source == starButton) {
+                    /*
+                     * This functionality has been agreed to be optional with teachers, but
+                     * we wanted to try implementing this also, so this is an extra feature
+                     */
                     GameController.getInstance().showResultPanel();
-                }else if(source == helpButton){
-                    //This functionality has been agreed to be optional with teachers, so no implementation.
-                    System.out.println("Helpbutton clicked");
-                } 
+                } else if (source == helpButton) {
+                    // This functionality has been agreed to be optional with teachers, so no
+                    // implementation.
+                }
 
             }
         };

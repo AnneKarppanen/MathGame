@@ -18,18 +18,15 @@ public class QuestionGenerator {
         int addend2;
         for (int i = 0; i < 15; i++) {
             addend1 = random.nextInt(maximum + 1);
-         //   System.out.println(addend1);
             addend2 = random.nextInt(maximum + 1 - addend1);
             ArrayList<Integer> addends = new ArrayList<>();
             addends.add(addend1);
             addends.add(addend2);
             questionsToAsk.add(addends); 
         }
-        System.out.println("päästiin ulos");
     }
 
     public ArrayList<ArrayList<Integer>> giveQuestionList() {
-        //System.out.println("kysymysten määrä: " + questionsToAsk.size());
         return questionsToAsk;
     } 
     

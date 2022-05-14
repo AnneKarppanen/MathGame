@@ -92,6 +92,7 @@ public class ChooseDifficultyPanel extends JPanel {
         radioButtonSubPanel1.add(jRadioLukuAlue_10);
         radioButtonSubPanel1.add(jRadioLukualue_20);
         radioButtonSubPanel1.add(jRadioLukualue_100);
+        radioButtonSubPanel1.add(Box.createHorizontalStrut(10));
 
         radioButtonSubPanel2.add(Box.createVerticalStrut(20));
         radioButtonSubPanel2.add(pelinVaikeusText);
@@ -99,6 +100,7 @@ public class ChooseDifficultyPanel extends JPanel {
         radioButtonSubPanel2.add(jRadioHelppo);
         radioButtonSubPanel2.add(jRadioKeskivaikea);
         radioButtonSubPanel2.add(jRadioVaikea);
+        radioButtonSubPanel2.add(Box.createHorizontalStrut(10));
 
         middlePane.add(radioButtonMainPanel);
         radioButtonMainPanel.add(radioButtonSubPanel1);

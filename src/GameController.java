@@ -3,10 +3,9 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
 
 public class GameController {
-    //new try
     private User user = null;
     private UserList users;
-    private HighscoreChart highscores; 
+    private HighscoreChart highscores;
     private GameData gameData;
     private QuestionGenerator questionGenerator;
     private MathGame currentGame;
@@ -24,16 +23,15 @@ public class GameController {
         return gameControllerInstance;
     }
 
-   private GameController() {
+    private GameController() {
 
-   }
+    }
 
     public void intializeGame(MathGame currentGame) {
         this.currentGame = currentGame;
         this.users = new UserList();
         this.highscores = new HighscoreChart();
         intializeUserList();
-      //  this.gameData = new GameData(); //Tämä tulee oikeasti siihen missä uusi peli alkaa
     }
 
     public void chooseUser() {
@@ -43,14 +41,9 @@ public class GameController {
             JPanel choosePlayerPanel = new ChoosePlayerPanel(users);
             previousPanel = currentPanel;
             currentPanel = choosePlayerPanel;
-            //JPanel backButtonPanel = new BackButtonPanel();
             currentGame.changePanel(choosePlayerPanel);
-            //currentGame.changeSouthPanel(backButtonPanel);
-            //currentGame.pack();
-            // Tämän pitää saada tieto valitusta käyttäjästä, että voi lisätä sen attribuutiksi.
-            // Luoko tämä myös uuden käyttäjän tarvittaessa? Jos painetaan uusi pelaaja nappia?
         }
-        
+
     }
 
     public void showAddUserPanel() {
@@ -60,7 +53,8 @@ public class GameController {
         currentGame.changePanel(addNewPlayer);
     }
 
-    // checks if user exists and only creates a new user if cannot find an existing user with the same name
+    // checks if user exists and only creates a new user if cannot find an existing
+    // user with the same name
     public void addNewUser(String username) {
         boolean userExists = users.checkIfUserExists(username);
 
@@ -70,7 +64,7 @@ public class GameController {
         } else {
             selectExistingUser(username);
         }
-        
+
     }
 
     public void selectExistingUser(String username) {
@@ -86,9 +80,9 @@ public class GameController {
         this.questionGenerator = new QuestionGenerator();
         questionGenerator.createAdditionQuestions(10);
         questionList = questionGenerator.giveQuestionList();
-       this.gameData = new GameData(questionList, user, "+", 10, 3);
-       showGamePanel();
-        
+        this.gameData = new GameData(questionList, user, "+", 10, 3);
+        showGamePanel();
+
     }
 
     public void showResultPanel() {
@@ -104,41 +98,37 @@ public class GameController {
         currentGame.changePanel(previousPanel);
     }
 
-    public int getQuestionCalculator(){
+    public int getQuestionCalculator() {
         return gameData.getQuestionCalculator();
     }
 
     public ArrayList askQuestion() {
         nextQuestion = gameData.getNextQuestion();
-        //retrieves next question from questionGenerator
-    //    gameData.updateQuestionAmount();
+        // retrieves next question from questionGenerator
         return nextQuestion;
-       
+
     }
 
-    public boolean checkQuestion(int answer, int second){
-         //check answer, comes here only if answers is in ok format.
-        System.out.println(answer);
+    public boolean checkQuestion(int answer, int second) {
+        // check answer, enters this method only if answers is in ok format.
         String string1 = nextQuestion.get(0).toString();
         String string2 = nextQuestion.get(1).toString();
         int number1 = Integer.parseInt(string1);
         int number2 = Integer.parseInt(string2);
 
-        if(number1 + number2 == answer){
+        if (number1 + number2 == answer) {
             int correctAnswerPoints = 1000;
             int remainingTime = second;
             int timePoints = remainingTime * 100;
             int pointTotal = timePoints + correctAnswerPoints + gameData.getPoints();
             gameData.setPoints(pointTotal);
-            System.out.println(number1 + " + " + number2 + " = " + answer);
 
             return true;
-        }else{        
+        } else {
             gameData.addQuestionToAskAgainList(nextQuestion);
-        return false;
+            return false;
         }
     }
-
 
     public void showGameEndPanel() {
         gameData.countGameResults(highscores);
@@ -150,41 +140,38 @@ public class GameController {
         previousPanel = currentPanel;
         currentPanel = gameEndedPanel;
         currentGame.changePanel(gameEndedPanel);
-        //Hakee loppupisteet ja tarkistaa tähtien ja ennätysten tilanteen 
-        //ja piirtää niiden pohjalta oikeanlaisen paneelin.
+        // Hakee loppupisteet ja tarkistaa tähtien ja ennätysten tilanteen
+        // ja piirtää niiden pohjalta oikeanlaisen paneelin.
 
     }
 
-    public void showNewGameWindow(){
+    public void showNewGameWindow() {
         JPanel newGamePanel = new StartPanel();
         previousPanel = currentPanel;
         currentPanel = newGamePanel;
         currentGame.changePanel(newGamePanel);
-        //startHardGame();
     }
 
-    public void showChooseOperationPanel(){
-        
-        System.out.println("Pelaaja on " + this.user.getUsername());
+    public void showChooseOperationPanel() {
+
         JPanel chooseOperationPanel = new ChooseOperationPanel();
         previousPanel = currentPanel;
         currentPanel = chooseOperationPanel;
         currentGame.changePanel(chooseOperationPanel);
     }
 
-    public void showChooseDifficultyPanel(){
+    public void showChooseDifficultyPanel() {
         JPanel chooseDifficultyPanel = new ChooseDifficultyPanel();
         previousPanel = currentPanel;
         currentPanel = chooseDifficultyPanel;
         currentGame.changePanel(chooseDifficultyPanel);
     }
 
-    public void showGamePanel(){
+    public void showGamePanel() {
         JPanel gamePanel = new GamePanel();
         previousPanel = currentPanel;
         currentPanel = gamePanel;
         currentGame.changePanel(gamePanel);
-      //  startHardGame();
     }
 
     public void intializeUserList() {
@@ -212,7 +199,5 @@ public class GameController {
     public void setCurrentPanel(JPanel panel) {
         this.currentPanel = panel;
     }
-
-    
 
 }

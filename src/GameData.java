@@ -101,6 +101,11 @@ public class GameData {
         }
     }
 
+    public void addQuestionToAskAgainList(ArrayList askThisQuestionAgain){
+            questionsToAskAgain.add(askThisQuestionAgain);
+            System.out.println(askThisQuestionAgain);
+    }
+
     public int getQuestionCalculator() {
         return questionCalculator;
     }

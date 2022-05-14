@@ -41,7 +41,7 @@ public class GamePanel extends JPanel {
 
     private Font questionFont = new Font("Arial", Font.BOLD, 50);
     private Font pointsAndTimeFont = new Font("Arial", Font.BOLD, 20);
-    private Font buttonFont = new Font("Arial", Font.BOLD, 20);
+    private Font buttonFont = new Font("Arial", Font.BOLD, 30);
     private Color pointsAndTimeFontColor = new Color(255, 255, 255);
     private Color buttonBackgroud = new Color(255, 164, 58);
     private Color mainBackground = new Color(237, 243, 249);
@@ -251,7 +251,7 @@ public class GamePanel extends JPanel {
 
         // Create Panel to south area of middlePanel for Check and Continue buttons
         southArea = new JPanel();
-        southArea.setLayout(new FlowLayout(FlowLayout.RIGHT));
+        southArea.setLayout(new FlowLayout(FlowLayout.CENTER));
         southArea.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
         southArea.setBackground(mainBackground);
 
@@ -328,7 +328,7 @@ public class GamePanel extends JPanel {
         checkButton.setFont(buttonFont);
         checkButton.setHorizontalAlignment(SwingConstants.CENTER);
 
-        continueButton = new JButton("JATKA");
+        continueButton = new JButton("   JATKA   ");
         continueButton.setBackground(buttonBackgroud);
         continueButton.setFont(buttonFont);
         continueButton.setHorizontalAlignment(SwingConstants.CENTER);

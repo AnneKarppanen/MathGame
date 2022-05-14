@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class ResultPanel extends JPanel {
 
-    private JButton closeButton1;
+    private JButton closeButton;
     //private JButton closeButton2;
     private User user;
     private HighscoreChart highScores;
@@ -53,11 +53,11 @@ public class ResultPanel extends JPanel {
         substractionButton2 = new JRadioButton("VÄHENNYSLASKU");
         multiplicationButton2 = new JRadioButton("KERTOLASKU");
 
-        closeButton1 = new JButton("SULJE");
-        closeButton1.setBackground(new Color(255, 164, 58));
-        closeButton1.setFont((new Font("Arial", Font.BOLD, 40)));
+        closeButton = new JButton("SULJE");
+        closeButton.setBackground(new Color(255, 164, 58));
+        closeButton.setFont((new Font("Arial", Font.BOLD, 40)));
         JPanel closeButtonPanel1 = new JPanel();
-        closeButtonPanel1.add(closeButton1);
+        closeButtonPanel1.add(closeButton);
         closeButtonPanel1.setBackground(new Color(237, 243, 249));
         
         /*closeButton2 = new JButton("SULJE");
@@ -109,16 +109,41 @@ public class ResultPanel extends JPanel {
          * //resultsByOperation = createResultPanel("+");
          * //resultsByOperation.setMinimumSize(new Dimension(1000, 600));
          */
+        if (this.user != null) {
         this.userAdditionResults = createResultPanel("+");
+        userAdditionResults.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         this.userSubstractionResults = createResultPanel("-");
+        userSubstractionResults.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         this.userMultiplicationResults = createResultPanel("*");
+        userMultiplicationResults.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        } else {
+            Color backgroundGray = new Color(231, 231, 231);
+            JLabel noUserLabel1 = new JLabel("PELAAJAA EI OLE VALITTU");
+            noUserLabel1.setFont(new Font("Arial", Font.BOLD, 25));
+            noUserLabel1.setOpaque(true);   
+            
+            this.userAdditionResults = new JPanel();
+            userAdditionResults.setBackground(backgroundGray);
+            //userAdditionResults.add(noUserLabel1);
+            
+            this.userSubstractionResults = new JPanel();
+            userSubstractionResults.setBackground(backgroundGray);
+            //userSubstractionResults.add(noUserLabel1);
+            
+            this.userMultiplicationResults = new JPanel();
+            userMultiplicationResults.setBackground(backgroundGray);
+            //userMultiplicationResults.add(noUserLabel1);
+
+           
+        }
+
         this.cardLayout1 = new CardLayout();
         this.userResultsByOperation = new JPanel();
         userResultsByOperation.setLayout(cardLayout1);
         userResultsByOperation.add(userAdditionResults, "addition");
         userResultsByOperation.add(userSubstractionResults, "substraction");
         userResultsByOperation.add(userMultiplicationResults, "multiplication");
-        userResultsByOperation.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        //userResultsByOperation.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
         JPanel userResults = new JPanel();
         // userResults.setBackground(backgroundGrey);
@@ -481,8 +506,9 @@ public class ResultPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Object source = e.getSource();
-                if (source == closeButton1) {
+                if (source == closeButton) {
                     System.out.println("closeButton clicked");
+                    GameController.getInstance().showPreviousPanel();
 
                 } else if (source == additionButton1) {
                     System.out.println("additionButton clicked");
@@ -517,7 +543,7 @@ public class ResultPanel extends JPanel {
             }
         };
 
-        // closeButton.addActionListener(buttonListener);
+        closeButton.addActionListener(buttonListener);
         additionButton1.addActionListener(buttonListener);
         substractionButton1.addActionListener(buttonListener);
         multiplicationButton1.addActionListener(buttonListener);

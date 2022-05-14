@@ -13,6 +13,8 @@ public class GameController {
     private static GameController gameControllerInstance = null;
     private ArrayList questionList;
     private ArrayList nextQuestion = null;
+    private JPanel previousPanel;
+    private JPanel currentPanel;
 
     public static GameController getInstance() {
         if (null == gameControllerInstance) {
@@ -39,6 +41,8 @@ public class GameController {
             showAddUserPanel();
         } else {
             JPanel choosePlayerPanel = new ChoosePlayerPanel(users);
+            previousPanel = currentPanel;
+            currentPanel = choosePlayerPanel;
             //JPanel backButtonPanel = new BackButtonPanel();
             currentGame.changePanel(choosePlayerPanel);
             //currentGame.changeSouthPanel(backButtonPanel);
@@ -51,6 +55,8 @@ public class GameController {
 
     public void showAddUserPanel() {
         JPanel addNewPlayer = new AddNewPlayerPanel();
+        previousPanel = currentPanel;
+        currentPanel = addNewPlayer;
         currentGame.changePanel(addNewPlayer);
     }
 
@@ -87,7 +93,15 @@ public class GameController {
 
     public void showResultPanel() {
         JPanel resultPanel = new ResultPanel(user, highscores);
+        previousPanel = currentPanel;
+        currentPanel = resultPanel;
         currentGame.changePanel(resultPanel);
+    }
+
+    public void showPreviousPanel() {
+        currentPanel.setVisible(false);
+        currentPanel = previousPanel;
+        currentGame.changePanel(previousPanel);
     }
 
     public int getQuestionCalculator(){
@@ -133,6 +147,8 @@ public class GameController {
         boolean isNewHighScore = gameData.getNewHighScore();
         int points = gameData.getPoints();
         JPanel gameEndedPanel = new GameEndedPanel(isNewStarAchieved, isNewHighScore, points);
+        previousPanel = currentPanel;
+        currentPanel = gameEndedPanel;
         currentGame.changePanel(gameEndedPanel);
         //Hakee loppupisteet ja tarkistaa tähtien ja ennätysten tilanteen 
         //ja piirtää niiden pohjalta oikeanlaisen paneelin.
@@ -141,6 +157,8 @@ public class GameController {
 
     public void showNewGameWindow(){
         JPanel newGamePanel = new StartPanel();
+        previousPanel = currentPanel;
+        currentPanel = newGamePanel;
         currentGame.changePanel(newGamePanel);
         //startHardGame();
     }
@@ -149,16 +167,22 @@ public class GameController {
         
         System.out.println("Pelaaja on " + this.user.getUsername());
         JPanel chooseOperationPanel = new ChooseOperationPanel();
+        previousPanel = currentPanel;
+        currentPanel = chooseOperationPanel;
         currentGame.changePanel(chooseOperationPanel);
     }
 
     public void showChooseDifficultyPanel(){
         JPanel chooseDifficultyPanel = new ChooseDifficultyPanel();
+        previousPanel = currentPanel;
+        currentPanel = chooseDifficultyPanel;
         currentGame.changePanel(chooseDifficultyPanel);
     }
 
     public void showGamePanel(){
         JPanel gamePanel = new GamePanel();
+        previousPanel = currentPanel;
+        currentPanel = gamePanel;
         currentGame.changePanel(gamePanel);
       //  startHardGame();
     }
@@ -183,6 +207,10 @@ public class GameController {
 
     public GameData getGameData() {
         return this.gameData;
+    }
+
+    public void setCurrentPanel(JPanel panel) {
+        this.currentPanel = panel;
     }
 
     

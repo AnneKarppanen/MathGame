@@ -31,7 +31,7 @@ public class GamePanel extends JPanel {
 
     private JButton checkButton = null;
     private JButton continueButton = null;
-    private JButton continueButtonTimeOut = null;
+    private JButton continueButtonTimeout = null;
 
     private ImageIcon coinPicture = null;
     private ImageIcon timePicture = null;
@@ -57,9 +57,6 @@ public class GamePanel extends JPanel {
     private String formattedSecond, formattedMinute;
     private DecimalFormat counterFormat = new DecimalFormat("00");
     
-    // private JLabel pointsLabel = null;
-    // private JLabel timeLabel = null;
-    // private JLabel answerImageLabel = null;
 
     public GamePanel() {
 
@@ -98,12 +95,8 @@ public class GamePanel extends JPanel {
         southPane.add(pointsPanel, BorderLayout.EAST);
         southPane.add(timePanel, BorderLayout.WEST);
 
-
-        
-
         setUpButtonListeners();
-        EventQueue.invokeLater(() -> answerField.requestFocusInWindow());
-        
+        EventQueue.invokeLater(() -> answerField.requestFocusInWindow());   
         
         countdownTimer();
         timer.start();
@@ -120,64 +113,112 @@ public class GamePanel extends JPanel {
                 
              timeCounter.setText(formattedMinute + ":" + formattedSecond);
              if(second == 0){
-                 timer.stop();
-                 //Tähän tulee actionit
-                 answerField.getCaret().setVisible(false);
-              //   JPanel mainTimeout = null;
-              //   mainTimeout.setMaximumSize(new Dimension(200, 100));
-                 mainTimeout = new JPanel(new GridBagLayout());
-             //    cConstraints = new GridBagConstraints();
-            //     cConstraints.insets = new Insets(20, 20, 20, 20);
-            //     cConstraints.gridx = 0;
-            //     cConstraints.gridy = 0;
-               //  timeout.setBackground(Color.WHITE);
-               mainTimeout.setBackground(mainBackground);
-               
-                JPanel subTimeout = new JPanel(new GridBagLayout());
-                
-                 subTimeout.setBackground(Color.WHITE);
-                 subTimeout.setPreferredSize(new Dimension(600, 500));
-                 subTimeout.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-         
-            
-                 middlePane.add(mainTimeout, BorderLayout.CENTER);
-              mainTimeout.add(subTimeout);
-            
-             
-              cConstraints.gridx = 1;
-              cConstraints.gridy = 0;
-              JLabel timeOut = new JLabel("AIKA LOPPUI");
-              timeOut.setFont(questionFont);
-              subTimeout.add(timeOut, cConstraints);
-           cConstraints.gridx = 0;
-             cConstraints.gridy = 1;
-       JLabel timeImageLabel2 = new JLabel();
-  //     timeImageLabel2.setPreferredSize(new Dimension(50,50));
-       timeImageLabel2.setIcon(timePictureBig);
-          subTimeout.add(timeImageLabel2, cConstraints);
-          cConstraints.gridx = 1;
-             cConstraints.gridy = 1;
-             JLabel time = new JLabel("00:00");
-             time.setFont(questionFont);
-             subTimeout.add(time, cConstraints);
-             JButton continueButtonTimeOut = new JButton("JATKA");
-             cConstraints.gridx = 0;
-             cConstraints.gridy = 2;
-             subTimeout.add(continueButtonTimeOut, cConstraints);
-             continueButtonTimeOut.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent event) {
-                    mainTimeout.setVisible(false);
-                    EventQueue.invokeLater(() -> answerField.requestFocusInWindow());
-                }
-            });
+                 timerIsZero();
              }
              
             }
         });
+    }
 
+    public void timerIsZero(){
+        timer.stop();
+        JButton helperButton = new JButton();
+       JPanel helperPanel = new JPanel();
+       southArea.add(helperPanel);
+
+        helperButton.setBorder(BorderFactory.createEmptyBorder());
+        helperButton.setBackground(mainBackground);
+        helperButton.setFont(buttonFont);
+        helperButton.setText(" ");
+        helperPanel.add(helperButton);
+        southArea.add(helperPanel);
+        checkButton.setVisible(false);
+   
+        answerField.getCaret().setVisible(false);
+        mainTimeout = new JPanel(new GridBagLayout());
+      mainTimeout.setBackground(mainBackground);
+
+      JPanel subTimeout = new JPanel();
+       subTimeout.setLayout(new BoxLayout(subTimeout, BoxLayout.Y_AXIS));
        
+        subTimeout.setBackground(Color.WHITE);
+        subTimeout.setPreferredSize(new Dimension(600, 500));
+        subTimeout.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
+   
+      
+     mainTimeout.add(subTimeout);
+     middlePane.add(mainTimeout, BorderLayout.CENTER);
+   
+    JPanel timeoutMessagePanel = new JPanel();
+    timeoutMessagePanel.setLayout(new GridBagLayout());
+    JPanel buttonPanel = new JPanel();
+    buttonPanel.setPreferredSize(new Dimension(200, 200));
+    buttonPanel.setLayout(new GridBagLayout());
+    buttonPanel.setBackground(Color.WHITE);
+    timeoutMessagePanel.setBackground(Color.WHITE);
+    timeoutMessagePanel.setPreferredSize(new Dimension(200, 150));
+ JPanel timeoutInfoPicPanel = new JPanel();
+ timeoutInfoPicPanel.setLayout(new GridBagLayout());
+    timeoutInfoPicPanel.setPreferredSize(new Dimension(200, 150));
+    timeoutInfoPicPanel.setBackground(Color.WHITE);
+    JLabel timeImageLabel2 = new JLabel();
+    
+timeImageLabel2.setIcon(timePictureBig);
+    JButton continueButtonTimeout = new JButton("JATKA");
+    continueButtonTimeout.setFont((new Font("Arial", Font.BOLD, 30)));
+    continueButtonTimeout.setBackground(buttonBackgroud);
+    JLabel timeout = new JLabel("AIKA LOPPUI");
+    timeout.setFont(new Font("Arial", Font.PLAIN, 60));
+    cConstraints.gridx = 0;
+    cConstraints.gridy = 0;
+    timeoutInfoPicPanel.add(timeImageLabel2, cConstraints);
+    JLabel time = new JLabel("00:00");
+    time.setFont((new Font("Arial", Font.PLAIN, 60)));
+    cConstraints.gridx = 1;
+    cConstraints.gridy = 0;
+    timeoutInfoPicPanel.add(time, cConstraints);
+     timeoutMessagePanel.add(timeout);
+    subTimeout.add(timeoutMessagePanel);
+    subTimeout.add(timeoutInfoPicPanel);
+    subTimeout.add(buttonPanel);
+    cConstraints.ipadx = 90;
+    buttonPanel.add(continueButtonTimeout, cConstraints);
+    cConstraints.ipadx = 0;
+    
+  //  JButton helperButton = new JButton();
+    //helperButton.setBackground(mainBackground);
+    //helperButton.setForeground(mainBackground);
+    //southArea.add(helperButton);
+    //checkButton.setVisible(false);
+  //  southArea.setVisible(false);
+    
+//     checkButton.setBackground(mainBackground);
+//     checkButton.setForeground(mainBackground);
+//      checkButton.setBorder(BorderFactory.createLineBorder(mainBackground));
+
+
+
+    continueButtonTimeout.addActionListener(new ActionListener() {
+       @Override
+       public void actionPerformed(ActionEvent event) {
+        if (questionCalculator < 3) {
+  
+           mainTimeout.setVisible(false);
+           helperButton.setVisible(false);
+         
+        //  subTimeout.removeAll();
+        //   southArea.add(continueButton);
+        //   middlePane.add(southArea);
+        //   checkButton.setVisible(true);
+       
+          continueToNextQuestion();
+        }else{
+          gameController.showGameEndPanel();
+           
+       }
+    }
+   });
     }
 
     public void setPanes() {
@@ -219,6 +260,7 @@ public class GamePanel extends JPanel {
         southArea.setLayout(new FlowLayout(FlowLayout.RIGHT));
         southArea.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
         southArea.setBackground(mainBackground);
+        
 
         // Create container Panel for question and answer
         mainQuizPanel = new JPanel(new GridBagLayout());
@@ -327,14 +369,16 @@ public class GamePanel extends JPanel {
     }
 
     public void continueToNextQuestion() {
-        
+        second = 5;
+        timer.start();
         thumbsLabel.setVisible(false);
         answerField.setEditable(true);
         answerField.setBackground(Color.WHITE);
         answerField.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         answerField.setText("");
-        continueButton.setVisible(false);
         checkButton.setVisible(true);
+        continueButton.setVisible(false);
+      
 
         questions = gameController.askQuestion();
         questionCalculator = gameController.getQuestionCalculator();
@@ -416,11 +460,14 @@ public class GamePanel extends JPanel {
         continueButton.setVisible(true);
     }
 
+    
+
     public void setUpButtonListeners() {
 
         answerField.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent event) {
+                timer.stop();
                 checkAnswer();
             }
         });
@@ -430,20 +477,22 @@ public class GamePanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 timer.stop();
                 answerField.setEditable(false);
-                answerField.setBackground(Color.LIGHT_GRAY);
+             //   answerField.setBackground(Color.LIGHT_GRAY);
                 Object source = e.getSource();
 
                 if (source == checkButton) {
                     timer.stop();
+                //    checkButton.setVisible(false);
+                //    continueButton.setVisible(true);
                     checkAnswer();
 
                 } else if (source == continueButton) {
                     if (questionCalculator < 3) {
                     //if (questionCalculator < 15) {
-                        second = 16;
-                        timer.start();
+                     //   second = 16;
+                    //    timer.start();
                         continueToNextQuestion();
-                    } else if (source == continueButtonTimeOut) {
+               //     } else if (source == continueButtonTimeout) {
                        
                     } else {
                         gameController.showGameEndPanel();

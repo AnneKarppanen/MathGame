@@ -4,11 +4,15 @@ import javax.swing.plaf.DimensionUIResource;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.font.TextAttribute;
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 
 public class ResultPanel extends JPanel {
 
     private JButton closeButton;
+    //private JButton closeButton2;
     private User user;
     private HighscoreChart highScores;
 
@@ -38,7 +42,8 @@ public class ResultPanel extends JPanel {
 
         this.user = user;
         this.highScores = highScores;
-        this.setMinimumSize(new Dimension(1000, 600));
+        this.setBackground(new Color(237, 243, 249));
+        //this.setMinimumSize(new Dimension(1000, 600));
         
         additionButton1 = new JRadioButton("YHTEENLASKU");
         substractionButton1 = new JRadioButton("VÄHENNYSLASKU");
@@ -48,8 +53,21 @@ public class ResultPanel extends JPanel {
         substractionButton2 = new JRadioButton("VÄHENNYSLASKU");
         multiplicationButton2 = new JRadioButton("KERTOLASKU");
 
+        closeButton = new JButton("SULJE");
+        closeButton.setBackground(new Color(255, 164, 58));
+        closeButton.setFont((new Font("Arial", Font.BOLD, 40)));
+        JPanel closeButtonPanel1 = new JPanel();
+        closeButtonPanel1.add(closeButton);
+        closeButtonPanel1.setBackground(new Color(237, 243, 249));
+        
+        /*closeButton2 = new JButton("SULJE");
+        closeButton2.setBackground(new Color(255, 164, 58));
+        closeButton2.setFont((new Font("Arial", Font.BOLD, 20)));
+        JPanel closeButtonPanel2 = new JPanel();
+        closeButtonPanel1.add(closeButton2);*/
+
         JTabbedPane results = new JTabbedPane();
-        results.setPreferredSize(new DimensionUIResource(900, 600));
+        //results.setPreferredSize(new DimensionUIResource(900, 600));
         results.setFont(new Font("Arial", Font.BOLD, 40));
 
         JPanel operationSelectionPanel = createOperationPanel(additionButton1, substractionButton1,
@@ -91,20 +109,47 @@ public class ResultPanel extends JPanel {
          * //resultsByOperation = createResultPanel("+");
          * //resultsByOperation.setMinimumSize(new Dimension(1000, 600));
          */
+        if (this.user != null) {
         this.userAdditionResults = createResultPanel("+");
+        userAdditionResults.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         this.userSubstractionResults = createResultPanel("-");
+        userSubstractionResults.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         this.userMultiplicationResults = createResultPanel("*");
+        userMultiplicationResults.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        } else {
+            Color backgroundGray = new Color(231, 231, 231);
+            JLabel noUserLabel1 = new JLabel("PELAAJAA EI OLE VALITTU");
+            noUserLabel1.setFont(new Font("Arial", Font.BOLD, 25));
+            noUserLabel1.setOpaque(true);   
+            
+            this.userAdditionResults = new JPanel();
+            userAdditionResults.setBackground(backgroundGray);
+            //userAdditionResults.add(noUserLabel1);
+            
+            this.userSubstractionResults = new JPanel();
+            userSubstractionResults.setBackground(backgroundGray);
+            //userSubstractionResults.add(noUserLabel1);
+            
+            this.userMultiplicationResults = new JPanel();
+            userMultiplicationResults.setBackground(backgroundGray);
+            //userMultiplicationResults.add(noUserLabel1);
+
+           
+        }
+
         this.cardLayout1 = new CardLayout();
         this.userResultsByOperation = new JPanel();
         userResultsByOperation.setLayout(cardLayout1);
         userResultsByOperation.add(userAdditionResults, "addition");
         userResultsByOperation.add(userSubstractionResults, "substraction");
         userResultsByOperation.add(userMultiplicationResults, "multiplication");
+        //userResultsByOperation.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
         JPanel userResults = new JPanel();
         // userResults.setBackground(backgroundGrey);
         userResults.add(operationSelectionPanel);
         userResults.add(userResultsByOperation);
+        //userResults.add(closeButtonPanel1);
 
         results.add("OMAT TULOKSET", userResults);
 
@@ -124,35 +169,70 @@ public class ResultPanel extends JPanel {
         JPanel top5 = new JPanel();
         top5.add(operationSelectionPanel2);
         top5.add(topResultsByOperation);
+        top5.setLayout(new BoxLayout(top5, BoxLayout.Y_AXIS));
+        //top5.add(closeButtonPanel2);
         // top5.setBackground(Color.yellow);
-        results.add("ENNÄTYKSET TOP 5", top5);
+
+        JPanel top5WithFillers = new JPanel();
+        top5WithFillers.setLayout(new BoxLayout(top5WithFillers, BoxLayout.X_AXIS));
+        Dimension sideFillerMinDimension = new Dimension(5,5);
+        Dimension sideFillerPreferredDimension = new Dimension(50,50);
+        Dimension sideFillerMaxDimension = new Dimension(50,50);
+
+        Box.Filler sideFiller1 = new Filler(sideFillerMinDimension, sideFillerPreferredDimension, sideFillerMaxDimension);
+        Box.Filler sideFiller2 = new Filler(sideFillerMinDimension,sideFillerPreferredDimension, sideFillerMaxDimension);
+
+        top5WithFillers.add(sideFiller1);
+        top5WithFillers.add(top5);
+        top5WithFillers.add(sideFiller2);
+        
+        results.add("ENNÄTYKSET TOP 5", top5WithFillers);
 
         results.setSelectedComponent(userResults);
 
+        Box.Filler filler = new Filler(new Dimension(10,10), new Dimension(25,25), new Dimension(30,30));
+
         this.add(results);
+        this.add(filler);
+        this.add(closeButtonPanel1);
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        this.setAlignmentY(CENTER_ALIGNMENT);
         setUpButtonListeners();
 
     }
 
     public JPanel createTop5Panel(String operation) {
 
-        this.setMinimumSize(new Dimension(1000, 600));
-        Color backgroundGrey = new Color(221, 221, 221);
+        //this.setMinimumSize(new Dimension(1000, 600));
+        Color darkerBackgroundGrey = new Color(221, 221, 221);
+        Color backgroundGrey = new Color(231, 231, 231);
         JPanel recordPanel = new JPanel();
         //recordPanel.setMinimumSize(new Dimension(1000, 600));
         recordPanel.setLayout(new BoxLayout(recordPanel, BoxLayout.Y_AXIS));
         JPanel titlePanel = new JPanel();
-        titlePanel.add(createJLabel(operation));
+        JLabel titleLabel = createJLabel(operation);
+        titleLabel.setOpaque(true);
+        titleLabel.setBackground(darkerBackgroundGrey);
+        titlePanel.add(titleLabel);
         titlePanel.setLayout(new FlowLayout(FlowLayout.LEADING));
-        titlePanel.setBackground(backgroundGrey);
-        // titlePanel.setMaximumSize(new Dimension(900, 120));
+        titlePanel.setBackground(darkerBackgroundGrey);
+        titlePanel.setMaximumSize(new Dimension(900, 240));
+        
 
-        JLabel rank = new JLabel(" SIJA     ");
-        rank.setFont(new Font("Arial", Font.PLAIN, 25));
-        JLabel playerName = new JLabel("PELAAJA   ");
-        playerName.setFont(new Font("Arial", Font.PLAIN, 25));
-        JLabel points = new JLabel("PISTEET  ");
+        Font titleLineFont = new Font("Arial", Font.PLAIN, 25);
+        Map<TextAttribute, Object> attributes = new HashMap<>(titleLineFont.getAttributes());
+        attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
+
+        JLabel rank = new JLabel("SIJA");
+        rank.setFont(titleLineFont);
+        rank.setFont(titleLineFont.deriveFont(attributes));
+        //rank.setOpaque(true);
+        JLabel playerName = new JLabel("PELAAJA");
+        playerName.setFont(titleLineFont);
+        playerName.setFont(titleLineFont.deriveFont(attributes));
+        JLabel points = new JLabel("PISTEET");
         points.setFont(new Font("Arial", Font.PLAIN, 25));
+        points.setFont(titleLineFont.deriveFont(attributes));
 
         //JPanel titles = new JPanel();
         //rank.setPreferredSize(new Dimension(125, 30));
@@ -172,11 +252,13 @@ public class ResultPanel extends JPanel {
         LinkedList<HighscoreLine> records = highScores.getHighScoresByOperation(operation);
         int rankOnList = 1;
         Color blueBackgroud = new Color(206, 225, 242);
-        Color lightBackground = new Color(229, 229, 229);
+        //Color lightBackground = new Color(229, 229, 229);
+        Color lightBackground = Color.WHITE;
+        Font top5Font = new Font("Arial", Font.PLAIN, 20);
         for (HighscoreLine highScore : records) {
 
             JLabel rankLabel = new JLabel(" " + String.valueOf(rankOnList) + ".");
-            rankLabel.setFont(new Font("Arial", Font.PLAIN, 15));
+            rankLabel.setFont(top5Font);
             rankLabel.setOpaque(true);
             if(rankOnList == 2 || rankOnList == 4) {
                 rankLabel.setBackground(blueBackgroud);
@@ -186,7 +268,7 @@ public class ResultPanel extends JPanel {
 
             String name = highScore.getUsername();
             JLabel nameLabel = new JLabel(name);
-            nameLabel.setFont(new Font("Arial", Font.PLAIN, 15));
+            nameLabel.setFont(top5Font);
             nameLabel.setOpaque(true);
             if(rankOnList == 2 || rankOnList == 4) {
                 nameLabel.setBackground(blueBackgroud);
@@ -196,7 +278,7 @@ public class ResultPanel extends JPanel {
 
             int points1 = highScore.getPoints();
             JLabel pointLabel = new JLabel(String.valueOf(points1));
-            pointLabel.setFont(new Font("Arial", Font.PLAIN, 15));
+            pointLabel.setFont(top5Font);
             pointLabel.setOpaque(true);
             if(rankOnList == 2 || rankOnList == 4) {
                 pointLabel.setBackground(blueBackgroud);
@@ -232,13 +314,36 @@ public class ResultPanel extends JPanel {
         }
 
         top5Panel.setBackground(backgroundGrey);
+        top5Panel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         // starsByRangeAndMaximum.setMinimumSize(new Dimension(900, 500));
+        Box.Filler filler3 = new Filler(new Dimension(5,5), new Dimension (10,10), new Dimension(10,10));
+        filler3.setBackground(darkerBackgroundGrey);
 
         recordPanel.add(titlePanel);
         //recordPanel.add(titles);
         recordPanel.add(top5Panel);
+        recordPanel.add(filler3);
+        recordPanel.setBackground(darkerBackgroundGrey);
 
-        return recordPanel;
+
+        JPanel panelToReturn = new JPanel();
+        panelToReturn.setLayout(new BoxLayout(panelToReturn, BoxLayout.X_AXIS));
+        
+        Dimension minimumFiller = new Dimension(10,10);
+        Dimension preferredFiller = new Dimension(150,150);
+        Dimension maximumFiller = new Dimension(200,200);
+        Box.Filler filler1 = new Filler(minimumFiller, preferredFiller, maximumFiller);
+        filler1.setBackground(darkerBackgroundGrey);
+        Box.Filler filler2 = new Filler(minimumFiller, preferredFiller, maximumFiller);
+        panelToReturn.add(filler1);
+        panelToReturn.add(recordPanel);
+        panelToReturn.add(filler2);
+        filler2.setBackground(darkerBackgroundGrey);
+        panelToReturn.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        panelToReturn.setBackground(darkerBackgroundGrey);
+        //panelToReturn.setBackground(backgroundGrey);
+
+        return panelToReturn;
 
     }
 
@@ -253,13 +358,16 @@ public class ResultPanel extends JPanel {
         additionButton.setFont(new Font("Arial", Font.BOLD, 25));
         additionButton.setSelected(true);
 
-        Dimension fillerDimension = new Dimension(40, 25);
-        Box.Filler filler1 = new Filler(fillerDimension, fillerDimension, fillerDimension);
+        Dimension fillerMinDimension = new Dimension(20, 40);
+        Dimension fillerPreferredDimension = new Dimension(40, 40);
+        Dimension fillerMaxDimension = new Dimension(150, 40);
+
+        Box.Filler filler1 = new Filler(fillerMinDimension, fillerPreferredDimension, fillerMaxDimension);
 
         //substractionButton = new JRadioButton("VÄHENNYSLASKU");
         substractionButton.setFont(new Font("Arial", Font.BOLD, 25));
 
-        Box.Filler filler2 = new Filler(fillerDimension, fillerDimension, fillerDimension);
+        Box.Filler filler2 = new Filler(fillerMinDimension, fillerPreferredDimension, fillerMaxDimension);
 
         //multiplicationButton = new JRadioButton("KERTOLASKU");
         multiplicationButton.setFont(new Font("Arial", Font.BOLD, 25));
@@ -294,6 +402,8 @@ public class ResultPanel extends JPanel {
 
         JLabel titleLabel = new JLabel(title);
         titleLabel.setFont(new Font("Arial", Font.BOLD, 25));
+        titleLabel.setOpaque(true);
+        titleLabel.setBackground(new Color(231, 231, 231));
 
         return titleLabel;
     }
@@ -301,7 +411,7 @@ public class ResultPanel extends JPanel {
     public JPanel createResultPanel(String operation) {
 
         this.setMinimumSize(new Dimension(1000, 600));
-        Color backgroundGrey = new Color(221, 221, 221);
+        Color backgroundGrey = new Color(231, 231, 231);
         JPanel resultPanel = new JPanel();
         resultPanel.setLayout(new BoxLayout(resultPanel, BoxLayout.Y_AXIS));
         JPanel titlePanel = new JPanel();
@@ -398,6 +508,7 @@ public class ResultPanel extends JPanel {
                 Object source = e.getSource();
                 if (source == closeButton) {
                     System.out.println("closeButton clicked");
+                    GameController.getInstance().showPreviousPanel();
 
                 } else if (source == additionButton1) {
                     System.out.println("additionButton clicked");
@@ -432,7 +543,7 @@ public class ResultPanel extends JPanel {
             }
         };
 
-        // closeButton.addActionListener(buttonListener);
+        closeButton.addActionListener(buttonListener);
         additionButton1.addActionListener(buttonListener);
         substractionButton1.addActionListener(buttonListener);
         multiplicationButton1.addActionListener(buttonListener);

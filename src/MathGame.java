@@ -22,6 +22,7 @@ public class MathGame extends JFrame{
         GameController gameController = GameController.getInstance();
         gameController.intializeGame(this);
         this.centerPanel = new StartPanel();
+        GameController.getInstance().setCurrentPanel(centerPanel);
         this.northPanel = new ControlPanel();
         this.eastPanel = new JPanel();
         this.westPanel = new JPanel();
@@ -229,9 +230,9 @@ public class MathGame extends JFrame{
     public void changePanel(JPanel panel) {
         this.remove(this.centerPanel);
         this.add(panel, BorderLayout.CENTER);
-        this.pack();
         this.setVisible(true);
         this.centerPanel = panel;
+        this.pack();
 
     }
 

@@ -17,10 +17,10 @@ public class HighscoreChart {
     public int isNewHighScore(int points) {
         int rank;
 
-        if(additionHighScores.size() == 0) {
+        if (additionHighScores.size() == 0) {
             rank = 1;
-        //} else if (points < lowestHighScore) {
-        //    rank = 0;
+            // } else if (points < lowestHighScore) {
+            // rank = 0;
         } else {
             int index = 0;
             for (HighscoreLine record : additionHighScores) {
@@ -38,16 +38,19 @@ public class HighscoreChart {
     }
 
     public void addNewHighScore(int rank, String userName, int points) {
-        
+
         HighscoreLine newRecord = new HighscoreLine(userName, points);
         additionHighScores.add(rank - 1, newRecord);
+        if (additionHighScores.size() > 5) {
+            additionHighScores.removeLast();
+        }
 
     }
 
     public LinkedList<HighscoreLine> getHighScoresByOperation(String operation) {
 
         LinkedList<HighscoreLine> highscores = null;
-        
+
         if (operation.equals("+")) {
             highscores = this.additionHighScores;
 
@@ -57,7 +60,7 @@ public class HighscoreChart {
         } else if (operation.equals("*")) {
             highscores = this.multiplicationHighScores;
         }
- 
+
         return highscores;
     }
 
@@ -72,9 +75,5 @@ public class HighscoreChart {
     public LinkedList<HighscoreLine> getMultiplicationHighScores() {
         return multiplicationHighScores;
     }
-
-    
-
-    
 
 }

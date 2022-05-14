@@ -102,7 +102,7 @@ public class GameController {
        
     }
 
-    public boolean checkQuestion(int answer){
+    public boolean checkQuestion(int answer, int second){
          //check answer, comes here only if answers is in ok format.
         System.out.println(answer);
         String string1 = nextQuestion.get(0).toString();
@@ -111,14 +111,16 @@ public class GameController {
         int number2 = Integer.parseInt(string2);
 
         if(number1 + number2 == answer){
-            int newPoints = 2000;
-            int pointTotal = newPoints + gameData.getPoints();
+            int correctAnswerPoints = 1000;
+            int remainingTime = second;
+            int timePoints = remainingTime * 100;
+            int pointTotal = timePoints + correctAnswerPoints + gameData.getPoints();
             gameData.setPoints(pointTotal);
             System.out.println(number1 + " + " + number2 + " = " + answer);
 
             return true;
         }else{        
-            System.out.println("Meni väärin!");
+            gameData.addQuestionToAskAgainList(nextQuestion);
         return false;
         }
     }

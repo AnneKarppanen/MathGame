@@ -15,18 +15,26 @@ public class ChooseDifficultyPanel extends JPanel {
     private JRadioButton jRadioVaikea;
     private int lukualue = 1;
     private int vaikeustaso = 1;
+    private Font radioButtonFont = new Font("Arial", Font.BOLD, 18);
 
     ButtonGroup groupLukualue;
     ButtonGroup groupVaikeustaso;
-    // private GameController gameController;
 
+    /*
+     * IMPORTANT NOTE: It has been agreed with the teachers that the it´s enough
+     * to implement the easiest form of game in the MVP version. Therefore changing
+     * difficulty and numer range has no effect, the game is the same regardless
+     * what is chosen.
+     * 
+     * Shows a view where the user can choose number range and difficulty level for
+     * the game.
+     */
     public ChooseDifficultyPanel() {
-        // this.gameController = gameController;
-        // this.gameController = gameController.getInstance();
 
         this.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         this.setBackground(new Color(237, 243, 249));
         this.setLayout(new BorderLayout());
+
         JPanel middlePane = new JPanel();
         middlePane.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         middlePane.setLayout(new GridBagLayout());
@@ -36,70 +44,66 @@ public class ChooseDifficultyPanel extends JPanel {
         cConstraints.gridx = 0;
         cConstraints.gridy = 0;
 
+        Border blackline = BorderFactory.createLineBorder(Color.black);
         JPanel radioButtonMainPanel = new JPanel(new FlowLayout(0, 20, 20));
         radioButtonMainPanel.setBackground(new Color(237, 243, 249));
-        JPanel radioButtonSubPanel1 = new JPanel();
-        JPanel radioButtonSubPanel2 = new JPanel();
-        radioButtonSubPanel1.setPreferredSize(new Dimension(140, 120));
-        Border blackline = BorderFactory.createLineBorder(Color.black);
-        radioButtonSubPanel1.setBorder(blackline);
-        radioButtonSubPanel2.setBorder(blackline);
 
-        radioButtonSubPanel2.setPreferredSize(new Dimension(140, 120));
+        JPanel radioButtonSubPanel1 = new JPanel();
+        radioButtonSubPanel1.setBorder(blackline);
+        radioButtonSubPanel1.setPreferredSize(new Dimension(180, 180));
         radioButtonSubPanel1.setLayout(new BoxLayout(radioButtonSubPanel1, BoxLayout.PAGE_AXIS));
+        JPanel radioButtonSubPanel2 = new JPanel();
+        radioButtonSubPanel2.setBorder(blackline);
+        radioButtonSubPanel2.setPreferredSize(new Dimension(180, 180));
         radioButtonSubPanel2.setLayout(new BoxLayout(radioButtonSubPanel2, BoxLayout.PAGE_AXIS));
 
         jRadioLukuAlue_10 = new JRadioButton("0-10");
+        jRadioLukuAlue_10.setFont(radioButtonFont);
         jRadioLukualue_20 = new JRadioButton("0-20");
+        jRadioLukualue_20.setFont(radioButtonFont);
         jRadioLukualue_100 = new JRadioButton("0-100");
+        jRadioLukualue_100.setFont(radioButtonFont);
+
         jRadioHelppo = new JRadioButton("Helppo");
+        jRadioHelppo.setFont(radioButtonFont);
         jRadioKeskivaikea = new JRadioButton("Keskivaikea");
+        jRadioKeskivaikea.setFont(radioButtonFont);
         jRadioVaikea = new JRadioButton("Vaikea");
-        jRadioLukuAlue_10.setFont((new Font("Arial", Font.BOLD, 14)));
-        jRadioLukuAlue_10.setPreferredSize(new Dimension(50, 50));
-        jRadioLukualue_20.setFont((new Font("Arial", Font.BOLD, 14)));
-        jRadioLukualue_20.setPreferredSize(new Dimension(50, 50));
-        jRadioLukualue_100.setFont((new Font("Arial", Font.BOLD, 14)));
-        jRadioLukualue_100.setPreferredSize(new Dimension(50, 50));
-        jRadioHelppo.setFont((new Font("Arial", Font.BOLD, 14)));
-        jRadioHelppo.setPreferredSize(new Dimension(50, 50));
-        jRadioKeskivaikea.setFont((new Font("Arial", Font.BOLD, 14)));
-        jRadioKeskivaikea.setPreferredSize(new Dimension(50, 50));
-        jRadioVaikea.setFont((new Font("Arial", Font.BOLD, 14)));
-        jRadioVaikea.setPreferredSize(new Dimension(50, 50));
+        jRadioVaikea.setFont(radioButtonFont);
+
         JLabel lukualueText = new JLabel("LUKUALUE:");
-        lukualueText.setFont(new Font("Arial", Font.BOLD, 16));
+        lukualueText.setFont(new Font("Arial", Font.BOLD, 20));
         JLabel pelinVaikeusText = new JLabel("PELIN VAIKEUS:");
-        pelinVaikeusText.setFont(new Font("Arial", Font.BOLD, 16));
+        pelinVaikeusText.setFont(new Font("Arial", Font.BOLD, 20));
 
         groupLukualue = new ButtonGroup();
-        groupVaikeustaso = new ButtonGroup();
-
         groupLukualue.add(jRadioLukuAlue_10);
         groupLukualue.add(jRadioLukualue_20);
         groupLukualue.add(jRadioLukualue_100);
+
+        groupVaikeustaso = new ButtonGroup();
         groupVaikeustaso.add(jRadioHelppo);
         groupVaikeustaso.add(jRadioKeskivaikea);
         groupVaikeustaso.add(jRadioVaikea);
 
-        radioButtonSubPanel1.add(Box.createVerticalStrut(5));
-        radioButtonSubPanel1.add(Box.createHorizontalStrut(15));
+        radioButtonSubPanel1.add(Box.createVerticalStrut(20));
         radioButtonSubPanel1.add(lukualueText);
-        radioButtonSubPanel1.add(Box.createVerticalStrut(15));
-        radioButtonSubPanel2.add(Box.createVerticalStrut(5));
-        radioButtonSubPanel2.add(Box.createHorizontalStrut(15));
-        radioButtonSubPanel2.add(pelinVaikeusText);
-        radioButtonSubPanel2.add(Box.createVerticalStrut(15));
-
+        radioButtonSubPanel1.add(Box.createVerticalStrut(10));
         radioButtonSubPanel1.add(jRadioLukuAlue_10);
         radioButtonSubPanel1.add(jRadioLukualue_20);
         radioButtonSubPanel1.add(jRadioLukualue_100);
+
+        radioButtonSubPanel2.add(Box.createVerticalStrut(20));
+        radioButtonSubPanel2.add(pelinVaikeusText);
+        radioButtonSubPanel2.add(Box.createVerticalStrut(10));
         radioButtonSubPanel2.add(jRadioHelppo);
         radioButtonSubPanel2.add(jRadioKeskivaikea);
         radioButtonSubPanel2.add(jRadioVaikea);
+
         middlePane.add(radioButtonMainPanel);
         radioButtonMainPanel.add(radioButtonSubPanel1);
         radioButtonMainPanel.add(radioButtonSubPanel2);
+
         jRadioLukuAlue_10.setSelected(true);
         jRadioHelppo.setSelected(true);
 
@@ -108,8 +112,8 @@ public class ChooseDifficultyPanel extends JPanel {
         playButton.setFont((new Font("Arial", Font.BOLD, 20)));
         cConstraints.gridx = 0;
         cConstraints.gridy = 1;
-        cConstraints.ipadx = 60; // internal padding x
-        cConstraints.ipady = 25; // internal padding y
+        cConstraints.ipadx = 60;
+        cConstraints.ipady = 25;
 
         middlePane.add(playButton, cConstraints);
         this.add(middlePane, BorderLayout.CENTER);
@@ -132,31 +136,28 @@ public class ChooseDifficultyPanel extends JPanel {
                 Object source = e.getSource();
                 if (source == playButton) {
                     System.out.println("playButton clicked");
-                    
-                    // tästä lähtee sitten eka peli-ikkuna
                     GameController.getInstance().startHardGame();
-                  //  GameController.getInstance().showGamePanel();
+                    /*
+                     * The else ifs for "lukualue" and "vaikeustaso" purely written ready for the
+                     * next versions. Then the numeric range attribute and difficulty level
+                     * would start different games. Agreed with the teachers that can be left out
+                     * from MVP version.
+                     * Not implemented yet, so changing difficulty has no effect.
+                     */
                 } else if (source == jRadioLukuAlue_10) {
-                    System.out.println("radioButton10 clicked");
                     lukualue = 1;
-                }else if(source == jRadioLukualue_20){
-                    System.out.println("radioButton20 clicked");
+                } else if (source == jRadioLukualue_20) {
                     lukualue = 2;
-                }else if (source == jRadioLukualue_100){
-                    System.out.println("radioButton100 clicked");
+                } else if (source == jRadioLukualue_100) {
                     lukualue = 3;
-                }else if (source == jRadioHelppo){
-                    System.out.println("radioButtonHelppo clicked");
+                } else if (source == jRadioHelppo) {
                     vaikeustaso = 1;
-                }else if (source == jRadioKeskivaikea){
-                    System.out.println("radioButtonKeskivaikea clicked");
+                } else if (source == jRadioKeskivaikea) {
                     vaikeustaso = 2;
                 } else if (source == jRadioVaikea) {
-                    System.out.println("jRadioVaikea clicked");
                     vaikeustaso = 3;
                 } else if (source == backButton) {
                     GameController.getInstance().showChooseOperationPanel();
-                    System.out.println("Klikattiin backButtonia");
                 }
             }
         };

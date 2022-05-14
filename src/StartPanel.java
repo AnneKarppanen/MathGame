@@ -1,8 +1,8 @@
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+/* Creates starting window for Mathgame */
 public class StartPanel extends JPanel {
 
     private JButton startGameButton = null;
@@ -15,7 +15,6 @@ public class StartPanel extends JPanel {
         this.setLayout(new GridBagLayout());
         GridBagConstraints cConstraints = new GridBagConstraints();
         cConstraints.insets = new Insets(30, 30, 30, 30);
-
 
         startPicture = new ImageIcon("src/images/startImage_small.png");
         startImageLabel = new JLabel();
@@ -40,9 +39,6 @@ public class StartPanel extends JPanel {
         @Override
         public void actionPerformed(ActionEvent e) {
             GameController.getInstance().chooseUser();
-            
         }
-        
     }
-
 }

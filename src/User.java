@@ -75,13 +75,31 @@ public class User {
             results.put(maximum, resultsByMaximum);
         }
 
+        if (operation.equals("+")) {
+            this.additionResults = results;
+
+        } else if (operation.equals("-")) {
+            this.substractionResults = results;
+
+        } else if (operation.equals("*")) {
+            this.multiplicationResults = results;
+        }
+
     }
 
     public HashMap<Integer, HashMap<Integer, Integer>> getResults(String operation) {
 
-        if (operation.equals("+"))
-            ;
-        return additionResults;
+        HashMap<Integer, HashMap<Integer, Integer>> results = null;
+
+        if (operation.equals("+")) {
+            results = this.additionResults;
+        } else if (operation.equals("-")) {
+            results = this.substractionResults;
+        } else if (operation.equals("*")) {
+            results = this.multiplicationResults;
+        }
+            
+        return results;
     }
 
     public int getStars(String operation, int maximum, int level) {
@@ -105,7 +123,7 @@ public class User {
         } catch (NullPointerException e) {
             System.out.println("Could not find points.");
         }
-
+        System.out.println("returning " + stars + " stars");
         return stars;
 
     }

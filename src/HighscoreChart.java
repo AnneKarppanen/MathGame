@@ -2,10 +2,15 @@ import java.util.LinkedList;
 
 public class HighscoreChart {
     LinkedList<HighscoreLine> additionHighScores;
+    LinkedList<HighscoreLine> substractionHighScores;
+    LinkedList<HighscoreLine> multiplicationHighScores;
+
     int lowestHighScore;
 
     public HighscoreChart() {
         this.additionHighScores = new LinkedList<>();
+        this.substractionHighScores = new LinkedList<>();
+        this.multiplicationHighScores = new LinkedList<>();
         this.lowestHighScore = 0;
     }
 
@@ -38,5 +43,38 @@ public class HighscoreChart {
         additionHighScores.add(rank - 1, newRecord);
 
     }
+
+    public LinkedList<HighscoreLine> getHighScoresByOperation(String operation) {
+
+        LinkedList<HighscoreLine> highscores = null;
+        
+        if (operation.equals("+")) {
+            highscores = this.additionHighScores;
+
+        } else if (operation.equals("-")) {
+            highscores = this.substractionHighScores;
+
+        } else if (operation.equals("*")) {
+            highscores = this.multiplicationHighScores;
+        }
+ 
+        return highscores;
+    }
+
+    public LinkedList<HighscoreLine> getAdditionHighScores() {
+        return additionHighScores;
+    }
+
+    public LinkedList<HighscoreLine> getSubstractionHighScores() {
+        return substractionHighScores;
+    }
+
+    public LinkedList<HighscoreLine> getMultiplicationHighScores() {
+        return multiplicationHighScores;
+    }
+
+    
+
+    
 
 }

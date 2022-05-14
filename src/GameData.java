@@ -26,7 +26,7 @@ public class GameData {
         this.questionNumber = 1;
         this.newQuestionIndex = 0;
         this.questionList = questionList;
-        this.level = 1;
+        this.level = level;
         this.maximum = 10;
         this.newStarAchieved = false;
         this.newHighScore = false;

@@ -85,6 +85,11 @@ public class GameController {
         
     }
 
+    public void showResultPanel() {
+        JPanel resultPanel = new ResultPanel(user, highscores);
+        currentGame.changePanel(resultPanel);
+    }
+
     public int getQuestionCalculator(){
         return gameData.getQuestionCalculator();
     }

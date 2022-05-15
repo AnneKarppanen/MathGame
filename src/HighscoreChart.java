@@ -15,7 +15,9 @@ public class HighscoreChart {
         this.lowestHighScore = 0;
     }
 
-    // Takes a number of points (int) and an operation (+, -, *) as parameters and returns the rank that is reached with these points in the top higscores list of given operations. 
+    // Takes a number of points (int) and an operation (+, -, *) as parameters and
+    // returns the rank that is reached with these points in the top higscores list
+    // of given operations.
     public int isNewHighScore(int points) {
         int rank;
 

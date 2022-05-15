@@ -7,7 +7,7 @@ public class HighscoreChart {
 
     int lowestHighScore;
 
-    /*Creates a new class */
+    // Creates a class that contains top 5 highscores for different operations.
     public HighscoreChart() {
         this.additionHighScores = new LinkedList<>();
         this.substractionHighScores = new LinkedList<>();
@@ -15,6 +15,7 @@ public class HighscoreChart {
         this.lowestHighScore = 0;
     }
 
+    // Takes a number of points (int) and an operation (+, -, *) as parameters and returns the rank that is reached with these points in the top higscores list of given operations. 
     public int isNewHighScore(int points) {
         int rank;
 

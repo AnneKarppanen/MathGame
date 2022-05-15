@@ -25,7 +25,7 @@ public class ControlPanel extends JPanel {
         this.setBorder(BorderFactory.createEmptyBorder(5, 0, 5, 5));
         this.setBackground(new Color(50, 34, 151));
         this.setLayout(new FlowLayout(FlowLayout.LEFT, 20, 10));
-        this.gameController = gameController.getInstance();
+        this.gameController = GameController.getInstance();
 
         ImageIcon homeIcon = new ImageIcon("src/images/home2.png");
         homeButton = new JButton(
@@ -37,7 +37,7 @@ public class ControlPanel extends JPanel {
                 new ImageIcon(starIcon.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH)));
         starButton.setPreferredSize(new Dimension(45, 45));
 
-        ImageIcon questionIcon = new ImageIcon("src/images/question-mark-10920.png");
+        ImageIcon questionIcon = new ImageIcon("src/images/question-mark-10920_small.png");
         helpButton = new JButton(
                 new ImageIcon(questionIcon.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH)));
         helpButton.setPreferredSize(new Dimension(45, 45));

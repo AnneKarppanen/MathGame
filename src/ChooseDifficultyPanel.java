@@ -139,6 +139,7 @@ public class ChooseDifficultyPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 Object source = e.getSource();
                 if (source == playButton) {
+                    GameController.getInstance().setDifficulty(lukualue, vaikeustaso);
                     GameController.getInstance().startHardGame();
                     /*
                      * The else ifs for "lukualue" and "vaikeustaso" purely written ready for the
@@ -149,11 +150,11 @@ public class ChooseDifficultyPanel extends JPanel {
                      * Not implemented yet, so changing difficulty has no effect on the game.
                      */
                 } else if (source == jRadioLukuAlue_10) {
-                    lukualue = 1;
+                    lukualue = 10;
                 } else if (source == jRadioLukualue_20) {
-                    lukualue = 2;
+                    lukualue = 20;
                 } else if (source == jRadioLukualue_100) {
-                    lukualue = 3;
+                    lukualue = 100;
                 } else if (source == jRadioHelppo) {
                     vaikeustaso = 1;
                 } else if (source == jRadioKeskivaikea) {

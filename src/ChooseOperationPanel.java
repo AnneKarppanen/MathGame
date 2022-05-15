@@ -74,6 +74,8 @@ public class ChooseOperationPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 Object source = e.getSource();
                 if (source == additionButton) {
+                    String operation = "+";
+                    GameController.getInstance().setOperation(operation);
                     GameController.getInstance().showChooseDifficultyPanel();
                 } else if (source == subtractionButton) {
                     /*

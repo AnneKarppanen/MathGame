@@ -13,8 +13,6 @@ public class GameController {
     private ArrayList<Integer> nextQuestion = null;
     private JPanel previousPanel;
     private JPanel currentPanel;
-   
-  
 
     public static GameController getInstance() {
         if (null == gameControllerInstance) {
@@ -137,8 +135,19 @@ public class GameController {
         this.questionGenerator = new QuestionGenerator();
         questionGenerator.createAdditionQuestions(10);
         questionList = questionGenerator.giveQuestionList();
-        this.gameData = new GameData(questionList, user, "+", 10, 3);
+        gameData.setQuestionList(questionList);
+        gameData.setUser(user);
         showGamePanel();
+    }
+
+    // Sets operation to GameData
+    public void setOperation(String operation) {
+        this.gameData = new GameData(operation);
+    }
+
+    // Sets number range and difficulty to GameData
+    public void setDifficulty(int maximum, int level) {
+        gameData.setDifficulty(maximum, level);
     }
 
     // Shows GamePanel
@@ -155,7 +164,7 @@ public class GameController {
     }
 
     // Retrieves next question from QuestionGenerator and returns it to GamePanel
-    public ArrayList askQuestion() {
+    public ArrayList<Integer> askQuestion() {
         nextQuestion = gameData.getNextQuestion();
         return nextQuestion;
 

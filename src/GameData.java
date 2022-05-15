@@ -18,17 +18,26 @@ public class GameData {
     private int rankAtTheEnd;
 
     /*
-     * Creates a model for the game data needed in one game. A new game data class
-     * is created whenever a user starts a new game. Gamedata takes a list of
-     * questions, the current user, an operation (+, - or *), the biggest number of
+     * Creates a model for the game data needed in one game. A new GameData class
+     * is created whenever the operation is chosen. Gamedata also receives later a
+     * list of questions, the current user, an operation (+, - or *), the biggest number of
      * the range (10, 20 or 100) and the level (1-3) as parameters.
      */
-    public GameData(ArrayList<ArrayList<Integer>> questionList, User user, String operation, int maximum, int level) {
-        this.questionList = questionList;
+    public GameData(String operation) {
+        this.operation = operation;
+    }
+
+    public void setDifficulty(int maximum, int level) {
+        this.maximum = maximum;
         this.level = level;
-        this.maximum = 10;
-        this.operation = "+";
+    }
+
+    public void setUser(User user) {
         this.user = user;
+    }
+
+    public void setQuestionList(ArrayList<ArrayList<Integer>> questionList) {
+        this.questionList = questionList;
     }
 
     public int getPoints() {
@@ -77,33 +86,29 @@ public class GameData {
      */
     public ArrayList<Integer> getNextQuestion() {
         questionCalculator++;
-        if (questionCalculator > 3) {
-            return null;
-        } else {
 
-            ArrayList<Integer> questionToAsk = new ArrayList<>();
-            questionsToAskAgain = new ArrayList<>();
+        ArrayList<Integer> questionToAsk = new ArrayList<>();
+        questionsToAskAgain = new ArrayList<>();
 
-            if (questionsToAskAgain.size() > 0) {
-                questionToAsk = questionsToAskAgain.get(0);
-                if (questionToAsk.equals(lastQuestionAsked) && questionsToAskAgain.size() > 1) {
-                    questionToAsk = questionsToAskAgain.get(1);
-                    questionsToAskAgain.remove(1);
-                } else {
-                    questionsToAskAgain.remove(0);
-                }
-                if (questionToAsk.equals(lastQuestionAsked) && questionsToAskAgain.size() == 1) {
-                    questionToAsk = questionList.get(newQuestionIndex);
-                    newQuestionIndex++;
-                }
+        if (questionsToAskAgain.size() > 0) {
+            questionToAsk = questionsToAskAgain.get(0);
+            if (questionToAsk.equals(lastQuestionAsked) && questionsToAskAgain.size() > 1) {
+                questionToAsk = questionsToAskAgain.get(1);
+                questionsToAskAgain.remove(1);
             } else {
+                questionsToAskAgain.remove(0);
+            }
+            if (questionToAsk.equals(lastQuestionAsked) && questionsToAskAgain.size() == 1) {
                 questionToAsk = questionList.get(newQuestionIndex);
                 newQuestionIndex++;
             }
-
-            lastQuestionAsked = questionToAsk;
-            return questionToAsk;
+        } else {
+            questionToAsk = questionList.get(newQuestionIndex);
+            newQuestionIndex++;
         }
+
+        lastQuestionAsked = questionToAsk;
+        return questionToAsk;
     }
 
     // Adds the question that is given as a parameter to the questionsToAskAgain

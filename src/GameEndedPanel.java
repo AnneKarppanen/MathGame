@@ -131,7 +131,6 @@ public class GameEndedPanel extends JPanel {
         private AchievementPanel(boolean newStarAchieved, boolean isNewHighScore) {
 
             String text = null;
-            JLabel caption = null;
             JPanel imagePanel = null;
 
             if (newStarAchieved && !isNewHighScore) {

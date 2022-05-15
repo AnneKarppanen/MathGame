@@ -48,7 +48,7 @@ public class GamePanel extends JPanel {
 
     private GameController gameController;
     private JTextField answerField = null;
-    private ArrayList questions = null;
+    private ArrayList<Integer> questions = null;
     private int questionCalculator = 1;
     private GridBagConstraints cConstraints;
     private Timer timer;
@@ -60,7 +60,7 @@ public class GamePanel extends JPanel {
     // Takes care of the different views during the started game
     public GamePanel() {
 
-        this.gameController = gameController.getInstance();
+        this.gameController = GameController.getInstance();
         this.setBackground(mainBackground);
         this.setLayout(new BorderLayout());
         questions = gameController.askQuestion();
@@ -486,9 +486,8 @@ public class GamePanel extends JPanel {
                     checkAnswer();
 
                 } else if (source == continueButton) {
-                    if (questionCalculator < 3) {
-                        // if (questionCalculator < 15) {
-                        // second = 8;
+                    if (questionCalculator < 15) {
+                        second = 8;
                         continueToNextQuestion();
 
                     } else {

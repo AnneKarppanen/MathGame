@@ -73,11 +73,16 @@ public class ResultPanel extends JPanel {
             userMultiplicationResults.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         } else {
             Color backgroundGray = new Color(231, 231, 231);
+
+            Dimension noUserFillerMinDimension = new Dimension(20, 20);
+            Dimension noUserillerPreferredDimension = new Dimension(40, 40);
+            Dimension noUserFillerMaxDimension = new Dimension(60, 60);
+            
             JLabel noUserLabel1 = new JLabel("PELAAJAA EI OLE VALITTU");
             noUserLabel1.setFont(new Font("Arial", Font.BOLD, 25));
             noUserLabel1.setOpaque(true);
             noUserLabel1.setBackground(backgroundGray);
-            Box.Filler filler6 = new Filler(new Dimension(20,20), new Dimension(40,40), new Dimension(60, 60));
+            Box.Filler filler6 = new Filler(noUserFillerMinDimension, noUserillerPreferredDimension, noUserFillerMaxDimension);
 
             this.userAdditionResults = new JPanel();
             userAdditionResults.setBackground(backgroundGray);
@@ -86,11 +91,31 @@ public class ResultPanel extends JPanel {
             userAdditionResults.setLayout(new BoxLayout(userAdditionResults, BoxLayout.Y_AXIS));
             noUserLabel1.setAlignmentX(CENTER_ALIGNMENT);
 
+            JLabel noUserLabel2 = new JLabel("PELAAJAA EI OLE VALITTU");
+            noUserLabel2.setFont(new Font("Arial", Font.BOLD, 25));
+            noUserLabel2.setOpaque(true);
+            noUserLabel2.setBackground(backgroundGray);
+            Box.Filler filler7 = new Filler(noUserFillerMinDimension, noUserillerPreferredDimension, noUserFillerMaxDimension);
+
             this.userSubstractionResults = new JPanel();
             userSubstractionResults.setBackground(backgroundGray);
+            userSubstractionResults.add(filler7);
+            userSubstractionResults.add(noUserLabel2);
+            userSubstractionResults.setLayout(new BoxLayout(userSubstractionResults, BoxLayout.Y_AXIS));
+            noUserLabel2.setAlignmentX(CENTER_ALIGNMENT);
 
+            JLabel noUserLabel3 = new JLabel("PELAAJAA EI OLE VALITTU");
+            noUserLabel3.setFont(new Font("Arial", Font.BOLD, 25));
+            noUserLabel3.setOpaque(true);
+            noUserLabel3.setBackground(backgroundGray);
+            Box.Filler filler8 = new Filler(noUserFillerMinDimension, noUserillerPreferredDimension, noUserFillerMaxDimension);
+            
             this.userMultiplicationResults = new JPanel();
             userMultiplicationResults.setBackground(backgroundGray);
+            userMultiplicationResults.add(filler8);
+            userMultiplicationResults.add(noUserLabel3);
+            userMultiplicationResults.setLayout(new BoxLayout(userMultiplicationResults, BoxLayout.Y_AXIS));
+            noUserLabel3.setAlignmentX(CENTER_ALIGNMENT);
 
         }
 

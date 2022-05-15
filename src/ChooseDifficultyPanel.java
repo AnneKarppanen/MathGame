@@ -22,10 +22,12 @@ public class ChooseDifficultyPanel extends JPanel {
 
     /*
      * IMPORTANT NOTE: It has been agreed with the teachers that the it´s enough
-     * to implement the easiest form of game in the MVP version. Therefore changing
-     * difficulty and number range has no effect, the game is the same regardless
-     * what is chosen.
-     * 
+     * to implement the techically easiest form of game in the MVP version.
+     * Therefore changing difficulty and number range has no effect, the game is the
+     * same regardless what is chosen.
+     */
+
+    /*
      * Shows a view where the user can choose number range and difficulty level for
      * the game.
      */
@@ -137,14 +139,14 @@ public class ChooseDifficultyPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 Object source = e.getSource();
                 if (source == playButton) {
-                    System.out.println("playButton clicked");
                     GameController.getInstance().startHardGame();
                     /*
                      * The else ifs for "lukualue" and "vaikeustaso" purely written ready for the
                      * next versions. Then the numeric range attribute and difficulty level
                      * would start different games. Agreed with the teachers that can be left out
                      * from MVP version.
-                     * Not implemented yet, so changing difficulty has no effect.
+                     * 
+                     * Not implemented yet, so changing difficulty has no effect on the game.
                      */
                 } else if (source == jRadioLukuAlue_10) {
                     lukualue = 1;

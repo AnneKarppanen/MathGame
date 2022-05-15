@@ -52,11 +52,12 @@ public class GamePanel extends JPanel {
     private int questionCalculator = 1;
     private GridBagConstraints cConstraints;
     private Timer timer;
-    private int second = 3;
+    private int second = 8;
     private int minute = 0;
     private String formattedSecond, formattedMinute;
     private DecimalFormat counterFormat = new DecimalFormat("00");
 
+    // Takes care of the different views during the started game
     public GamePanel() {
 
         this.gameController = gameController.getInstance();
@@ -83,7 +84,7 @@ public class GamePanel extends JPanel {
 
     }
 
-    /* Creates the main game window by building all the Panels in place */
+    // Creates the main game window by building all the Panels to be used
     public void createGameWindow() {
 
         pointsPanel.add(coinImageLabel);
@@ -111,7 +112,7 @@ public class GamePanel extends JPanel {
 
     }
 
-    /* Creates countdown timer for the game questions */
+    // Creates countdown timer for the game questions 
     public void countdownTimer() {
 
         this.timer = new Timer(1000, new ActionListener() {
@@ -199,7 +200,7 @@ public class GamePanel extends JPanel {
         buttonPanel.add(continueButtonTimeout, cConstraints);
         cConstraints.ipadx = 0;
 
-        // Listener to timeout info´s Continue-button
+        // Listener to timeout info's Continue-button
         continueButtonTimeout.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent event) {
@@ -217,7 +218,7 @@ public class GamePanel extends JPanel {
         });
     }
 
-    /* Sets the main panes to main JPanel */
+    // Sets the main panes to main JPanel
     public void setPanes() {
         middlePane = new JPanel();
         middlePane.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -231,7 +232,7 @@ public class GamePanel extends JPanel {
         this.add(southPane, BorderLayout.SOUTH);
     }
 
-    /* Instantiates and prepares most of the GamePanel-view´s Panels */
+    // Instantiates and prepares most of the GamePanel-view's Panels 
     public void setPanels() {
 
         // Create Points and Time Panels to southBorder
@@ -281,7 +282,7 @@ public class GamePanel extends JPanel {
 
     }
 
-    /* Instantiates and prepares most of the GamePanel-view´s Labels */
+    // Instantiates and prepares most of the GamePanel-view's Labels
     public void setLabels() {
 
         helperLabel = new JLabel();
@@ -312,7 +313,7 @@ public class GamePanel extends JPanel {
 
     }
 
-    /* Sets the paths to GamePanel´s images */
+    // Sets the paths to GamePanel's images
     public void setPictures() {
         coinPicture = new ImageIcon("src/images/coin_small.png");
         timePicture = new ImageIcon("src/images/time_small.png");
@@ -321,7 +322,7 @@ public class GamePanel extends JPanel {
         thumbsUpPicture = new ImageIcon("src/images/thumbsUp.png");
     }
 
-    /* Instantiates and prepares most of the GamePanel's buttons */
+    // Instantiates and prepares most of the GamePanel's buttons
     public void setButtons() {
         checkButton = new JButton("TARKISTA");
         checkButton.setBackground(buttonBackgroud);
@@ -342,7 +343,7 @@ public class GamePanel extends JPanel {
         helperButton.setVisible(false);
     }
 
-    /* Instantiates answerField for users answers */
+    // Instantiates answerField for users answers
     public void setFields() {
         answerField = new JTextField(2);
         answerField.setHorizontalAlignment(JTextField.CENTER);
@@ -351,7 +352,7 @@ public class GamePanel extends JPanel {
         answerField.setBackground(Color.WHITE);
     }
 
-    /* Adds question number to northArea of the gameview */
+    // Adds question number to northArea of the gameview
     public void gameQuestionCalculator() {
         questionNumberLabel.setText("");
         questionNumberLabel.setText(questionCalculator + " / 15");
@@ -359,9 +360,7 @@ public class GamePanel extends JPanel {
         northArea.add(questionNumberLabel);
     }
 
-    /*
-     * Tests if the parameter is int, returns true if it is, false if not
-     */
+    // Tests if the parameter is int, returns true if it is, false if not
     public boolean parseInt(String testable) {
         try {
             Integer.parseInt(testable);
@@ -373,7 +372,7 @@ public class GamePanel extends JPanel {
         }
     }
 
-    /* Asks the questions from user */
+    // Asks the questions from the user
     public void setQuestion() {
         question = new JLabel(" " + questions.get(0).toString() + " " + "+ " + questions.get(1).toString() + " =  ");
         question.setFont(questionFont);
@@ -384,7 +383,7 @@ public class GamePanel extends JPanel {
      * question and gets a new question from the GameController
      */
     public void continueToNextQuestion() {
-        second = 5;
+        second = 8;
         timer.start();
         thumbsLabel.setVisible(false);
         answerField.setEditable(true);
@@ -406,13 +405,13 @@ public class GamePanel extends JPanel {
         EventQueue.invokeLater(() -> answerField.requestFocusInWindow());
     }
 
-    /* Prepares thumbs to be shown on thumbsLabel */
+    // Prepares thumbs to be shown on thumbsLabel
     public void setThumbs() {
         thumbsPanel.add(thumbsLabel);
         thumbsLabel.setVisible(true);
     }
 
-    /* Checks the correctness of the user's answer */
+    // Checks the correctness of the user's answer
     public void checkAnswer() {
         boolean correctFormat = parseInt(answerField.getText());
         if (correctFormat) {
@@ -428,13 +427,13 @@ public class GamePanel extends JPanel {
         }
     }
 
-    /* Gets points status from GameData */
+    // Gets points status from GameData
     public void getPoints() {
         int points = gameController.getGameData().getPoints();
         pointsLabel.setText(Integer.toString(points));
     }
 
-    /* If user´s answer is correct, this shows Thumbsup and updates points */
+    // If user's answer is correct, this shows Thumbsup and updates points
     public void correctAnswer() {
         answerField.setEditable(false);
         answerField.setBackground(new Color(156, 204, 249));
@@ -449,7 +448,7 @@ public class GamePanel extends JPanel {
         continueButton.setVisible(true);
     }
 
-    /* If user´s answer is incorrect, this shows ThumbsDown */
+    // If user's answer is incorrect, this shows ThumbsDown
     public void incorrectAnswer() {
         answerField.setEditable(false);
         answerField.setBackground(new Color(156, 204, 249));
@@ -463,10 +462,6 @@ public class GamePanel extends JPanel {
         continueButton.setVisible(true);
     }
 
-    /*
-     * Sets up button listeners for "Check" and "Continue" buttons, 
-     * and answerField, for the duration of the game
-     */
     public void setUpButtonListeners() {
 
         answerField.addActionListener(new ActionListener() {
@@ -493,7 +488,7 @@ public class GamePanel extends JPanel {
                 } else if (source == continueButton) {
                     if (questionCalculator < 3) {
                         // if (questionCalculator < 15) {
-                        // second = 16;
+                        // second = 8;
                         continueToNextQuestion();
 
                     } else {

@@ -149,11 +149,11 @@ public class GameData {
             }
         }
 
-        rankAtTheEnd = highscores.isNewHighScore(this.points);
+        rankAtTheEnd = highscores.isNewHighScore(this.points, operation);
 
         if (rankAtTheEnd > 0) {
             newHighScore = true;
-            highscores.addNewHighScore(rankAtTheEnd, user.getUsername(), points);
+            highscores.addNewHighScore(rankAtTheEnd, user.getUsername(), points, operation);
         }
 
     }

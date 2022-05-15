@@ -51,8 +51,9 @@ public class ChoosePlayerPanel extends JPanel {
         }
 
         this.comboBox = new JComboBox<>(userArray);
-        this.comboBox.setFont(new Font("Arial", Font.BOLD, 20));
-        this.comboBox.setMaximumRowCount(5);
+        comboBox.setFont(new Font("Arial", Font.BOLD, 20));
+        comboBox.setMaximumRowCount(5);
+        comboBox.setPreferredSize(new Dimension(220, 40));
         User currentUser = GameController.getInstance().getUser();
         if (currentUser != null) {
             comboBox.setSelectedItem(currentUser.getUsername());
@@ -76,8 +77,9 @@ public class ChoosePlayerPanel extends JPanel {
         middlePane.add(filler4, cConstraints);
 
         this.createPlayerButton = new JButton("UUSI PELAAJA");
-        this.createPlayerButton.setBackground(new Color(109, 177, 240));
-        this.createPlayerButton.setFont((new Font("Arial", Font.BOLD, 20)));
+        createPlayerButton.setBackground(new Color(109, 177, 240));
+        createPlayerButton.setFont((new Font("Arial", Font.BOLD, 20)));
+        createPlayerButton.setPreferredSize(new Dimension(160, 40));
         cConstraints.gridx = 1;
         cConstraints.gridy = 4;
         cConstraints.ipadx = 60;
@@ -85,8 +87,9 @@ public class ChoosePlayerPanel extends JPanel {
         middlePane.add(createPlayerButton, cConstraints);
 
         this.okButton = new JButton("OK");
-        this.okButton.setBackground(new Color(255, 164, 58));
-        this.okButton.setFont((new Font("Arial", Font.BOLD, 20)));
+        okButton.setBackground(new Color(255, 164, 58));
+        okButton.setFont((new Font("Arial", Font.BOLD, 20)));
+        okButton.setPreferredSize(new Dimension(80, 40));
         cConstraints.gridx = 1;
         cConstraints.gridy = 5;
         cConstraints.ipadx = 60;

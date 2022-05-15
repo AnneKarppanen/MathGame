@@ -23,7 +23,7 @@ public class ChooseDifficultyPanel extends JPanel {
     /*
      * IMPORTANT NOTE: It has been agreed with the teachers that the it´s enough
      * to implement the easiest form of game in the MVP version. Therefore changing
-     * difficulty and numer range has no effect, the game is the same regardless
+     * difficulty and number range has no effect, the game is the same regardless
      * what is chosen.
      * 
      * Shows a view where the user can choose number range and difficulty level for

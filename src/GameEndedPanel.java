@@ -1,7 +1,14 @@
 import javax.swing.*;
+import javax.swing.Box.Filler;
+
 import java.awt.*;
 import java.awt.event.*;
 
+
+/*Creates the panel that is shown at the end of the game. The panel shows the points and informs the 
+user if they have received a new star or a new high score. The middle of panel shows a different image
+and information depending on whether there were no special achievements or 
+a new star and/or a new high score was achieved.*/
 public class GameEndedPanel extends JPanel {
 
     private JButton newGameButton = null;
@@ -15,20 +22,31 @@ public class GameEndedPanel extends JPanel {
 
         JPanel middlePane = new JPanel();
         middlePane.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        middlePane.setLayout(new GridBagLayout());
+        //middlePane.setLayout(new GridBagLayout());
+        middlePane.setLayout(new BoxLayout(middlePane, BoxLayout.Y_AXIS));
         middlePane.setBackground(new Color(237, 243, 249));
+       
 
-        GridBagConstraints cConstraints = new GridBagConstraints();
+        /*GridBagConstraints cConstraints = new GridBagConstraints();
         cConstraints.insets = new Insets(20, 20, 20, 20);
         cConstraints.gridx = 0;
-        cConstraints.gridy = 0;
+        cConstraints.gridy = 0;*/
 
         JLabel instruction = new JLabel("PELI PÄÄTTYI");
         instruction.setFont(new Font("Arial", Font.BOLD, 50));
         instruction.setForeground(new Color(50, 34, 151));
-        cConstraints.fill = GridBagConstraints.NONE;
-        cConstraints.weightx = 0.5;
-        middlePane.add(instruction, cConstraints);
+        instruction.setAlignmentX(CENTER_ALIGNMENT);
+        //cConstraints.fill = GridBagConstraints.NONE;
+        //cConstraints.weightx = 0.5;
+        //middlePane.add(instruction, cConstraints);
+        middlePane.add(instruction);
+
+        Dimension fillerMinDimension = new Dimension(5,5);
+        Dimension fillerPreferredDimension = new Dimension(20,20);
+        Dimension fillerMaxDimension = new Dimension(40, 40);
+
+        //Box.Filler filler1 = new Filler(fillerMinDimension, fillerPreferredDimension, fillerMaxDimension);
+        //middlePane.add(filler1);
 
         JPanel pointsPanel = new JPanel();
         pointsPanel.setBackground(new Color(237, 243, 249));
@@ -42,14 +60,20 @@ public class GameEndedPanel extends JPanel {
         amountOfPoints.setFont(new Font("Arial", Font.BOLD, 90));
         amountOfPoints.setForeground(new Color(158, 60, 167));
         amountOfPoints.setAlignmentY(Component.BOTTOM_ALIGNMENT);
+        pointsPanel.setLayout(new BoxLayout(pointsPanel, BoxLayout.X_AXIS));
         pointsPanel.add(pointsText);
         pointsPanel.add(amountOfPoints);
-        pointsPanel.setLayout(new BoxLayout(pointsPanel, BoxLayout.X_AXIS));
+        
+        pointsPanel.setAlignmentX(CENTER_ALIGNMENT);
+        //cConstraints.gridx = 0;
+        //cConstraints.gridy = 1;
+        //cConstraints.fill = GridBagConstraints.NONE;
+        //middlePane.add(pointsPanel, cConstraints);
+        
+        middlePane.add(pointsPanel);
 
-        cConstraints.gridx = 0;
-        cConstraints.gridy = 1;
-        cConstraints.fill = GridBagConstraints.NONE;
-        middlePane.add(pointsPanel, cConstraints);
+        Box.Filler filler2 = new Filler(fillerMinDimension, fillerPreferredDimension, fillerMaxDimension);
+        middlePane.add(filler2);
 
         JPanel resultPanel = new JPanel();
 
@@ -59,24 +83,35 @@ public class GameEndedPanel extends JPanel {
             resultPanel = new AchievementPanel(newStarAchieved, isNewHighScore);
         }
 
-        cConstraints.gridx = 0;
-        cConstraints.gridy = 2;
-        middlePane.add(resultPanel, cConstraints);
+        //cConstraints.gridx = 0;
+        //cConstraints.gridy = 2;
+        //middlePane.add(resultPanel, cConstraints);
+        resultPanel.setAlignmentX(CENTER_ALIGNMENT);
+        middlePane.add(resultPanel);
 
-        JPanel filler = new JPanel();
-        cConstraints.gridx = 0;
-        cConstraints.gridy = 3;
-        middlePane.add(filler, cConstraints);
+        //JPanel filler = new JPanel();
+        //cConstraints.gridx = 0;
+        //cConstraints.gridy = 3;
+        //middlePane.add(filler, cConstraints);
+       
+
+        Box.Filler filler = new Filler(fillerMinDimension, fillerPreferredDimension, fillerMaxDimension);
+        middlePane.add(filler);
 
         this.newGameButton = new JButton("UUSI PELI");
         newGameButton.setBackground(new Color(255, 164, 58));
         newGameButton.setFont((new Font("Arial", Font.BOLD, 40)));
-        cConstraints.gridx = 0;
-        cConstraints.gridy = 4;
-        cConstraints.ipadx = 40;
-        cConstraints.ipady = 20;
-        middlePane.add(newGameButton, cConstraints);
-        this.add(middlePane, BorderLayout.CENTER);
+        newGameButton.setAlignmentX(CENTER_ALIGNMENT);
+        //cConstraints.gridx = 0;
+        //cConstraints.gridy = 4;
+        //cConstraints.ipadx = 40;
+        //cConstraints.ipady = 20;
+        //middlePane.add(newGameButton, cConstraints);
+        //this.add(middlePane, BorderLayout.CENTER);
+        middlePane.add(newGameButton);
+        middlePane.setAlignmentX(CENTER_ALIGNMENT);
+        middlePane.setAlignmentY(CENTER_ALIGNMENT);
+        this.add(middlePane);
 
         this.quitButton = new JButton("LOPETA");
         quitButton.setBackground(new Color(109, 177, 240));
@@ -173,6 +208,7 @@ public class GameEndedPanel extends JPanel {
             amountOfStars.setAlignmentX(CENTER_ALIGNMENT);
 
             this.add(starLabel);
+            this.add(filler2);
             this.add(amountOfStars);
             this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         }
@@ -199,6 +235,7 @@ public class GameEndedPanel extends JPanel {
             rankLabel.setAlignmentX(CENTER_ALIGNMENT);
 
             this.add(trophyLabel);
+            this.add(filler2);
             this.add(rankLabel);
             this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
             this.setBackground(new Color(237, 243, 249));

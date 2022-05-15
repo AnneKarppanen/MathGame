@@ -76,9 +76,15 @@ public class ResultPanel extends JPanel {
             JLabel noUserLabel1 = new JLabel("PELAAJAA EI OLE VALITTU");
             noUserLabel1.setFont(new Font("Arial", Font.BOLD, 25));
             noUserLabel1.setOpaque(true);
+            noUserLabel1.setBackground(backgroundGray);
+            Box.Filler filler6 = new Filler(new Dimension(20,20), new Dimension(40,40), new Dimension(60, 60));
 
             this.userAdditionResults = new JPanel();
             userAdditionResults.setBackground(backgroundGray);
+            userAdditionResults.add(filler6);
+            userAdditionResults.add(noUserLabel1);
+            userAdditionResults.setLayout(new BoxLayout(userAdditionResults, BoxLayout.Y_AXIS));
+            noUserLabel1.setAlignmentX(CENTER_ALIGNMENT);
 
             this.userSubstractionResults = new JPanel();
             userSubstractionResults.setBackground(backgroundGray);
@@ -95,11 +101,30 @@ public class ResultPanel extends JPanel {
         userResultsByOperation.add(userSubstractionResults, "substraction");
         userResultsByOperation.add(userMultiplicationResults, "multiplication");
 
+        Dimension sideFillerMinDimension = new Dimension(5, 5);
+        Dimension sideFillerPreferredDimension = new Dimension(30, 30);
+        Dimension sideFillerMaxDimension = new Dimension(50, 50);
+
+        Box.Filler sideFiller1 = new Filler(sideFillerMinDimension, sideFillerPreferredDimension,
+        sideFillerMaxDimension);
+        Box.Filler sideFiller2 = new Filler(sideFillerMinDimension, sideFillerPreferredDimension,
+        sideFillerMaxDimension);
+
+        Box.Filler filler6 = new Filler(new Dimension(5, 5), new Dimension(10, 10), new Dimension(10, 10));
+
         JPanel userResults = new JPanel();
         userResults.add(operationSelectionPanel);
         userResults.add(userResultsByOperation);
+        userResults.add(filler6);
+        userResults.setLayout(new BoxLayout(userResults, BoxLayout.Y_AXIS));
 
-        results.add("OMAT TULOKSET", userResults);
+        JPanel userResultsWithSideFillers = new JPanel();
+        userResultsWithSideFillers.add(sideFiller1);
+        userResultsWithSideFillers.add(userResults);
+        userResultsWithSideFillers.add(sideFiller2);
+        userResultsWithSideFillers.setLayout(new BoxLayout(userResultsWithSideFillers, BoxLayout.X_AXIS));
+
+        results.add("OMAT TULOKSET", userResultsWithSideFillers);
 
         JPanel operationSelectionPanel2 = createOperationPanel(additionButton2, substractionButton2,
                 multiplicationButton2);
@@ -114,29 +139,29 @@ public class ResultPanel extends JPanel {
         topResultsByOperation.add(topSubstractionResults, "substraction2");
         topResultsByOperation.add(topMultiplicationResults, "multiplication2");
 
+        Box.Filler filler5 = new Filler(new Dimension(5, 5), new Dimension(10, 10), new Dimension(10, 10));
+
         JPanel top5 = new JPanel();
         top5.add(operationSelectionPanel2);
         top5.add(topResultsByOperation);
+        top5.add(filler5);
         top5.setLayout(new BoxLayout(top5, BoxLayout.Y_AXIS));
 
         JPanel top5WithFillers = new JPanel();
         top5WithFillers.setLayout(new BoxLayout(top5WithFillers, BoxLayout.X_AXIS));
-        Dimension sideFillerMinDimension = new Dimension(5, 5);
-        Dimension sideFillerPreferredDimension = new Dimension(50, 50);
-        Dimension sideFillerMaxDimension = new Dimension(50, 50);
 
-        Box.Filler sideFiller1 = new Filler(sideFillerMinDimension, sideFillerPreferredDimension,
+        Box.Filler sideFiller3 = new Filler(sideFillerMinDimension, sideFillerPreferredDimension,
                 sideFillerMaxDimension);
-        Box.Filler sideFiller2 = new Filler(sideFillerMinDimension, sideFillerPreferredDimension,
+        Box.Filler sideFiller4 = new Filler(sideFillerMinDimension, sideFillerPreferredDimension,
                 sideFillerMaxDimension);
 
-        top5WithFillers.add(sideFiller1);
+        top5WithFillers.add(sideFiller3);
         top5WithFillers.add(top5);
-        top5WithFillers.add(sideFiller2);
+        top5WithFillers.add(sideFiller4);
 
         results.add("ENNÄTYKSET TOP 5", top5WithFillers);
 
-        results.setSelectedComponent(userResults);
+        results.setSelectedComponent(userResultsWithSideFillers);
 
         Box.Filler filler = new Filler(new Dimension(10, 10), new Dimension(25, 25), new Dimension(30, 30));
 
@@ -164,7 +189,7 @@ public class ResultPanel extends JPanel {
         titlePanel.setBackground(darkerBackgroundGrey);
         titlePanel.setMaximumSize(new Dimension(900, 240));
 
-        Font titleLineFont = new Font("Arial", Font.PLAIN, 25);
+        Font titleLineFont = new Font("Arial", Font.PLAIN, 20);
         Map<TextAttribute, Object> attributes = new HashMap<>(titleLineFont.getAttributes());
         attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
 
@@ -175,7 +200,7 @@ public class ResultPanel extends JPanel {
         playerName.setFont(titleLineFont);
         playerName.setFont(titleLineFont.deriveFont(attributes));
         JLabel points = new JLabel("PISTEET");
-        points.setFont(new Font("Arial", Font.PLAIN, 25));
+        points.setFont(titleLineFont);
         points.setFont(titleLineFont.deriveFont(attributes));
 
         JPanel top5Panel = new JPanel();
@@ -274,23 +299,23 @@ public class ResultPanel extends JPanel {
     public JPanel createOperationPanel(JRadioButton additionButton, JRadioButton substractionButton,
             JRadioButton multiplicationButton) {
 
+        Font operationButtonFont = new Font("Arial", Font.BOLD, 20);
         JPanel operationSelectionPanel = new JPanel();
-        operationSelectionPanel.setMinimumSize(new Dimension(900, 60));
 
-        additionButton.setFont(new Font("Arial", Font.BOLD, 25));
+        additionButton.setFont(operationButtonFont);
         additionButton.setSelected(true);
 
-        Dimension fillerMinDimension = new Dimension(20, 40);
+        Dimension fillerMinDimension = new Dimension(10, 40);
         Dimension fillerPreferredDimension = new Dimension(40, 40);
         Dimension fillerMaxDimension = new Dimension(150, 40);
 
         Box.Filler filler1 = new Filler(fillerMinDimension, fillerPreferredDimension, fillerMaxDimension);
 
-        substractionButton.setFont(new Font("Arial", Font.BOLD, 25));
+        substractionButton.setFont(operationButtonFont);
 
         Box.Filler filler2 = new Filler(fillerMinDimension, fillerPreferredDimension, fillerMaxDimension);
 
-        multiplicationButton.setFont(new Font("Arial", Font.BOLD, 25));
+        multiplicationButton.setFont(operationButtonFont);
 
         ButtonGroup bGroup = new ButtonGroup();
         bGroup.add(additionButton);
@@ -320,7 +345,7 @@ public class ResultPanel extends JPanel {
         }
 
         JLabel titleLabel = new JLabel(title);
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 25));
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 20));
         titleLabel.setOpaque(true);
         titleLabel.setBackground(new Color(231, 231, 231));
 
@@ -329,7 +354,6 @@ public class ResultPanel extends JPanel {
 
     public JPanel createResultPanel(String operation) {
 
-        this.setMinimumSize(new Dimension(1000, 600));
         Color backgroundGrey = new Color(231, 231, 231);
         JPanel resultPanel = new JPanel();
         resultPanel.setLayout(new BoxLayout(resultPanel, BoxLayout.Y_AXIS));
@@ -337,23 +361,24 @@ public class ResultPanel extends JPanel {
         titlePanel.add(createJLabel(operation));
         titlePanel.setLayout(new FlowLayout(FlowLayout.LEADING));
         titlePanel.setBackground(backgroundGrey);
+        Font tableFont = new Font("Arial", Font.PLAIN, 20);
 
         JPanel starsByRangeAndMaximum = new JPanel();
         JLabel range = new JLabel(" LUKUALUE");
-        range.setFont(new Font("Arial", Font.PLAIN, 25));
+        range.setFont(tableFont);
         JLabel level1 = new JLabel("HELPPO");
-        level1.setFont(new Font("Arial", Font.PLAIN, 25));
+        level1.setFont(tableFont);
         JLabel level2 = new JLabel("KESKIVAIKEA");
-        level2.setFont(new Font("Arial", Font.PLAIN, 25));
+        level2.setFont(tableFont);
         JLabel level3 = new JLabel("VAIKEA");
-        level3.setFont(new Font("Arial", Font.PLAIN, 25));
+        level3.setFont(tableFont);
 
         JLabel range1 = new JLabel(" 0-10");
-        range1.setFont(new Font("Arial", Font.PLAIN, 25));
+        range1.setFont(tableFont);
         JLabel range2 = new JLabel(" 0-20");
-        range2.setFont(new Font("Arial", Font.PLAIN, 25));
+        range2.setFont(tableFont);
         JLabel range3 = new JLabel(" 0-100");
-        range3.setFont(new Font("Arial", Font.PLAIN, 25));
+        range3.setFont(tableFont);
 
         starsByRangeAndMaximum.setLayout(new GridLayout(4, 4));
         range.setPreferredSize(new Dimension(225, 112));

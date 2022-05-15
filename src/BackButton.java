@@ -1,9 +1,9 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 
 public class BackButton extends JButton {
 
+    // Returns a JButton that is used as a backbutton in several views.
     public BackButton() {
 
         ImageIcon backArrow = new ImageIcon("src/images/backArrow_small.png");

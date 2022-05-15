@@ -1,6 +1,5 @@
 import javax.swing.*;
 import javax.swing.Box.Filler;
-import javax.swing.plaf.DimensionUIResource;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -37,6 +36,12 @@ public class ResultPanel extends JPanel {
 
     private CardLayout cardLayout2;
 
+    /*
+     * Creates the view that shows the stars the current user has achieved
+     * and the top 5 highscores of all users. The stars and highscores are placed in
+     * a tabbed pane.
+     * Takes the current user and the highscore chart as parameters.
+     */
     ResultPanel(User user, HighscoreChart highScores) {
 
         this.user = user;
@@ -77,12 +82,13 @@ public class ResultPanel extends JPanel {
             Dimension noUserFillerMinDimension = new Dimension(20, 20);
             Dimension noUserillerPreferredDimension = new Dimension(40, 40);
             Dimension noUserFillerMaxDimension = new Dimension(60, 60);
-            
+
             JLabel noUserLabel1 = new JLabel("PELAAJAA EI OLE VALITTU");
             noUserLabel1.setFont(new Font("Arial", Font.BOLD, 25));
             noUserLabel1.setOpaque(true);
             noUserLabel1.setBackground(backgroundGray);
-            Box.Filler filler6 = new Filler(noUserFillerMinDimension, noUserillerPreferredDimension, noUserFillerMaxDimension);
+            Box.Filler filler6 = new Filler(noUserFillerMinDimension, noUserillerPreferredDimension,
+                    noUserFillerMaxDimension);
 
             this.userAdditionResults = new JPanel();
             userAdditionResults.setBackground(backgroundGray);
@@ -95,7 +101,8 @@ public class ResultPanel extends JPanel {
             noUserLabel2.setFont(new Font("Arial", Font.BOLD, 25));
             noUserLabel2.setOpaque(true);
             noUserLabel2.setBackground(backgroundGray);
-            Box.Filler filler7 = new Filler(noUserFillerMinDimension, noUserillerPreferredDimension, noUserFillerMaxDimension);
+            Box.Filler filler7 = new Filler(noUserFillerMinDimension, noUserillerPreferredDimension,
+                    noUserFillerMaxDimension);
 
             this.userSubstractionResults = new JPanel();
             userSubstractionResults.setBackground(backgroundGray);
@@ -108,8 +115,9 @@ public class ResultPanel extends JPanel {
             noUserLabel3.setFont(new Font("Arial", Font.BOLD, 25));
             noUserLabel3.setOpaque(true);
             noUserLabel3.setBackground(backgroundGray);
-            Box.Filler filler8 = new Filler(noUserFillerMinDimension, noUserillerPreferredDimension, noUserFillerMaxDimension);
-            
+            Box.Filler filler8 = new Filler(noUserFillerMinDimension, noUserillerPreferredDimension,
+                    noUserFillerMaxDimension);
+
             this.userMultiplicationResults = new JPanel();
             userMultiplicationResults.setBackground(backgroundGray);
             userMultiplicationResults.add(filler8);
@@ -131,9 +139,9 @@ public class ResultPanel extends JPanel {
         Dimension sideFillerMaxDimension = new Dimension(50, 50);
 
         Box.Filler sideFiller1 = new Filler(sideFillerMinDimension, sideFillerPreferredDimension,
-        sideFillerMaxDimension);
+                sideFillerMaxDimension);
         Box.Filler sideFiller2 = new Filler(sideFillerMinDimension, sideFillerPreferredDimension,
-        sideFillerMaxDimension);
+                sideFillerMaxDimension);
 
         Box.Filler filler6 = new Filler(new Dimension(5, 5), new Dimension(10, 10), new Dimension(10, 10));
 
@@ -199,6 +207,10 @@ public class ResultPanel extends JPanel {
 
     }
 
+    /*
+     * Returns a JPanel that lists the top 5 highscores for the operation (+, - or
+     * *) given as a parameter.
+     */
     public JPanel createTop5Panel(String operation) {
 
         Color darkerBackgroundGrey = new Color(221, 221, 221);
@@ -321,6 +333,11 @@ public class ResultPanel extends JPanel {
 
     }
 
+    /*
+     * Returns a JPanel for choosing the operation results of which the user wants
+     * to view. The radio buttons that are included in the panel are given as a
+     * parameter.
+     */
     public JPanel createOperationPanel(JRadioButton additionButton, JRadioButton substractionButton,
             JRadioButton multiplicationButton) {
 
@@ -357,6 +374,7 @@ public class ResultPanel extends JPanel {
         return operationSelectionPanel;
     }
 
+    // Creates a JLabel with a text that matches the given operation (+, - or *).
     public JLabel createJLabel(String operation) {
 
         String title = "";
@@ -377,6 +395,11 @@ public class ResultPanel extends JPanel {
         return titleLabel;
     }
 
+    /*
+     * Returns a JPanel that lists the stars the current user has gained by playing.
+     * The results are shown for one operation at a time. The operation (+, - or *)
+     * is given as a parameter.
+     */
     public JPanel createResultPanel(String operation) {
 
         Color backgroundGrey = new Color(231, 231, 231);
@@ -439,6 +462,7 @@ public class ResultPanel extends JPanel {
 
     }
 
+    // Return a JLabel with the number of stars (int) given as a parameter
     private JLabel makeStarLabel(int numberOfStars) {
 
         JLabel starLabel = new JLabel();
@@ -472,7 +496,6 @@ public class ResultPanel extends JPanel {
                 } else if (source == substractionButton1) {
                     cardLayout1.show(userResultsByOperation, "substraction");
                 } else if (source == multiplicationButton1) {
-                    System.out.println("multiplicationButton clicked");
                     cardLayout1.show(userResultsByOperation, "multiplication");
                 } else if (source == additionButton2) {
                     cardLayout2.show(topResultsByOperation, "addition2");

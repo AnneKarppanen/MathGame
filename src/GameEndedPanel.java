@@ -4,16 +4,20 @@ import javax.swing.Box.Filler;
 import java.awt.*;
 import java.awt.event.*;
 
-
-/*Creates the panel that is shown at the end of the game. The panel shows the points and informs the 
-user if they have received a new star or a new high score. The middle of panel shows a different image
-and information depending on whether there were no special achievements or 
-a new star and/or a new high score was achieved.*/
 public class GameEndedPanel extends JPanel {
 
     private JButton newGameButton = null;
     private JButton quitButton = null;
 
+    /*
+     * Creates the panel that is shown at the end of the game. The panel shows the
+     * points and informs the user if they have received a new star or a new high
+     * score. The middle of the
+     * panel shows a different JPanel containing an image or two images and
+     * information depending on whether there were
+     * no special achievements or
+     * a new star and/or a new high score was achieved.
+     */
     public GameEndedPanel(boolean newStarAchieved, boolean isNewHighScore, int points) {
 
         this.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -22,31 +26,18 @@ public class GameEndedPanel extends JPanel {
 
         JPanel middlePane = new JPanel();
         middlePane.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        //middlePane.setLayout(new GridBagLayout());
         middlePane.setLayout(new BoxLayout(middlePane, BoxLayout.Y_AXIS));
         middlePane.setBackground(new Color(237, 243, 249));
-       
-
-        /*GridBagConstraints cConstraints = new GridBagConstraints();
-        cConstraints.insets = new Insets(20, 20, 20, 20);
-        cConstraints.gridx = 0;
-        cConstraints.gridy = 0;*/
 
         JLabel instruction = new JLabel("PELI PÄÄTTYI");
         instruction.setFont(new Font("Arial", Font.BOLD, 50));
         instruction.setForeground(new Color(50, 34, 151));
         instruction.setAlignmentX(CENTER_ALIGNMENT);
-        //cConstraints.fill = GridBagConstraints.NONE;
-        //cConstraints.weightx = 0.5;
-        //middlePane.add(instruction, cConstraints);
         middlePane.add(instruction);
 
-        Dimension fillerMinDimension = new Dimension(5,5);
-        Dimension fillerPreferredDimension = new Dimension(20,20);
+        Dimension fillerMinDimension = new Dimension(5, 5);
+        Dimension fillerPreferredDimension = new Dimension(20, 20);
         Dimension fillerMaxDimension = new Dimension(40, 40);
-
-        //Box.Filler filler1 = new Filler(fillerMinDimension, fillerPreferredDimension, fillerMaxDimension);
-        //middlePane.add(filler1);
 
         JPanel pointsPanel = new JPanel();
         pointsPanel.setBackground(new Color(237, 243, 249));
@@ -56,6 +47,7 @@ public class GameEndedPanel extends JPanel {
         pointsText.setForeground(new Color(50, 34, 151));
         pointsText.setAlignmentY(Component.BOTTOM_ALIGNMENT);
         int pointAmount = GameController.getInstance().getCurrentPoints();
+
         JLabel amountOfPoints = new JLabel(String.valueOf(pointAmount));
         amountOfPoints.setFont(new Font("Arial", Font.BOLD, 90));
         amountOfPoints.setForeground(new Color(158, 60, 167));
@@ -63,13 +55,8 @@ public class GameEndedPanel extends JPanel {
         pointsPanel.setLayout(new BoxLayout(pointsPanel, BoxLayout.X_AXIS));
         pointsPanel.add(pointsText);
         pointsPanel.add(amountOfPoints);
-        
+
         pointsPanel.setAlignmentX(CENTER_ALIGNMENT);
-        //cConstraints.gridx = 0;
-        //cConstraints.gridy = 1;
-        //cConstraints.fill = GridBagConstraints.NONE;
-        //middlePane.add(pointsPanel, cConstraints);
-        
         middlePane.add(pointsPanel);
 
         Box.Filler filler2 = new Filler(fillerMinDimension, fillerPreferredDimension, fillerMaxDimension);
@@ -83,17 +70,8 @@ public class GameEndedPanel extends JPanel {
             resultPanel = new AchievementPanel(newStarAchieved, isNewHighScore);
         }
 
-        //cConstraints.gridx = 0;
-        //cConstraints.gridy = 2;
-        //middlePane.add(resultPanel, cConstraints);
         resultPanel.setAlignmentX(CENTER_ALIGNMENT);
         middlePane.add(resultPanel);
-
-        //JPanel filler = new JPanel();
-        //cConstraints.gridx = 0;
-        //cConstraints.gridy = 3;
-        //middlePane.add(filler, cConstraints);
-       
 
         Box.Filler filler = new Filler(fillerMinDimension, fillerPreferredDimension, fillerMaxDimension);
         middlePane.add(filler);
@@ -102,12 +80,7 @@ public class GameEndedPanel extends JPanel {
         newGameButton.setBackground(new Color(255, 164, 58));
         newGameButton.setFont((new Font("Arial", Font.BOLD, 40)));
         newGameButton.setAlignmentX(CENTER_ALIGNMENT);
-        //cConstraints.gridx = 0;
-        //cConstraints.gridy = 4;
-        //cConstraints.ipadx = 40;
-        //cConstraints.ipady = 20;
-        //middlePane.add(newGameButton, cConstraints);
-        //this.add(middlePane, BorderLayout.CENTER);
+
         middlePane.add(newGameButton);
         middlePane.setAlignmentX(CENTER_ALIGNMENT);
         middlePane.setAlignmentY(CENTER_ALIGNMENT);
@@ -128,6 +101,11 @@ public class GameEndedPanel extends JPanel {
 
     }
 
+    /*
+     * Private class for creating a JPanel that is shown in the middle of
+     * GameEndedPanel when the user has not gained a new star or achieved a new high
+     * score.
+     */
     private class NormalGameEndPanel extends JPanel {
 
         private NormalGameEndPanel() {
@@ -141,6 +119,13 @@ public class GameEndedPanel extends JPanel {
 
     }
 
+    /*
+     * Private class for creating a JPanel that is shown in the middle of
+     * GameEndedPanel when the user has gained a new star or/and achieved a new high
+     * score. The constructor takes two boolean parameters that tell if a new star
+     * and/or a high score has been achieved and constructs one of the three
+     * different options for an AchievementPanel based on them.
+     */
     private class AchievementPanel extends JPanel {
 
         private AchievementPanel(boolean newStarAchieved, boolean isNewHighScore) {
@@ -189,6 +174,11 @@ public class GameEndedPanel extends JPanel {
 
     }
 
+    /*
+     * A private class that AchievementPanel uses to construct a JPanel when the
+     * user has gained a new star.
+     */
+
     private class StarPanel extends JPanel {
 
         public StarPanel() {
@@ -215,6 +205,10 @@ public class GameEndedPanel extends JPanel {
 
     }
 
+    /*
+     * A private class that AchievementPanel uses to construct a JPanel when the
+     * user has reached a new top 5 high score.
+     */
     private class TrophyPanel extends JPanel {
 
         public TrophyPanel() {

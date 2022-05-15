@@ -13,8 +13,8 @@ public class ChoosePlayerPanel extends JPanel {
     private JButton backButton = null;
 
     /*
-     * Creates and shows a view where the user can select player name 
-     * from the dropdown menu or create a new player
+     * Creates and shows a view where the user can select player name
+     * from the dropdown menu or choose to create a new player.
      */
     public ChoosePlayerPanel(UserList users) {
         this.userList = users;

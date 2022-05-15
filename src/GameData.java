@@ -1,34 +1,32 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import javax.swing.JSpinner.NumberEditor;
-
 public class GameData {
     private User user;
     private String operation;
     private int level;
     private int maximum;
-    private int questionNumber;
-    private int newQuestionIndex;
+    private int newQuestionIndex = 0;
     private int questionCalculator = 0;
     private ArrayList<ArrayList<Integer>> questionList;
     private ArrayList<ArrayList<Integer>> questionsToAskAgain;
-    private int points;
+    private int points = 0;
     private ArrayList<Integer> lastQuestionAsked;
-    private boolean newStarAchieved;
-    private boolean newHighScore;
+    private boolean newStarAchieved = false;
+    private boolean newHighScore = false;
     private int numberOfStarsAtTheEnd = 0;
     private int rankAtTheEnd;
 
-    public GameData(ArrayList questionList, User user, String operation, int maximum, int level) {
-        this.points = 0;
-        this.questionNumber = 1;
-        this.newQuestionIndex = 0;
+    /*
+     * Creates a model for the game data needed in one game. A new game data class
+     * is created whenever a user starts a new game. Gamedata takes a list of
+     * questions, the current user, an operation (+, - or *), the biggest number of
+     * the range (10, 20 or 100) and the level (1-3) as parameters.
+     */
+    public GameData(ArrayList<ArrayList<Integer>> questionList, User user, String operation, int maximum, int level) {
         this.questionList = questionList;
         this.level = level;
         this.maximum = 10;
-        this.newStarAchieved = false;
-        this.newHighScore = false;
         this.operation = "+";
         this.user = user;
     }
@@ -69,6 +67,14 @@ public class GameData {
         return rankAtTheEnd;
     }
 
+    /*
+     * Returns an ArrayList<Integer> that contains the numbers needed to form the
+     * next question. The method takes the next question either from an ArrayList
+     * that contains the new questions (questionsToAsk), or an ArrayList
+     * (questionsToAskAgain) that contains the questions that the user has answered
+     * incorrectly and the questions where the user has
+     * ran out of the time.
+     */
     public ArrayList<Integer> getNextQuestion() {
         questionCalculator++;
         if (questionCalculator > 3) {
@@ -97,7 +103,9 @@ public class GameData {
         }
     }
 
-    public void addQuestionToAskAgainList(ArrayList askThisQuestionAgain) {
+    // Adds the question that is given as a parameter to the questionsToAskAgain
+    // ArrayList.
+    public void addQuestionToAskAgainList(ArrayList<Integer> askThisQuestionAgain) {
         questionsToAskAgain.add(askThisQuestionAgain);
     }
 
@@ -105,6 +113,11 @@ public class GameData {
         return questionCalculator;
     }
 
+    /*
+     * Counts the game's end results to define whether the player has gained a new
+     * star an/or achieved a new highscore. Takes the current HighscoreChart as a
+     * parameter.
+     */
     public void countGameResults(HighscoreChart highscores) {
 
         if (user.getResults(this.operation) != null) {

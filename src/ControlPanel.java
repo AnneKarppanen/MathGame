@@ -11,8 +11,8 @@ import java.awt.*;
 
 /**
  * ControlPanel is the area at the top of the frame that contains buttons to
- * navigate back to
- * opening screen, to view the results and to read game istructions.
+ * navigate back to opening screen, to view the results and to read game
+ * istructions.
  */
 public class ControlPanel extends JPanel {
 

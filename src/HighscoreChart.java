@@ -7,6 +7,7 @@ public class HighscoreChart {
 
     int lowestHighScore;
 
+    /*Creates a new class */
     public HighscoreChart() {
         this.additionHighScores = new LinkedList<>();
         this.substractionHighScores = new LinkedList<>();
@@ -19,8 +20,6 @@ public class HighscoreChart {
 
         if (additionHighScores.size() == 0) {
             rank = 1;
-            // } else if (points < lowestHighScore) {
-            // rank = 0;
         } else {
             int index = 0;
             for (HighscoreLine record : additionHighScores) {

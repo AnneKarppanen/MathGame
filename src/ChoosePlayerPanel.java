@@ -31,6 +31,7 @@ public class ChoosePlayerPanel extends JPanel {
         cConstraints.gridx = 0;
         cConstraints.gridy = 0;
 
+        // Textual instruction for the user
         this.instruction = new JLabel("VALITSE PELAAJA");
         this.instruction.setFont(new Font("Arial", Font.PLAIN, 25));
         cConstraints.gridx = 1;
@@ -39,9 +40,9 @@ public class ChoosePlayerPanel extends JPanel {
         cConstraints.weightx = 0.5;
         middlePane.add(instruction, cConstraints);
 
+        // Gets users from the user list
         ArrayList<User> usersAsArrayList = userList.getUserList();
         int userArraySize = usersAsArrayList.size();
-        System.out.println("ArraySize: " + userArraySize);
         String[] userArray = new String[userArraySize + 20];
         int i = 0;
 
@@ -50,6 +51,7 @@ public class ChoosePlayerPanel extends JPanel {
             i++;
         }
 
+        // Dropdown to show the existing users
         this.comboBox = new JComboBox<>(userArray);
         comboBox.setFont(new Font("Arial", Font.BOLD, 20));
         comboBox.setMaximumRowCount(5);
@@ -76,6 +78,7 @@ public class ChoosePlayerPanel extends JPanel {
         cConstraints.gridy = 3;
         middlePane.add(filler4, cConstraints);
 
+        // Button for adding a new player
         this.createPlayerButton = new JButton("UUSI PELAAJA");
         createPlayerButton.setBackground(new Color(109, 177, 240));
         createPlayerButton.setFont((new Font("Arial", Font.BOLD, 20)));
@@ -86,6 +89,7 @@ public class ChoosePlayerPanel extends JPanel {
         cConstraints.ipady = 25;
         middlePane.add(createPlayerButton, cConstraints);
 
+        // Ok button to accept the chosen player
         this.okButton = new JButton("OK");
         okButton.setBackground(new Color(255, 164, 58));
         okButton.setFont((new Font("Arial", Font.BOLD, 20)));

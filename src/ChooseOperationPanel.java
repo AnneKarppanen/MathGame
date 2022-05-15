@@ -9,9 +9,9 @@ public class ChooseOperationPanel extends JPanel {
     private JButton backButton = null;
 
     /*
-     * Shows a new window, where the user can select which game type to play.
-     * IMPORTANT NOTE: It is agreed with the teachers that only addition-game will
-     * be implemented.
+     * Shows a new view, where the user can select which game type to play.
+     * IMPORTANT NOTE: It is agreed with the teachers that only Addition-gametype
+     * needs to be implemented.
      */
     public ChooseOperationPanel() {
         this.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -23,6 +23,7 @@ public class ChooseOperationPanel extends JPanel {
         GridBagConstraints cConstraints = new GridBagConstraints();
         cConstraints.insets = new Insets(20, 20, 20, 20);
 
+        // Button for Addition
         additionButton = new JButton("YHTEENLASKU +");
         additionButton.setBackground(new Color(255, 164, 58));
         additionButton.setFont((new Font("Arial", Font.BOLD, 20)));
@@ -33,6 +34,7 @@ public class ChooseOperationPanel extends JPanel {
         additionButton.setHorizontalAlignment(SwingConstants.LEFT);
         middlePanel.add(additionButton, cConstraints);
 
+        // Button for subraction
         subtractionButton = new JButton("VÄHENNYSLASKU -");
         subtractionButton.setBackground(new Color(255, 164, 58));
         subtractionButton.setFont((new Font("Arial", Font.BOLD, 20)));
@@ -43,6 +45,7 @@ public class ChooseOperationPanel extends JPanel {
         subtractionButton.setHorizontalAlignment(SwingConstants.LEFT);
         middlePanel.add(subtractionButton, cConstraints);
 
+        // Button for multiplication
         multiplicationButton = new JButton("KERTOLASKU *");
         multiplicationButton.setBackground(new Color(255, 164, 58));
         multiplicationButton.setFont((new Font("Arial", Font.BOLD, 20)));

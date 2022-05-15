@@ -88,6 +88,9 @@ public class GameData {
                 questionToAsk = questionsToAskAgain.get(0);
                 if (questionToAsk.equals(lastQuestionAsked) && questionsToAskAgain.size() > 1) {
                     questionToAsk = questionsToAskAgain.get(1);
+                    questionsToAskAgain.remove(1);
+                } else {
+                    questionsToAskAgain.remove(0);
                 }
                 if (questionToAsk.equals(lastQuestionAsked) && questionsToAskAgain.size() == 1) {
                     questionToAsk = questionList.get(newQuestionIndex);

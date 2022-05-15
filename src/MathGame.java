@@ -1,13 +1,10 @@
 import javax.swing.*;
-import javax.swing.border.Border;
-
 import java.awt.*;
 import java.awt.event.*;
 
 /**
  * The main application class that contains the main function. Mathgame creates
- * the main frame
- * and the control panel
+ * the main frame and the control panel
  */
 public class MathGame extends JFrame {
 
@@ -15,7 +12,6 @@ public class MathGame extends JFrame {
     private JPanel northPanel;
     private JPanel eastPanel;
     private JPanel westPanel;
-    private JPanel southPanel;
 
     public MathGame() {
 
@@ -40,6 +36,10 @@ public class MathGame extends JFrame {
         this.add(westPanel, BorderLayout.WEST);
         this.add(eastPanel, BorderLayout.EAST);
 
+        /*
+         * Window listener for listening the close window action from the user. Also
+         * displays a dialog if the user is sure to close the window.
+         */
         WindowListener windowListener = new WindowAdapter() {
 
             public void windowClosing(WindowEvent e) {
@@ -121,6 +121,7 @@ public class MathGame extends JFrame {
 
     }
 
+    // Method for changing the next Panel to be shown
     public void changePanel(JPanel panel) {
         this.remove(this.centerPanel);
         this.add(panel, BorderLayout.CENTER);
@@ -130,6 +131,7 @@ public class MathGame extends JFrame {
 
     }
 
+    // Main method to start the application
     public static void main(String[] args) {
         MathGame mathGame = new MathGame();
 

@@ -21,6 +21,8 @@ public class User {
         this.username = username;
     }
 
+    // Saves points of the user to the corresponding game type and difficulty
+    // results
     public void saveNewPoints(String operation, int points, int maximum, int level) {
 
         HashMap<Integer, HashMap<Integer, Integer>> results = null;
@@ -62,6 +64,7 @@ public class User {
 
     }
 
+    // Method for getting the results of specific operation
     public HashMap<Integer, HashMap<Integer, Integer>> getResults(String operation) {
 
         HashMap<Integer, HashMap<Integer, Integer>> results = null;
@@ -77,6 +80,7 @@ public class User {
         return results;
     }
 
+    // Method for getting the stars
     public int getStars(String operation, int maximum, int level) {
 
         HashMap<Integer, HashMap<Integer, Integer>> results = null;
@@ -96,12 +100,13 @@ public class User {
             stars = results.get(maximum).get(level) / 10000;
 
         } catch (NullPointerException e) {
-            System.out.println("Could not find points.");
+
         }
         return stars;
 
     }
 
+    // Method for getting the points
     public int getPoints(String operation, int maximum, int level) {
 
         HashMap<Integer, HashMap<Integer, Integer>> results = null;
@@ -121,7 +126,7 @@ public class User {
             points = results.get(maximum).get(level);
 
         } catch (NullPointerException e) {
-            System.out.println("Could not find points.");
+
         }
 
         return points;
